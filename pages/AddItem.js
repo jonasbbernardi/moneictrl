@@ -14,7 +14,6 @@ import styles from '../styles/AddItem';
 const AddItem = ({route, navigation}) => {
     const dispatch = useDispatch();
     const [description, setDescription] = useState('');
-    const [descriptionFocused, isDescriptionFocused] = useState(true);
     const [value, setValue] = useState('');
     const {type} = route.params;
 

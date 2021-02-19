@@ -1,4 +1,7 @@
+global.itemsStorageKey = '@moneictrl_items';
 global.gActions = {
+    GET_STORAGE_ITEMS: 'GET_STORAGE_ITEMS',
+    INIT_LIST: 'INIT_LIST',
     ADD_ITEM: 'ADD_ITEM',
 }
 global.gTypes = {
