@@ -5,22 +5,30 @@ const styles = StyleSheet.create({
     list: {
         flex: 1,
         width: '100%',
+        alignContent: 'center',
+        textAlign: 'center'
     },
     item: {
-        width: '100%',
-        height: 50,
-        borderBottomWidth: 1,
-        backgroundColor: colors.white,
+        width: '96%',
+        height: 60,
+        marginTop: '2%',
+        marginLeft: '2%',
+        marginRight: '2%',
+        backgroundColor: colors.trueWhite,
         flexDirection: 'row',
-        padding: 5
+        paddingVertical: 6,
+        paddingHorizontal: 10,
+        borderRadius: 5,
     },
     description: {
         flex: 1,
+        fontSize: 18,
     },
     value: {
         flex: 1,
         textAlign: 'right',
         marginRight: 5,
+        fontSize: 16,
     }
 });
 
