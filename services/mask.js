@@ -5,6 +5,8 @@ const removeMask = (text, mask) => {
 };
 
 const applyMask = (text, mask) => {
+    let negative = text.charAt(0) == '-';
+    if(negative) text = text.substring(1);
     var textIndex = text.length;
     var bracerOpened = false;
     var maskedText = '';
@@ -31,6 +33,7 @@ const applyMask = (text, mask) => {
             maskedText = nextMaskChar + maskedText;
         }
     }
+    if(negative) maskedText = '-'+maskedText;
     return maskedText;
 }
 export {applyMask, removeMask};
