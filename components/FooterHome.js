@@ -1,0 +1,64 @@
+import React, { useEffect, useState } from 'react';
+import { View, Text } from 'react-native';
+import { useSelector } from 'react-redux';
+
+import {applyMask} from '../services/mask';
+
+import styles from '../styles/Footer';
+import colors from '../styles/colors';
+
+const Footer = (props) => {
+    const items = useSelector(state => state.items);
+    const [revenues, setRevenues] = useState(0);
+    const [expenses, setExpenses] = useState(0);
+    const [balance, setBalance] = useState(0);
+
+    useEffect(() => {
+        let sumRevenues = 0;
+        let sumExpenses = 0;
+        for (const item of items) {
+            if(item.type == gTypes.REVENUE) sumRevenues += Number(item.value);
+            if(item.type == gTypes.EXPENSE) sumExpenses -= Number(item.value);
+        }
+        let r = sumRevenues.toString();
+        let e = sumExpenses.toString();
+        let b = (sumRevenues + sumExpenses).toString();
+        setRevenues(applyMask(r, moneyMask));
+        setExpenses(applyMask(e, moneyMask));
+        setBalance(applyMask(b, moneyMask));
+    })
+
+    return (
+        <View style={styles.footer}>
+            <View style={styles.paragraph}>
+                <Text style={styles.text}>
+                    Total revenues: 
+                </Text>
+                <Text style={{...styles.counter,
+                        color: colors.green
+                    }}>{revenues}
+                </Text>
+            </View>
+            <View style={styles.paragraph}>
+                <Text style={styles.text}>
+                    Total expenses: 
+                </Text>
+                <Text style={{...styles.counter,
+                        color: colors.red
+                    }}>{expenses}
+                </Text>
+            </View>
+            <View style={styles.paragraph}>
+                <Text style={styles.lastText}>
+                    Total balance: 
+                </Text>
+                <Text style={{...styles.counter,
+                        color: balance < 0 ? colors.red : balance > 0 ? colors.green : colors.white
+                    }}>{balance}
+                </Text>
+            </View>
+        </View>
+    );
+}
+
+export default Footer;

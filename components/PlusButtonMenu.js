@@ -1,0 +1,130 @@
+import React, { useRef, useState } from 'react';
+import { TouchableOpacity, View, Animated, Easing, Text } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faHandHoldingUsd, faFunnelDollar, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import styles from '../styles/PlusButtonMenu';
+
+library.add( faHandHoldingUsd, faFunnelDollar, faTimes );
+
+/**
+ * 
+ * @param {{
+ *      onPressRevenueBtn: Function,
+ *      onPressExpenseBtn: Function,
+ *      onPressCloseBtn: Function,
+ *      onPressCloseBtn: Function,
+ *  }} props    Props must contain callback functions for press event on buttons
+ *
+ */
+const PlusButtonMenu = (props) => {
+    const [menuOppened, setMenuOppened] = useState(false);
+    const rotateVal = useRef(new Animated.Value(1)).current;
+    const menuOpacityVal = useRef(new Animated.Value(0)).current;
+    const animationTime = 150;
+
+    const toggleMenu = () => {
+        if(menuOppened) closeMenu(props.onPressCloseBtn);
+        else openMenu(props.onPressOpenBtn);
+    }
+
+    const closeMenu = cb => {
+        if(cb) cb();
+        Animated.timing(menuOpacityVal, {
+            toValue: 0,
+            duration: animationTime,
+            easing: Easing.linear,
+            useNativeDriver: false
+        }).start();
+        Animated.timing(rotateVal, {
+            toValue: 1,
+            duration: animationTime,
+            easing: Easing.linear,
+            useNativeDriver: true
+        }).start();
+        setTimeout(() => { setMenuOppened(false); }, animationTime);
+    };
+
+    const openMenu = cb => {
+        
+        if(cb) cb();
+        Animated.timing(menuOpacityVal, {
+            toValue: 1,
+            duration: animationTime,
+            easing: Easing.linear,
+            useNativeDriver: false
+        }).start();
+        Animated.timing(rotateVal, {
+            toValue: 0,
+            duration: animationTime,
+            easing: Easing.linear,
+            useNativeDriver: true
+        }).start();
+        setTimeout(() => { setMenuOppened(true); }, animationTime);
+    }
+
+    const toggleAction = (opacity, rotation, oppened, cb) => {
+        if(cb) cb();
+        Animated.timing(menuOpacityVal, {
+            toValue: opacity,
+            duration: animationTime,
+            easing: Easing.linear,
+            useNativeDriver: false
+        }).start();
+        Animated.timing(rotateVal, {
+            toValue: rotation,
+            duration: animationTime,
+            easing: Easing.linear,
+            useNativeDriver: true
+        }).start();
+        setTimeout(() => { setMenuOppened(oppened); }, animationTime);
+    }
+
+    const rotateInput = rotateVal.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['0deg', '45deg']
+    });
+
+    const labeledButtons = true;
+    const touchableShadow = <View style={styles.touchableLabelShadow}></View>
+    const revenueLabel = <Text style={styles.touchableLabel}>Add Revenue</Text>
+    const expenseLabel = <Text style={styles.touchableLabel}>Add Expense</Text>
+
+    return (
+        <View style={styles.bottomFloatButton}>
+            <View style={styles.menu}>
+                <Animated.View style={{opacity: menuOpacityVal}}>
+                    <TouchableOpacity
+                        style={styles.receitaBtn}
+                        activeOpacity={ btnOpacity }
+                        onPress={() => closeMenu(props.onPressRevenueBtn)}>
+                        {labeledButtons && revenueLabel}
+                        {labeledButtons && touchableShadow}
+                        <FontAwesomeIcon icon="hand-holding-usd" color="#eee" size={ 24 } />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.despesaBtn}
+                        activeOpacity={ btnOpacity }
+                        onPress={() => closeMenu(props.onPressExpenseBtn)}>
+                        {labeledButtons && expenseLabel}
+                        {labeledButtons && touchableShadow}
+                        <FontAwesomeIcon icon="funnel-dollar" color="#eee" size={ 24 } />
+                    </TouchableOpacity>
+                </Animated.View>
+                <Animated.View style={{
+                        transform: [{rotate: rotateInput}],
+                        marginTop: 10,
+                        }}>
+                    <TouchableOpacity
+                        style={styles.openCloseBtn}
+                        activeOpacity={ btnOpacity }
+                        onPress={() => toggleMenu()} >
+                        <FontAwesomeIcon icon="times" color="#eee" size={ 24 } />
+                    </TouchableOpacity>
+                </Animated.View>
+            </View>
+        </View>
+    )
+}
+
+export default PlusButtonMenu;
