@@ -29,41 +29,15 @@ const PlusButtonMenu = (props) => {
     }
 
     const closeMenu = cb => {
-        if(cb) cb();
-        Animated.timing(menuOpacityVal, {
-            toValue: 0,
-            duration: animationTime,
-            easing: Easing.linear,
-            useNativeDriver: false
-        }).start();
-        Animated.timing(rotateVal, {
-            toValue: 1,
-            duration: animationTime,
-            easing: Easing.linear,
-            useNativeDriver: true
-        }).start();
-        setTimeout(() => { setMenuOppened(false); }, animationTime);
+        toggleAction(0, 1, false, cb);
     };
 
     const openMenu = cb => {
-        
-        if(cb) cb();
-        Animated.timing(menuOpacityVal, {
-            toValue: 1,
-            duration: animationTime,
-            easing: Easing.linear,
-            useNativeDriver: false
-        }).start();
-        Animated.timing(rotateVal, {
-            toValue: 0,
-            duration: animationTime,
-            easing: Easing.linear,
-            useNativeDriver: true
-        }).start();
-        setTimeout(() => { setMenuOppened(true); }, animationTime);
+        toggleAction(1, 0, true, cb);
     }
 
     const toggleAction = (opacity, rotation, oppened, cb) => {
+        if(!!oppened) setMenuOppened(oppened);
         if(cb) cb();
         Animated.timing(menuOpacityVal, {
             toValue: opacity,
@@ -95,7 +69,7 @@ const PlusButtonMenu = (props) => {
             <View style={styles.menu}>
                 <Animated.View style={{opacity: menuOpacityVal}}>
                     <TouchableOpacity
-                        style={styles.receitaBtn}
+                        style={{...styles.receitaBtn, display: menuOppened ? 'flex' : 'none'}}
                         activeOpacity={ btnOpacity }
                         onPress={() => closeMenu(props.onPressRevenueBtn)}>
                         {labeledButtons && revenueLabel}
@@ -103,7 +77,7 @@ const PlusButtonMenu = (props) => {
                         <FontAwesomeIcon icon="hand-holding-usd" color="#eee" size={ 24 } />
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={styles.despesaBtn}
+                        style={{...styles.despesaBtn, display: menuOppened ? 'flex' : 'none'}}
                         activeOpacity={ btnOpacity }
                         onPress={() => closeMenu(props.onPressExpenseBtn)}>
                         {labeledButtons && expenseLabel}
