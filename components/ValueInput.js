@@ -3,7 +3,9 @@ import { TextInput } from 'react-native';
 import {applyMask, removeMask} from '../services/mask';
 
 const TextInputMask = (props) => {
-    const [inputValue, changeText] = useState('');
+    const value = props.value ? props.value.toString() : '';
+    const maskedValue = applyMask(value, props.mask);
+    const [inputValue, changeText] = useState(maskedValue);
 
     var input;
 

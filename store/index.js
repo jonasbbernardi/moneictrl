@@ -23,6 +23,18 @@ const items = (state = [], action) => {
             items = [...state, item];
             AsyncStorage.setItem(itemsStorageKey, JSON.stringify(items));
             return items;
+        case gActions.SAVE_ITEM:
+            console.log(action);
+            let editedItem = action.payload;
+            items = state.map(item => item.id == editedItem.id ? editedItem : item);
+            AsyncStorage.setItem(itemsStorageKey, JSON.stringify(items));
+            return items;
+        case gActions.REMOVE_ITEM:
+            console.log(action);
+            let id = action.payload;
+            items = state.map(item => item.id == id ? {...item, deleted: new Date()} : item);
+            AsyncStorage.setItem(itemsStorageKey, JSON.stringify(items));
+            return items;
         case gActions.GET_STORAGE_ITEMS:
             getItems().then((items) => store.dispatch(initItemsList(items)));
             return state;

@@ -1,5 +1,3 @@
-import '../globals';
-
 import 'react-native-get-random-values';
 
 const getStorageItems = () => {

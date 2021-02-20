@@ -3,6 +3,8 @@ global.gActions = {
     GET_STORAGE_ITEMS: 'GET_STORAGE_ITEMS',
     INIT_LIST: 'INIT_LIST',
     ADD_ITEM: 'ADD_ITEM',
+    SAVE_ITEM: 'SAVE_ITEM',
+    REMOVE_ITEM: 'REMOVE_ITEM',
 }
 global.gTypes = {
     EXPENSE: 'EXPENSE',

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, FlatList } from 'react-native';
+import { Text, View, FlatList, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 import {applyMask} from '../services/mask';
 
@@ -8,6 +9,7 @@ import colors from '../styles/colors';
 import styles from '../styles/ItemsList';
 
 const AllItemsList = (props) => {
+    const navigation = useNavigation();
     const items = useSelector(state => state.items);
     const [listData, setListData] = useState([]);
 
@@ -15,9 +17,18 @@ const AllItemsList = (props) => {
         setListData(items);
     })
 
+    const viewItem = (id) => {
+        navigation.navigate('ViewItem', {id});
+    }
+
     const renderItem = ({index, item}) => {
+        if(!!item.deleted) return <></>;
         return (
-            <View style={styles.item}>
+            <TouchableOpacity
+                style={styles.item}
+                activeOpacity={0.8}
+                onPress={() => viewItem(item.id)}
+                >
                 <Text style={styles.description}>{item.description}</Text>
                 <Text style={{
                     ...styles.value,
@@ -25,7 +36,7 @@ const AllItemsList = (props) => {
                     }}>
                     {item.type == gTypes.EXPENSE ? '-' : ''}{applyMask(item.value.toString(), moneyMask)}
                 </Text>
-            </View>
+            </TouchableOpacity>
         );
     };
 

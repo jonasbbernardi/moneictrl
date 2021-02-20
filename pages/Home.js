@@ -9,13 +9,13 @@ import FooterHome from '../components/FooterHome';
 
 import styles from '../styles/Home';
 
-const Home = (props) => {
+const Home = ({navigation}) => {
     const onPressExpenseBtn = () => {
-        props.navigation.navigate('AddItem', {type: gTypes.EXPENSE});
+        navigation.navigate('AddItem', {type: gTypes.EXPENSE});
     };
 
     const onPressRevenueBtn = () => {
-        props.navigation.navigate('AddItem', {type: gTypes.REVENUE});
+        navigation.navigate('AddItem', {type: gTypes.REVENUE});
     };
 
     return (

@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import Home from './pages/Home';
 import AddItem from './pages/AddItem';
+import ViewItem from './pages/ViewItem';
 
 import './globals';
 
@@ -19,6 +20,7 @@ const App = () => {
                 <Stack.Navigator initialRouteName="Home" headerMode='none'>
                     <Stack.Screen name="Home" component={Home} />
                     <Stack.Screen name="AddItem" component={AddItem} />
+                    <Stack.Screen name="ViewItem" component={ViewItem} />
                 </Stack.Navigator>
             </NavigationContainer>
         </Provider>
