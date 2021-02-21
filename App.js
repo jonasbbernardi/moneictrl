@@ -1,4 +1,6 @@
 import 'react-native-gesture-handler';
+import './globals';
+
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -8,8 +10,6 @@ import store from './store';
 import Home from './pages/Home';
 import AddItem from './pages/AddItem';
 import ViewItem from './pages/ViewItem';
-
-import './globals';
 
 const Stack = createStackNavigator();
 

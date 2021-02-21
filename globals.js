@@ -5,6 +5,7 @@ global.gActions = {
     ADD_ITEM: 'ADD_ITEM',
     SAVE_ITEM: 'SAVE_ITEM',
     REMOVE_ITEM: 'REMOVE_ITEM',
+    CLEAR_ITEMS: 'CLEAR_ITEMS',
 }
 global.gTypes = {
     EXPENSE: 'EXPENSE',

@@ -32,21 +32,19 @@ const MenuTop = (props) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.groupLeft}>
-                <TouchableOpacity style={{...styles.menuLeftIcon,
-                        display: props.showBackButton ? 'none' : 'flex'
-                    }}
-                    activeOpacity={ btnOpacity }>
-                    <FontAwesomeIcon icon="bars" color="#eee" size={ 20 } />
-                </TouchableOpacity>
-                <TouchableOpacity style={{...styles.menuLeftIcon,
-                        display: props.showBackButton ? 'flex' : 'none'
-                    }}
-                    activeOpacity={ btnOpacity }
-                    onPress={onBack}>
-                    <FontAwesomeIcon icon="chevron-left" color="#eee" size={ 20 } />
-                </TouchableOpacity>
-            </View>
+            <TouchableOpacity style={{...styles.menuLeftIcon,
+                    display: props.showBackButton ? 'none' : 'flex'
+                }}
+                activeOpacity={ btnOpacity }>
+                <FontAwesomeIcon icon="bars" color="#eee" size={ 20 } />
+            </TouchableOpacity>
+            <TouchableOpacity style={{...styles.menuLeftIcon,
+                    display: props.showBackButton ? 'flex' : 'none'
+                }}
+                activeOpacity={ btnOpacity }
+                onPress={onBack}>
+                <FontAwesomeIcon icon="chevron-left" color="#eee" size={ 20 } />
+            </TouchableOpacity>
 
             <Text style={{ ...styles.title,
                     display: searchOpened ? 'none' : 'flex',
@@ -59,18 +57,13 @@ const MenuTop = (props) => {
                 selectionColor={colors.white}
                 ref={(input) => { searchInput = input; }} />
 
-            <View style={styles.groupRight}>
-                <TouchableOpacity style={{...styles.searchIcon,
-                        display: props.showSearch ? 'flex' : 'none',
-                    }}
-                    activeOpacity={ btnOpacity }
-                    onPress={toggleSearch}>
-                    <FontAwesomeIcon icon="search-dollar" color="#eee" size={ 20 } />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.menuRightIcon} activeOpacity={ btnOpacity }>
-                    <FontAwesomeIcon icon="ellipsis-v" color="#eee" size={ 18 } />
-                </TouchableOpacity>
-            </View>
+            <TouchableOpacity style={{...styles.searchIcon,
+                    display: props.showSearch ? 'flex' : 'none',
+                }}
+                activeOpacity={ btnOpacity }
+                onPress={toggleSearch}>
+                <FontAwesomeIcon icon="search-dollar" color="#eee" size={ 20 } />
+            </TouchableOpacity>
         </View>
     );
 }
