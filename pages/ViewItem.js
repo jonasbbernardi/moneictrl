@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Text, TextInput, View } from 'react-native';
+import { Keyboard, Text, TextInput, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
 import { AdMobBanner } from 'expo-ads-admob';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import DatePicker from 'react-native-datepicker';
+import moment from 'moment';
 
 import {removeItem} from '../actions/removeItem';
 import {editItem} from '../actions/editItem';
@@ -17,16 +19,28 @@ const ViewItem = ({route, navigation}) => {
     const dispatch = useDispatch();
     const {id} = route.params;
     var item = useSelector(state => state.items.find(item => item.id == id));
+    var due_date = moment(item.due_date);
 
     const [description, setDescription] = useState(item.description);
     const [value, setValue] = useState(item.value);
+    const [dueDate, setDueDate] = useState(due_date);
+    const [valueInput, setValueInput] = useState();
 
-    var valueInput;
-
-    const type = item.type;
+    const selectDueDate = (date) => {
+        if(date === undefined) return;
+        setDueDate(moment(date, currentDateFormat));
+        Keyboard.dismiss();
+    }
 
     const saveAction = () => {
-        dispatch(editItem({id, type, description, value}));
+        let editedItem = {
+            id,
+            type: item.type,
+            description,
+            value: Number(value),
+            due_date: dueDate
+        };
+        dispatch(editItem(editedItem));
         navigation.goBack();
     }
 
@@ -54,12 +68,18 @@ const ViewItem = ({route, navigation}) => {
                 <View style={{ flexDirection: 'row', width: '100%' }}>
                     <ValueInput
                         style={styles.valueText}
-                        inputRef={ref => { valueInput = ref }}
+                        inputRef={ref => { setValueInput(ref) }}
                         placeholder={'Value'}
                         mask={moneyMask}
                         onChangeText={text => setValue(text.replace(/\D/, ''))}
                         value={value}
                     />
+                    <DatePicker
+                        customStyles={{ dateInput: styles.dueDateInput }}
+                        format={currentDateFormat}
+                        date={dueDate}
+                        mode="date"
+                        onDateChange={selectDueDate} />
                 </View>
                 <View style={styles.viewButtons}>
                     <TouchableOpacity

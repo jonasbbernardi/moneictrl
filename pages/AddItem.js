@@ -21,7 +21,7 @@ const AddItem = ({route, navigation}) => {
     const [description, setDescription] = useState('');
     const [value, setValue] = useState('');
     const [dueDate, setDueDate] = useState(today);
-    const [valueInput, setValueInput] = useState(null);
+    const [valueInput, setValueInput] = useState();
 
     const {type} = route.params;
 

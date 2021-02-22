@@ -28,6 +28,13 @@ const styles = StyleSheet.create({
         borderColor: colors.white,
         margin: 5,
     },
+    dueDateInput: {
+        height: 30,
+        borderWidth: 0,
+        borderBottomWidth: 1,
+        borderColor: colors.lightGray,
+        margin: 5,
+    },
     viewButtons: {
         marginTop: 20,
         height: 50,
