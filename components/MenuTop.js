@@ -13,8 +13,8 @@ library.add( faSearchDollar, faEllipsisV, faBars, faChevronLeft );
 const MenuTop = (props) => {
     const navigation = useNavigation();
     const [searchOpened, setSearchOpened] = useState(false);
-
-    var searchInput;
+    const [searchInput, setSearchInput] = useState();
+    const [searchText, setSearchText] = useState('');
 
     const toggleSearch = () => {
         if(!searchOpened) searchInput.focus();
@@ -23,6 +23,10 @@ const MenuTop = (props) => {
             searchInput.clear();
         }
         setSearchOpened(!searchOpened);
+    }
+
+    const searchByText = () => {
+        console.log(searchText);
     }
 
     const onBack = () => {
@@ -46,16 +50,20 @@ const MenuTop = (props) => {
                 <FontAwesomeIcon icon="chevron-left" color="#eee" size={ 20 } />
             </TouchableOpacity>
 
-            <Text style={{ ...styles.title,
+            <Text
+                style={{ ...styles.title,
                     display: searchOpened ? 'none' : 'flex',
                 }}>
                 {props.title}
             </Text>
-            <TextInput style={{ ...styles.searchText,
+            <TextInput
+                style={{ ...styles.searchText,
                     display: searchOpened ? 'flex' : 'none',
                 }}
                 selectionColor={colors.white}
-                ref={(input) => { searchInput = input; }} />
+                ref={input => { setSearchInput(input); }}
+                onChangeText={text => setSearchText(text)}
+                onSubmitEditing={searchByText} />
 
             <TouchableOpacity style={{...styles.searchIcon,
                     display: props.showSearch ? 'flex' : 'none',

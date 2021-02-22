@@ -1,5 +1,5 @@
 import Constants from 'expo-constants';
-import {GOOGLE_ADMOB_APP_ID} from '@env';
+import { GOOGLE_ADMOB_APP_ID } from '@env';
 
 const googleAdmobAppTestID = 'ca-app-pub-3940256099942544/6300978111';
 const googleAdmobAppID = GOOGLE_ADMOB_APP_ID;
@@ -26,3 +26,4 @@ global.gTypes = {
 }
 global.btnOpacity = 0.8;
 global.moneyMask = "$[999.999.990],[00]";
+global.currentDateFormat = 'DD/MM/YYYY';

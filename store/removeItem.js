@@ -1,4 +1,4 @@
-import { removeMask } from "../services/mask";
+import moment from 'moment';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -7,7 +7,7 @@ const removeItemReducer = (state, id) => {
         if (item.id == id){
             return {
                 ...item,
-                deleted: new Date(),
+                deleted: moment(),
                 value: 0
             };
         } else return item;

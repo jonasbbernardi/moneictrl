@@ -4,24 +4,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import moment from 'moment';
 
 library.add( faChevronLeft, faChevronRight );
 
 import styles from '../styles/MonthSelector';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-];
-
 const MonthSelector = (props) => {
     const dispatch = useDispatch();
-    const [month, setMonth] = useState(new Date());
+    const [month, setMonth] = useState(moment());
 
-    const getMonthLabel = (month) => {
-        return monthNames[month.getMonth()] + ' ' + month.getFullYear()
+    const getMonthLabel = (monthDate) => {
+        return monthDate.format('MMMM YYYY');
     }
 
     const initialMonthLabel = getMonthLabel(month);
@@ -37,7 +32,7 @@ const MonthSelector = (props) => {
 
     const changeMonth = (changeValue) => {
         let newMonth = month;
-        newMonth.setMonth(month.getMonth() + changeValue);
+        newMonth.add(changeValue, 'months');
         let newMonthLabel = getMonthLabel(newMonth);
         setMonthLabel(newMonthLabel);
         setMonth(newMonth);

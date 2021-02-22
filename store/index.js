@@ -1,4 +1,5 @@
 import { combineReducers, createStore } from 'redux';
+import moment from 'moment';
 
 import { getStorageItems } from '../actions/getItems';
 
@@ -38,15 +39,15 @@ const items = (state = [], action) => {
     return items;
 };
 
-const initialCurrentMonth = new Date();
+const initialCurrentMonth = moment();
 
 const currentMonth = (state = initialCurrentMonth, action) => {
     switch(action.type){
         case gActions.CHANGE_MONTH:
             loadCurrentItems();
-            return action.payload;
+            return moment(action.payload);
         case gActions.RESET_MONTH:
-            return new Date();
+            return initialCurrentMonth;
         default: return state;
     }
 }
@@ -59,9 +60,9 @@ const currentItems = (state = [], action) => {
                 if(!!item.due_date){
                     let itemMonth = item.due_date;
                     if(typeof item.due_date === 'string'){
-                        itemMonth = new Date(item.due_date);
+                        itemMonth = moment(item.due_date);
                     }
-                    return itemMonth.getMonth() == currentMonth.getMonth()
+                    return itemMonth.month() == currentMonth.month()
                 }
                 return false;
             })
