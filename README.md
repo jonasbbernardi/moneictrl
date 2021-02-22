@@ -19,3 +19,4 @@ expo start
 - [Font Awesome](https://fontawesome.com/how-to-use/on-the-web/using-with/react-native)
 - [React Navigation](https://reactnavigation.org/)
 - [uuid Package](https://www.npmjs.com/package/uuid#react-native--expo)
+- [Admob from expo](https://docs.expo.io/versions/latest/sdk/admob/)

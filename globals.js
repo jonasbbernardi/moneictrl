@@ -1,3 +1,10 @@
+import Constants from 'expo-constants';
+import {GOOGLE_ADMOB_APP_ID} from '@env';
+
+const googleAdmobAppTestID = 'ca-app-pub-3940256099942544/6300978111';
+const googleAdmobAppID = GOOGLE_ADMOB_APP_ID;
+global.google_admob_app_id = Constants.isDevice && !__DEV__ ? googleAdmobAppID : googleAdmobAppTestID;
+
 global.itemsStorageKey = '@moneictrl_items';
 global.gActions = {
     // Items

@@ -1,6 +1,5 @@
 import 'react-native-gesture-handler';
 import './globals';
-// import {APP_GPLAY_ID} from '@env';
 
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';

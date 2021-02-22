@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Text, View, TextInput } from 'react-native';
+import { Text, TextInput, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
+import { AdMobBanner } from 'expo-ads-admob';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { addRevenue, addExpense} from '../actions/addItem';
@@ -64,6 +65,12 @@ const AddItem = ({route, navigation}) => {
                 </View>
             </View>
             <StatusBar style="light"/>
+            <AdMobBanner
+                style={{marginVertical: 10}}
+                bannerSize="largeBanner"
+                adUnitID={google_admob_app_id}
+                servePersonalizedAds // true or false
+                onDidFailToReceiveAdWithError={e => console.error(e)} />
         </View>
     );
 }

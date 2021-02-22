@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { Text, TextInput, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
-import { useSelector } from 'react-redux';
+import { AdMobBanner } from 'expo-ads-admob';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import {removeItem} from '../actions/removeItem';
@@ -77,6 +77,12 @@ const ViewItem = ({route, navigation}) => {
                 </View>
             </View>
             <StatusBar style="light"/>
+            <AdMobBanner
+                style={{marginVertical: 10}}
+                bannerSize="largeBanner"
+                adUnitID={google_admob_app_id}
+                servePersonalizedAds // true or false
+                onDidFailToReceiveAdWithError={e => console.error(e)} />
         </View>
     );
 }
