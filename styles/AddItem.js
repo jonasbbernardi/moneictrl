@@ -18,14 +18,23 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     descriptionText: {
+        width: '85%',
         borderBottomWidth: 1,
-        borderColor: colors.white,
+        borderColor: colors.lightGray,
         margin: 5,
     },
     valueText: {
         flex: 1,
         borderBottomWidth: 1,
-        borderColor: colors.white,
+        borderColor: colors.lightGray,
+        margin: 5,
+        marginRight: 20,
+    },
+    dueDateInput: {
+        height: 30,
+        borderWidth: 0,
+        borderBottomWidth: 1,
+        borderColor: colors.lightGray,
         margin: 5,
     },
     viewButtons: {
