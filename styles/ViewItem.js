@@ -1,15 +1,8 @@
 import { StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
-import colors from './colors';
 
-const buttonStyle = {
-    flex: 1,
-    width: 150,
-    borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 5,
-}
+import colors from './colors';
+import common from './common';
 
 const styles = StyleSheet.create({
     container: {
@@ -43,15 +36,15 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
     },
     saveButton: {
-        ...buttonStyle,
+        ...common.buttonStyle,
         backgroundColor: colors.green,
     },
     removeButton: {
-        ...buttonStyle,
+        ...common.buttonStyle,
         backgroundColor: colors.red,
     },
     buttonLabel: {
-        color: colors.white
+        color: colors.white,
     },
     statusBar: {
         backgroundColor: colors.lightBlue,

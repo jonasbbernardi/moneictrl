@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import {addItem} from '../actions/addItem';
+import { addRevenue, addExpense} from '../actions/addItem';
 
 import MenuTop from '../components/MenuTop';
 import ValueInput from '../components/ValueInput';
@@ -21,11 +21,12 @@ const AddItem = ({route, navigation}) => {
 
     const saveAction = () => {
         let item = {
-            type,
             description,
-            value: Number(value)
+            value: Number(value),
+            due_date: new Date()
         }
-        dispatch(addItem(item));
+        if(type == gTypes.REVENUE) dispatch(addRevenue(item));
+        if(type == gTypes.EXPENSE) dispatch(addExpense(item));
         navigation.goBack();
     };
 
@@ -53,12 +54,14 @@ const AddItem = ({route, navigation}) => {
                         onChangeText={text => setValue(text.replace(/\D/, ''))}
                     />
                 </View>
-                <TouchableOpacity
-                    style={styles.saveButton}
-                    activeOpacity={btnOpacity}
-                    onPress={saveAction}>
-                    <Text>Save</Text>
-                </TouchableOpacity>
+                <View style={styles.viewButtons}>
+                    <TouchableOpacity
+                        style={styles.saveButton}
+                        activeOpacity={btnOpacity}
+                        onPress={saveAction}>
+                        <Text style={styles.buttonLabel}>Save</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
             <StatusBar style="light"/>
         </View>

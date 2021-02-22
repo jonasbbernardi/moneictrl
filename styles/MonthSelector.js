@@ -1,47 +1,50 @@
 import { StyleSheet } from 'react-native';
+import Constants from 'expo-constants';
 import colors from './colors';
 
 const styles = StyleSheet.create({
     container: {
         width: '100%',
         height: 60,
-        backgroundColor: colors.midBlue,
+        backgroundColor: colors.lightBlue,
         alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'row',
         justifyContent: 'space-around',
+        flexDirection: 'row'
     },
-    menuLeftIcon: {
+    previous: {
         flex: 1,
-        height: 50,
+        width: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 16,
+        color: colors.white,
+    },
+    previousIcon: {
+        color: colors.white,
+        fontSize: 16,
+    },
+    label: {
+        flex: 6,
         alignItems: 'center',
         justifyContent: 'center',
     },
-    title: {
-        flex: 6,
-        fontSize: 18,
+    labelText: {
+        color: colors.white,
+        fontSize: 16,
         fontWeight: 'bold',
-        color: colors.white,
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
     },
-    searchText: {
-        flex: 6,
-        height: 30,
-        fontSize: 14,
-        color: colors.white,
-        textAlign: 'left',
-        borderBottomColor: colors.white,
-        borderBottomWidth: 1
-
-    },
-    searchIcon: {
+    next: {
         flex: 1,
-        height: 50,
+        width: 50,
         alignItems: 'center',
         justifyContent: 'center',
-    }
+        fontSize: 16,
+        color: colors.white,
+    },
+    nextIcon: {
+        color: colors.white,
+        fontSize: 16,
+    },
 });
 
 export default styles;

@@ -1,52 +1,76 @@
 import { combineReducers, createStore } from 'redux';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { getStorageItems, initItemsList } from '../actions/getItems';
+import { getStorageItems } from '../actions/getItems';
 
-const getItems = async () =>{
-    try{
-        let storageItems = await AsyncStorage.getItem(itemsStorageKey);
-        return storageItems != null ? JSON.parse(storageItems) : [];
-    } catch (e) {
-        console.error(e);
-    }
-    return [];
+import { initListReducer, getStorageItemsReducer } from './getItems';
+import addItemReducer from './addItem';
+import editItemReducer from './editItem';
+import removeItemReducer from './removeItem';
+import clearItemsReducer from './clearItems';
+
+const loadCurrentItems = () => {
+    setTimeout(() => {
+        let {items, currentMonth} = store.getState();
+        let payload = {items, currentMonth};
+        store.dispatch({type: gActions.LOAD_CURRENT_ITEMS, payload: payload});
+    }, 0);
 }
 
 const items = (state = [], action) => {
     let items = state;
     switch(action.type){
         case gActions.INIT_LIST:
-            return action.payload;
+            items = initListReducer(state, action.payload); break;
         case gActions.ADD_ITEM:
-            let item = action.payload;
-            items = [...state, item];
-            AsyncStorage.setItem(itemsStorageKey, JSON.stringify(items));
-            return items;
-        case gActions.SAVE_ITEM:
-            let editedItem = action.payload;
-            items = state.map(item => item.id == editedItem.id ? editedItem : item);
-            AsyncStorage.setItem(itemsStorageKey, JSON.stringify(items));
-            return items;
+            items = addItemReducer(state, action.payload); break;
+        case gActions.EDIT_ITEM:
+            items = editItemReducer(state, action.payload); break;
         case gActions.REMOVE_ITEM:
-            let id = action.payload;
-            items = state.map(item => item.id == id ? {...item, deleted: new Date(), value: 0} : item);
-            AsyncStorage.setItem(itemsStorageKey, JSON.stringify(items));
-            return items;
+            items = removeItemReducer(state, action.payload); break;
         case gActions.CLEAR_ITEMS:
-            items = state.filter(item => !item.deleted);
-            return items;
+            items = clearItemsReducer(state); break;
         case gActions.GET_STORAGE_ITEMS:
-            getItems().then((items) => store.dispatch(initItemsList(items)));
-            return state;
+            items = getStorageItemsReducer(state, store); break;
         default:
             return state;
     }
+    loadCurrentItems();
+    return items;
+};
+
+const initialCurrentMonth = new Date();
+
+const currentMonth = (state = initialCurrentMonth, action) => {
+    switch(action.type){
+        case gActions.CHANGE_MONTH:
+            loadCurrentItems();
+            return action.payload;
+        case gActions.RESET_MONTH:
+            return new Date();
+        default: return state;
+    }
 }
 
-const reducers = {
-    items
+const currentItems = (state = [], action) => {
+    switch(action.type){
+        case gActions.LOAD_CURRENT_ITEMS:
+            let currentMonth = action.payload.currentMonth;
+            let newItems = action.payload.items.filter(item => {
+                if(!!item.due_date){
+                    let itemMonth = item.due_date;
+                    if(typeof item.due_date === 'string'){
+                        itemMonth = new Date(item.due_date);
+                    }
+                    return itemMonth.getMonth() == currentMonth.getMonth()
+                }
+                return false;
+            })
+            return newItems;
+        default: return state;
+    }
 }
+
+const reducers = { items, currentMonth, currentItems }
 
 const store = createStore(combineReducers(reducers));
 

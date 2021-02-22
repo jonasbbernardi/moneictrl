@@ -1,27 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View, FlatList, TouchableOpacity } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
-import {clearItems} from '../actions/clearItems';
 import {applyMask} from '../services/mask';
 
 import colors from '../styles/colors';
 import styles from '../styles/ItemsList';
 
 const AllItemsList = (props) => {
-    const dispatch = useDispatch();
     const navigation = useNavigation();
-    const items = useSelector(state => state.items);
+    const currentItems = useSelector(state => state.currentItems);
+
     const [listData, setListData] = useState([]);
 
     useEffect(() => {
-        setListData(items);
+        setListData(currentItems);
     })
 
     const viewItem = (id) => {
         navigation.navigate('ViewItem', {id});
-        dispatch(clearItems());
     }
 
     const renderItem = ({index, item}) => {

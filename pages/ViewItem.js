@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import {removeItem} from '../actions/removeItem';
-import {saveItem} from '../actions/saveItem';
+import {editItem} from '../actions/editItem';
 
 import MenuTop from '../components/MenuTop';
 import ValueInput from '../components/ValueInput';
@@ -26,7 +26,7 @@ const ViewItem = ({route, navigation}) => {
     const type = item.type;
 
     const saveAction = () => {
-        dispatch(saveItem({id, type, description, value}));
+        dispatch(editItem({id, type, description, value}));
         navigation.goBack();
     }
 
