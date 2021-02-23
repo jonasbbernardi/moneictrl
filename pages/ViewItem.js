@@ -97,10 +97,11 @@ const ViewItem = ({route, navigation}) => {
                 </View>
             </View>
             <StatusBar style="light"/>
+            <Text>{google_admob_edit_id}</Text>
             <AdMobBanner
                 style={{marginVertical: 10}}
                 bannerSize="largeBanner"
-                adUnitID={google_admob_app_id}
+                adUnitID={google_admob_edit_id}
                 servePersonalizedAds // true or false
                 onDidFailToReceiveAdWithError={e => console.error(e)} />
         </View>

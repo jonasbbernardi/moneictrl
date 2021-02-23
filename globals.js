@@ -1,9 +1,11 @@
 import Constants from 'expo-constants';
-import { GOOGLE_ADMOB_APP_ID } from '@env';
+import { GOOGLE_ADMOB_ADD_ID, GOOGLE_ADMOB_EDIT_ID } from '@env';
 
-const googleAdmobAppTestID = 'ca-app-pub-3940256099942544/6300978111';
-const googleAdmobAppID = GOOGLE_ADMOB_APP_ID;
-global.google_admob_app_id = Constants.isDevice && !__DEV__ ? googleAdmobAppID : googleAdmobAppTestID;
+const googleAdmobBannerTestID = 'ca-app-pub-3940256099942544/6300978111';
+const googleAdmobAddID = GOOGLE_ADMOB_ADD_ID;
+const googleAdmobEditID = GOOGLE_ADMOB_EDIT_ID;
+global.google_admob_add_id = Constants.isDevice && !__DEV__ ? googleAdmobAddID : googleAdmobBannerTestID;
+global.google_admob_edit_id = Constants.isDevice && !__DEV__ ? googleAdmobEditID : googleAdmobBannerTestID;
 
 global.itemsStorageKey = '@moneictrl_items';
 global.gActions = {
