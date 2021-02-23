@@ -5,10 +5,11 @@
         "version": "1.0.0",
         "orientation": "portrait",
         "icon": "./assets/icon.png",
+        "primaryColor": "#2277ff",
         "splash": {
             "image": "./assets/splash.png",
             "resizeMode": "contain",
-            "backgroundColor": "#50509F"
+            "backgroundColor": "#2277ff"
         },
         "updates": {
             "fallbackToCacheTimeout": 0
@@ -26,7 +27,7 @@
             "versionCode": 1,
             "adaptiveIcon": {
                 "foregroundImage": "./assets/adaptive-icon.png",
-                "backgroundColor": "#50509F"
+                "backgroundColor": "#2277ff"
             },
             "config": {
                 "googleMobileAdsAppId": "ca-app-pub-5310439586251585~9091147495"

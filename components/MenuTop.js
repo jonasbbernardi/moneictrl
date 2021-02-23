@@ -38,6 +38,11 @@ const MenuTop = (props) => {
         dispatch(filterByDescription(searchText));
     }
 
+    const onMenu = () => {
+        if(typeof props.openDrawer === 'function')
+            props.openDrawer();
+    }
+
     const onBack = () => {
         Keyboard.dismiss();
         navigation.goBack();
@@ -45,13 +50,16 @@ const MenuTop = (props) => {
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={{...styles.menuLeftIcon,
+            <TouchableOpacity
+                style={{...styles.menuLeftIcon,
                     display: props.showBackButton ? 'none' : 'flex'
                 }}
-                activeOpacity={ btnOpacity }>
+                activeOpacity={ btnOpacity }
+                onPress={onMenu}>
                 <FontAwesomeIcon icon="bars" color="#eee" size={ 20 } />
             </TouchableOpacity>
-            <TouchableOpacity style={{...styles.menuLeftIcon,
+            <TouchableOpacity
+                style={{...styles.menuLeftIcon,
                     display: props.showBackButton ? 'flex' : 'none'
                 }}
                 activeOpacity={ btnOpacity }
