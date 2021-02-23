@@ -4,14 +4,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faSearchDollar, faEllipsisV, faBars, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
 
 import styles from '../styles/MenuTop';
 import colors from '../styles/colors';
+import { filterByDescription } from '../actions/filterByDescription';
 
 library.add( faSearchDollar, faEllipsisV, faBars, faChevronLeft );
 
 const MenuTop = (props) => {
     const navigation = useNavigation();
+    const dispatch = useDispatch();
     const [searchOpened, setSearchOpened] = useState(false);
     const [searchInput, setSearchInput] = useState();
     const [searchText, setSearchText] = useState('');
@@ -21,12 +24,18 @@ const MenuTop = (props) => {
         else {
             Keyboard.dismiss();
             searchInput.clear();
+            dispatch(filterByDescription(''));
         }
         setSearchOpened(!searchOpened);
     }
 
+    const onChangeText = (text) => {
+        setSearchText(text);
+        dispatch(filterByDescription(text));
+    }
+
     const searchByText = () => {
-        console.log(searchText);
+        dispatch(filterByDescription(searchText));
     }
 
     const onBack = () => {
@@ -62,7 +71,7 @@ const MenuTop = (props) => {
                 }}
                 selectionColor={colors.white}
                 ref={input => { setSearchInput(input); }}
-                onChangeText={text => setSearchText(text)}
+                onChangeText={onChangeText}
                 onSubmitEditing={searchByText} />
 
             <TouchableOpacity style={{...styles.searchIcon,

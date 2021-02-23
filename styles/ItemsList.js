@@ -15,10 +15,16 @@ const styles = StyleSheet.create({
         marginLeft: '2%',
         marginRight: '2%',
         backgroundColor: colors.trueWhite,
-        flexDirection: 'row',
         paddingVertical: 6,
         paddingHorizontal: 10,
         borderRadius: 5,
+    },
+    firstRow: {
+        flexDirection: 'row',
+    },
+    secondRow: {
+        flexDirection: 'row',
+        marginTop: 5
     },
     description: {
         flex: 1,
@@ -29,7 +35,12 @@ const styles = StyleSheet.create({
         textAlign: 'right',
         marginRight: 5,
         fontSize: 16,
-    }
+    },
+    dueDate: {
+        fontSize: 12,
+        color: colors.gray,
+    },
+    status: {},
 });
 
 export default styles;

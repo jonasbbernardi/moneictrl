@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Text, View, FlatList, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import moment from 'moment';
 
 import {applyMask} from '../services/mask';
 
@@ -15,7 +16,12 @@ const AllItemsList = (props) => {
     const [listData, setListData] = useState([]);
 
     useEffect(() => {
-        setListData(currentItems);
+        let items = currentItems.sort((a, b) => {
+            let dueDateA = moment(a.due_date);
+            let dueDateB = moment(b.due_date);
+            return dueDateA.diff(dueDateB, 'days');
+        });
+        setListData(items);
     })
 
     const viewItem = (id) => {
@@ -29,14 +35,21 @@ const AllItemsList = (props) => {
                 style={styles.item}
                 activeOpacity={0.8}
                 onPress={() => viewItem(item.id)}
-                >
-                <Text style={styles.description}>{item.description}</Text>
-                <Text style={{
-                    ...styles.value,
-                    color: item.type == gTypes.EXPENSE ? colors.red : colors.green
-                    }}>
-                    {item.type == gTypes.EXPENSE ? '-' : ''}{applyMask(item.value.toString(), moneyMask)}
-                </Text>
+            >
+                <View style={styles.firstRow}>
+                    <Text style={styles.description}>{item.description}</Text>
+                    <Text style={{
+                        ...styles.value,
+                        color: item.type == gTypes.EXPENSE ? colors.red : colors.green
+                        }}>
+                        {item.type == gTypes.EXPENSE ? '-' : ''}{applyMask(item.value.toString(), moneyMask)}
+                    </Text>
+                </View>
+                <View style={styles.secondRow}>
+                    <Text style={styles.dueDate}>
+                        {'Due date: ' + moment(item.due_date).format(currentDateFormat)}
+                    </Text>
+                </View>
             </TouchableOpacity>
         );
     };

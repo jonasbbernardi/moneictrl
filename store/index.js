@@ -11,8 +11,8 @@ import clearItemsReducer from './clearItems';
 
 const loadCurrentItems = () => {
     setTimeout(() => {
-        let {items, currentMonth} = store.getState();
-        let payload = {items, currentMonth};
+        let {items, currentMonth, currentFilter} = store.getState();
+        let payload = {items, currentMonth, currentFilter};
         store.dispatch({type: gActions.LOAD_CURRENT_ITEMS, payload: payload});
     }, 0);
 }
@@ -52,26 +52,45 @@ const currentMonth = (state = initialCurrentMonth, action) => {
     }
 }
 
+const currentFilter = (state = {}, action) => {
+    switch(action.type){
+        case gActions.FILTER_BY_DESCRIPTION:
+            loadCurrentItems();
+            return {description: action.payload.description};
+        case gActions.RSEET_FILTER:
+            return {};
+        default: return state;
+    }
+}
+
 const currentItems = (state = [], action) => {
     switch(action.type){
         case gActions.LOAD_CURRENT_ITEMS:
             let currentMonth = action.payload.currentMonth;
+            let currentFilter = action.payload.currentFilter;
             let newItems = action.payload.items.filter(item => {
+                let byMonth = true;
                 if(!!item.due_date){
                     let itemMonth = item.due_date;
                     if(typeof item.due_date === 'string'){
                         itemMonth = moment(item.due_date);
                     }
-                    return itemMonth.month() == currentMonth.month()
+                    byMonth = itemMonth.month() == currentMonth.month()
                 }
-                return false;
+                let byDescription = true;
+                if(!!currentFilter && !!currentFilter.description){
+                    let itemDescription = item.description.toUpperCase();
+                    let filterDescription = currentFilter.description.toUpperCase();
+                    byDescription = itemDescription.includes(filterDescription);
+                }
+                return byMonth && byDescription;
             })
             return newItems;
         default: return state;
     }
 }
 
-const reducers = { items, currentMonth, currentItems }
+const reducers = { items, currentMonth, currentFilter, currentItems }
 
 const store = createStore(combineReducers(reducers));
 
