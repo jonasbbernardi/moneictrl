@@ -8,17 +8,21 @@ const MenuLeft = (props) => {
     const navigation = useNavigation();
 
     const onPressHome = () => {
-        navigation.navigate('Home');
+        navigation.navigate('Home', {type: false});
         if(typeof props.closeDrawer === 'function')
             props.closeDrawer();
     }
 
     const onPressRevenues = () => {
-        // navigate to revenues
+        navigation.navigate('Home', {type: gTypes.REVENUE});
+        if(typeof props.closeDrawer === 'function')
+            props.closeDrawer();
     }
 
     const onPressExpenses = () => {
-        // navigate to revenues
+        navigation.navigate('Home', {type: gTypes.EXPENSE});
+        if(typeof props.closeDrawer === 'function')
+            props.closeDrawer();
     }
 
     return (

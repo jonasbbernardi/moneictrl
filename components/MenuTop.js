@@ -18,6 +18,11 @@ const MenuTop = (props) => {
     const [searchOpened, setSearchOpened] = useState(false);
     const [searchInput, setSearchInput] = useState();
     const [searchText, setSearchText] = useState('');
+    const [title, setTitle] = useState('');
+
+    useEffect(() => {
+        setTitle(props.title);
+    })
 
     const toggleSearch = () => {
         if(!searchOpened) searchInput.focus();
@@ -71,7 +76,7 @@ const MenuTop = (props) => {
                 style={{ ...styles.title,
                     display: searchOpened ? 'none' : 'flex',
                 }}>
-                {props.title}
+                {title}
             </Text>
             <TextInput
                 style={{ ...styles.searchText,

@@ -16,7 +16,8 @@ const AllItemsList = (props) => {
     const [listData, setListData] = useState([]);
 
     useEffect(() => {
-        let items = currentItems.sort((a, b) => {
+        let items = currentItems;
+        items = items.sort((a, b) => {
             let dueDateA = moment(a.due_date);
             let dueDateB = moment(b.due_date);
             return dueDateA.diff(dueDateB, 'days');

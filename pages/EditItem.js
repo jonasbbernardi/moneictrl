@@ -13,9 +13,9 @@ import {editItem} from '../actions/editItem';
 import MenuTop from '../components/MenuTop';
 import ValueInput from '../components/ValueInput';
 
-import styles from '../styles/ViewItem';
+import styles from '../styles/EditItem';
 
-const ViewItem = ({route, navigation}) => {
+const EditItem = ({route, navigation}) => {
     const dispatch = useDispatch();
     const {id} = route.params;
     var item = useSelector(state => state.items.find(item => item.id == id));
@@ -108,4 +108,4 @@ const ViewItem = ({route, navigation}) => {
     );
 }
 
-export default ViewItem;
+export default EditItem;

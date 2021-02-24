@@ -21,6 +21,7 @@ global.gActions = {
     RESET_MONTH: 'RESET_MONTH',
     // Filter by fields
     FILTER_BY_DESCRIPTION: 'FILTER_BY_DESCRIPTION',
+    FILTER_BY_TYPE: 'FILTER_BY_TYPE',
     // Current items (used for filters)
     LOAD_CURRENT_ITEMS: 'LOAD_CURRENT_ITEMS'
 }

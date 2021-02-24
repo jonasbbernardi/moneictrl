@@ -56,7 +56,10 @@ const currentFilter = (state = {}, action) => {
     switch(action.type){
         case gActions.FILTER_BY_DESCRIPTION:
             loadCurrentItems();
-            return {description: action.payload.description};
+            return {...state, description: action.payload.description};
+        case gActions.FILTER_BY_TYPE:
+            loadCurrentItems();
+            return {...state, type: action.payload.type};
         case gActions.RSEET_FILTER:
             return {};
         default: return state;
@@ -78,12 +81,18 @@ const currentItems = (state = [], action) => {
                     byMonth = itemMonth.month() == currentMonth.month()
                 }
                 let byDescription = true;
-                if(!!currentFilter && !!currentFilter.description){
-                    let itemDescription = item.description.toUpperCase();
-                    let filterDescription = currentFilter.description.toUpperCase();
-                    byDescription = itemDescription.includes(filterDescription);
+                let byType = true;
+                if(!!currentFilter){
+                    if(!!currentFilter.description){
+                        let itemDescription = item.description.toUpperCase();
+                        let filterDescription = currentFilter.description.toUpperCase();
+                        byDescription = itemDescription.includes(filterDescription);
+                    }
+                    if(!!currentFilter.type){
+                        byType = item.type == currentFilter.type;
+                    }
                 }
-                return byMonth && byDescription;
+                return byMonth && byDescription && byType;
             })
             return newItems;
         default: return state;

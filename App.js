@@ -12,7 +12,7 @@ import {clearItems} from './actions/clearItems';
 
 import Home from './pages/Home';
 import AddItem from './pages/AddItem';
-import ViewItem from './pages/ViewItem';
+import EditItem from './pages/EditItem';
 
 const Stack = createStackNavigator();
 
@@ -30,7 +30,7 @@ const App = () => {
                         }}
                     />
                     <Stack.Screen name="AddItem" component={AddItem} />
-                    <Stack.Screen name="ViewItem" component={ViewItem} />
+                    <Stack.Screen name="EditItem" component={EditItem} />
                 </Stack.Navigator>
             </NavigationContainer>
         </Provider>
