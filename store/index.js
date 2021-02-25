@@ -8,6 +8,9 @@ import addItemReducer from './addItem';
 import editItemReducer from './editItem';
 import removeItemReducer from './removeItem';
 import clearItemsReducer from './clearItems';
+import loadCurrentItemsReducer from './loadCurrentItems';
+import changeMoneyMaskReducer from './changeMoneyMask';
+import changeDateFormatReducer from './changeDateFormat';
 
 const loadCurrentItems = () => {
     setTimeout(() => {
@@ -69,50 +72,46 @@ const currentFilter = (state = {}, action) => {
 const currentItems = (state = [], action) => {
     switch(action.type){
         case gActions.LOAD_CURRENT_ITEMS:
-            let currentMonth = action.payload.currentMonth;
-            let currentFilter = action.payload.currentFilter;
-            let newItems = action.payload.items.filter(item => {
-                let byMonth = true;
-                if(!!item.due_date){
-                    let itemMonth = item.due_date;
-                    if(typeof item.due_date === 'string'){
-                        itemMonth = moment(item.due_date);
-                    }
-                    byMonth = itemMonth.month() == currentMonth.month()
-                }
-                let byDescription = true;
-                let byType = true;
-                if(!!currentFilter){
-                    if(!!currentFilter.description){
-                        let itemDescription = item.description.toUpperCase();
-                        let filterDescription = currentFilter.description.toUpperCase();
-                        byDescription = itemDescription.includes(filterDescription);
-                    }
-                    if(!!currentFilter.type){
-                        byType = item.type == currentFilter.type;
-                    }
-                }
-                return byMonth && byDescription && byType;
-            })
-            return newItems;
+            return loadCurrentItemsReducer(action.payload);
         default: return state;
     }
 }
 
 import * as Localization from 'expo-localization';
+
 const locale = (state = Localization.locale, action) => {
-    if(action.type == gActions.CHANGE_LOCALE){
-        return action.locale;
+    switch(action.type){
+        case gActions.CHANGE_LOCALE: return action.locale;
+        default: return state;
     }
-    return state;
-}
+};
+
+const initialMoneyMask = changeMoneyMaskReducer(Localization.locale);
+const moneyMask = (state = initialMoneyMask, action) => {
+    switch(action.type){
+        case gActions.CHANGE_LOCALE:
+            return changeMoneyMaskReducer(action.locale);
+        default: return state;
+    }
+};
+
+const initialDateFormat = changeDateFormatReducer(Localization.locale);
+const currentDateFormat = (state = initialDateFormat, action) => {
+    switch(action.type){
+        case gActions.CHANGE_LOCALE:
+            return changeDateFormatReducer(action.locale);
+        default: return state;
+    }
+};
 
 const reducers = {
     items,
-    currentMonth,
+    currentDateFormat,
     currentFilter,
     currentItems,
-    locale
+    currentMonth,
+    locale,
+    moneyMask,
 }
 
 const store = createStore(combineReducers(reducers));

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Keyboard, Text, TextInput, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
@@ -17,6 +17,8 @@ import i18n from '../i18n';
 
 const AddItem = ({route, navigation}) => {
     const dispatch = useDispatch();
+    const moneyMask = useSelector(state => state.moneyMask);
+    const currentDateFormat = useSelector(state => state.currentDateFormat);
     const {type} = route.params;
 
     const title =

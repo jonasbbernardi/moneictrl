@@ -17,6 +17,8 @@ import styles from '../styles/EditItem';
 
 const EditItem = ({route, navigation}) => {
     const dispatch = useDispatch();
+    const moneyMask = useSelector(state => state.moneyMask);
+    const currentDateFormat = useSelector(state => state.currentDateFormat);
     const {id} = route.params;
     var item = useSelector(state => state.items.find(item => item.id == id));
     var due_date = moment(item.due_date);

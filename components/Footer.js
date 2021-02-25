@@ -9,6 +9,7 @@ import colors from '../styles/colors';
 
 const Footer = (props) => {
     const items = useSelector(state => state.currentItems);
+    const moneyMask = useSelector(state => state.moneyMask);
     const [revenues, setRevenues] = useState(0);
     const [expenses, setExpenses] = useState(0);
     const [balance, setBalance] = useState(0);

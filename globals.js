@@ -31,5 +31,3 @@ global.gTypes = {
     REVENUE: 'REVENUE'
 }
 global.btnOpacity = 0.8;
-global.moneyMask = "$[999.999.990],[00]";
-global.currentDateFormat = 'MM/DD/YYYY';

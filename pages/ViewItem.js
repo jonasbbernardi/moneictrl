@@ -19,6 +19,8 @@ import colors from '../styles/colors';
 library.add( faCheck );
 
 const ViewItem = ({route, navigation}) => {
+    const moneyMask = useSelector(state => state.moneyMask);
+    const currentDateFormat = useSelector(state => state.currentDateFormat);
     const {id} = route.params;
     var item = useSelector(state => state.items.find(item => item.id == id));
     const [value, setValue] = useState(applyMask(item.value.toString(), moneyMask));

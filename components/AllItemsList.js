@@ -12,6 +12,8 @@ import styles from '../styles/ItemsList';
 const AllItemsList = (props) => {
     const navigation = useNavigation();
     const currentItems = useSelector(state => state.currentItems);
+    const moneyMask = useSelector(state => state.moneyMask);
+    const currentDateFormat = useSelector(state => state.currentDateFormat);
 
     const [listData, setListData] = useState([]);
 
