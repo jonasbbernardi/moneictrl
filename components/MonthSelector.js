@@ -1,21 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Text, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { useDispatch } from 'react-redux';
+import i18n from '../i18n';
 import moment from 'moment';
+import 'moment/locale/pt-br';
 
 library.add( faChevronLeft, faChevronRight );
 
 import styles from '../styles/MonthSelector';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const MonthSelector = (props) => {
+const MonthSelector = () => {
     const dispatch = useDispatch();
     const [month, setMonth] = useState(moment());
 
     const getMonthLabel = (monthDate) => {
+        moment.locale(i18n.locale.toLowerCase())
         return monthDate.format('MMMM YYYY');
     }
 
@@ -33,8 +36,7 @@ const MonthSelector = (props) => {
     const changeMonth = (changeValue) => {
         let newMonth = month;
         newMonth.add(changeValue, 'months');
-        let newMonthLabel = getMonthLabel(newMonth);
-        setMonthLabel(newMonthLabel);
+        setMonthLabel(getMonthLabel(newMonth));
         setMonth(newMonth);
         dispatch({type: gActions.CHANGE_MONTH, payload: newMonth});
     }

@@ -18,12 +18,11 @@ import i18n from '../i18n';
 const AddItem = ({route, navigation}) => {
     const dispatch = useDispatch();
     const {type} = route.params;
-    const getTitle = () => {
-        if(type === gTypes.EXPENSE) return i18n.t('pages.add_item.title_expense');
-        if(type === gTypes.REVENUE) return i18n.t('pages.add_item.title_revenue');
-        return i18n.t('pages.add_item.default_title');
-    }
-    const title = getTitle();
+
+    const title =
+        type === gTypes.EXPENSE ? i18n.t('pages.add_item.title_expense') :
+        type === gTypes.REVENUE ? i18n.t('pages.add_item.title_revenue') :
+        i18n.t('pages.add_item.default_title');
 
     const today = useSelector(state => state.currentMonth);
 

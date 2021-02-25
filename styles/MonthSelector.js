@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
         color: colors.white,
         fontSize: 16,
         fontWeight: 'bold',
+        textTransform: 'capitalize',
     },
     next: {
         flex: 1,
