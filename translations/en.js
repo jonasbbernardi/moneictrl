@@ -5,12 +5,23 @@ export default en = {
         },
         footer: {
             total: {
-                revenue: 'Total revenues',
-                expense: 'Total expenses',
-                balance: 'Total balance',
-                to_pay: 'Total to pay',
-                to_receive: 'Total to receive',
+                revenue: 'Total revenues:',
+                expense: 'Total expenses:',
+                balance: 'Total balance:',
+                to_pay: 'Total to pay:',
+                to_receive: 'Total to receive:',
             },
+        },
+        menu_left: {
+            home: 'Home',
+            revenues: 'Revenues',
+            expenses: 'Expenses',
+            settings: 'Settings',
+            version: 'Version:',
+        },
+        plus_button_menu: {
+            add_revenue: 'Add Revenue',
+            add_expense: 'Add Expense'
         },
     },
     pages: {

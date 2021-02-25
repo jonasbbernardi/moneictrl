@@ -2,12 +2,32 @@ export default pt = {
     components: {
         all_items_list: {
             due_date: 'Vencimento:',
-        }
+        },
+        footer: {
+            total: {
+                revenue: 'Rendimentos:',
+                expense: 'Despesas:',
+                balance: 'Saldo total:',
+                to_pay: 'Total a pagar:',
+                to_receive: 'Total a receber:',
+            },
+        },
+        menu_left: {
+            home: 'Página Inicial',
+            revenues: 'Rendimentos',
+            expenses: 'Despesas',
+            settings: 'Configurações',
+            version: 'Versão:',
+        },
+        plus_button_menu: {
+            add_revenue: 'Rendimento',
+            add_expense: 'Despesa'
+        },
     },
     pages: {
         add_item: {
             title_expense: 'Adicionar Despesa',
-            title_revenue: 'Adicionar Receita',
+            title_revenue: 'Adicionar Rendimento',
             default_title: 'Adicionar Item',
             description: 'Descrição',
             value: 'Valor',
@@ -17,7 +37,7 @@ export default pt = {
         home: {
             default_title: 'Monei Ctrl',
             expenses_title: 'Despesas',
-            revenues_title: 'Receitas',
+            revenues_title: 'Rendimentos',
         },
         settings: {
             title: 'Configurações',
