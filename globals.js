@@ -14,6 +14,8 @@ global.gActions = {
     INIT_LIST: 'INIT_LIST',
     ADD_ITEM: 'ADD_ITEM',
     EDIT_ITEM: 'EDIT_ITEM',
+    DONE_ITEM: 'DONE_ITEM',
+    UNDONE_ITEM: 'UNDONE_ITEM',
     REMOVE_ITEM: 'REMOVE_ITEM',
     CLEAR_ITEMS: 'CLEAR_ITEMS',
     // Current Month

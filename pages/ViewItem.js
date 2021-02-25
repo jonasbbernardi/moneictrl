@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
 import { AdMobBanner } from 'expo-ads-admob';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import moment from 'moment';
+
+import {setItemDone, setItemUndone} from '../actions/doneItem';
 
 import MenuTop from '../components/MenuTop';
 
@@ -17,15 +19,17 @@ import styles from '../styles/ViewItem';
 import colors from '../styles/colors';
 import i18n from '../i18n';
 
-library.add( faCheck );
+library.add( faCheck, faTimes );
 
 const ViewItem = ({route, navigation}) => {
+    const dispatch = useDispatch();
     const moneyMask = useSelector(state => state.moneyMask);
     const currentDateFormat = useSelector(state => state.currentDateFormat);
     const {id} = route.params;
     var item = useSelector(state => state.items.find(item => item.id == id));
     const [value, setValue] = useState(applyMask(item.value.toString(), moneyMask));
     const [valueColor, setValueColor] = useState(colors.black);
+    const [displayDone, isDisplayDone] = useState(item.done);
     const descriptionLabel = i18n.t('pages.view_item.description');
     const valueLabel = i18n.t('pages.view_item.value');
     const dueDateLabel = i18n.t('pages.view_item.due_date');
@@ -40,8 +44,15 @@ const ViewItem = ({route, navigation}) => {
         }
     })
 
-    const markAction = () => {
-        // TODO: Mark as paid or received
+    const doneAction = () => {
+        dispatch(setItemDone({id: item.id}));
+        isDisplayDone(true);
+        // navigation.goBack();
+    }
+    const undoneAction = () => {
+        dispatch(setItemUndone({id: item.id}));
+        isDisplayDone(false);
+        // navigation.goBack();
     }
 
     const editAction = () => {
@@ -77,11 +88,28 @@ const ViewItem = ({route, navigation}) => {
                 </View>
                 <View style={styles.viewButtons}>
                     <TouchableOpacity
-                        style={styles.markButton}
+                        style={{
+                            ...styles.markButton,
+                            display: displayDone ? 'none' : 'flex',
+                            backgroundColor: colors.green
+                        }}
                         activeOpacity={btnOpacity}
-                        onPress={markAction}>
+                        onPress={doneAction}>
                         <FontAwesomeIcon
                             icon='check'
+                            color={colors.white}
+                            size={ 24 } />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={{
+                            ...styles.markButton,
+                            display: displayDone ? 'flex' : 'none',
+                            backgroundColor: colors.red
+                        }}
+                        activeOpacity={btnOpacity}
+                        onPress={undoneAction}>
+                        <FontAwesomeIcon
+                            icon='times'
                             color={colors.white}
                             size={ 24 } />
                     </TouchableOpacity>

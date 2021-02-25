@@ -7,6 +7,7 @@ import { initListReducer, getStorageItemsReducer } from './getItems';
 import addItemReducer from './addItem';
 import editItemReducer from './editItem';
 import removeItemReducer from './removeItem';
+import {doneItemReducer, undoneItemReducer} from './doneItem';
 import clearItemsReducer from './clearItems';
 import loadCurrentItemsReducer from './loadCurrentItems';
 import changeMoneyMaskReducer from './changeMoneyMask';
@@ -31,6 +32,10 @@ const items = (state = [], action) => {
             items = editItemReducer(state, action.payload); break;
         case gActions.REMOVE_ITEM:
             items = removeItemReducer(state, action.payload); break;
+        case gActions.DONE_ITEM:
+            items = doneItemReducer(state, action.payload); break;
+        case gActions.UNDONE_ITEM:
+            items = undoneItemReducer(state, action.payload); break;
         case gActions.CLEAR_ITEMS:
             items = clearItemsReducer(state); break;
         case gActions.GET_STORAGE_ITEMS:

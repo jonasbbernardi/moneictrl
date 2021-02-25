@@ -67,7 +67,8 @@ const styles = StyleSheet.create({
         height: 50,
         width: '100%',
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        alignItems: 'stretch',
+        justifyContent: 'center',
     },
     editButton: {
         ...common.buttonStyle,

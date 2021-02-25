@@ -12,7 +12,14 @@ const addRevenue = ({description, value, due_date}) => {
 const addItem = ({type, description, value, due_date}) => {
     return {
         type: gActions.ADD_ITEM,
-        payload: { id: uuidv4(), type, description, value, due_date }
+        payload: {
+            id: uuidv4(),
+            type,
+            description,
+            value,
+            due_date,
+            done: false
+        }
     };
 }
 

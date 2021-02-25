@@ -2,12 +2,13 @@ import colors from './colors';
 
 const buttonStyle = {
     flex: 1,
-    width: 150,
+    minWidth: 150,
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,
     borderColor: colors.white,
+    marginHorizontal: 10,
 };
 const buttonLabel = {
     color: colors.white,
