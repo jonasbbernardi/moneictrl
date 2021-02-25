@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
     },
     field: {
         flex: 2,
-        zIndex: 1
     }
 });
 

@@ -7,6 +7,7 @@ export default en = {
             description: 'Description',
             value: 'Value',
             due_date: 'Due date',
+            save: 'Save',
         },
         home: {
             default_title: 'Monei Ctrl',

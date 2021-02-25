@@ -23,6 +23,7 @@ const AddItem = ({route, navigation}) => {
         if(type === gTypes.REVENUE) return i18n.t('pages.add_item.title_revenue');
         return i18n.t('pages.add_item.default_title');
     }
+    const title = getTitle();
 
     const today = useSelector(state => state.currentMonth);
 
@@ -41,18 +42,11 @@ const AddItem = ({route, navigation}) => {
     const [value, setValue] = useState('');
     const [dueDate, setDueDate] = useState(today);
     const [valueInput, setValueInput] = useState();
-    const [title, setTitle] = useState(getTitle());
-    const [descriptionLabel, setDescriptionLabel] = useState(i18n.t('pages.add_item.description'));
-    const [valueLabel, setValueLabel] = useState(i18n.t('pages.add_item.value'));
-    const [dueDateLabel, setDueDateLabel] = useState(i18n.t('pages.add_item.due_date'));
     const [descriptionLabelStyle, setDescriptionLabelStyle] = useState(defaultLabelStyleHide);
-
-    useEffect(() => {
-        setTitle(getTitle())
-        setDescriptionLabel(i18n.t('pages.add_item.description'));
-        setValueLabel(i18n.t('pages.add_item.value'));
-        setDueDateLabel(i18n.t('pages.add_item.due_date'));
-    })
+    const descriptionLabel = i18n.t('pages.add_item.description');
+    const valueLabel = i18n.t('pages.add_item.value');
+    const dueDateLabel = i18n.t('pages.add_item.due_date');
+    const saveLabel = i18n.t('pages.add_item.save');
 
     const selectDueDate = (date) => {
         if(date === undefined) return;
@@ -73,15 +67,8 @@ const AddItem = ({route, navigation}) => {
 
     const onChangeDescriptionText = (text) => {
         setDescription(text);
-        onBlurDescriptionField();
-    }
-
-    const onBlurDescriptionField = () => {
-        if(description === '') {
-            setDescriptionLabelStyle(defaultLabelStyleHide);
-        } else {
-            setDescriptionLabelStyle(defaultLabelStyleShow);
-        }
+        setDescriptionLabelStyle(text === '' ?
+            defaultLabelStyleHide : defaultLabelStyleShow);
     }
 
     return (
@@ -102,7 +89,6 @@ const AddItem = ({route, navigation}) => {
                         returnKeyType='next'
                         onSubmitEditing={() => { valueInput.focus(); }}
                         onChangeText={onChangeDescriptionText}
-                        onBlur={onBlurDescriptionField}
                     />
                 </View>
                 <View style={{ flexDirection: 'row', width: '100%' }}>
@@ -131,7 +117,7 @@ const AddItem = ({route, navigation}) => {
                         style={styles.saveButton}
                         activeOpacity={btnOpacity}
                         onPress={saveAction}>
-                        <Text style={styles.buttonLabel}>Save</Text>
+                        <Text style={styles.buttonLabel}>{saveLabel}</Text>
                     </TouchableOpacity>
                 </View>
             </View>
