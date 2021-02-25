@@ -34,6 +34,16 @@ export default en = {
             due_date: 'Due date',
             save: 'Save',
         },
+        edit_item: {
+            title_expense: 'Edit Expense',
+            title_revenue: 'Edit Revenue',
+            default_title: 'Edit Item',
+            description: 'Description',
+            value: 'Value',
+            due_date: 'Due date',
+            save: 'Save',
+            remove: 'Remove',
+        },
         home: {
             default_title: 'Monei Ctrl',
             expenses_title: 'Expenses',

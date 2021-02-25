@@ -34,6 +34,16 @@ export default pt = {
             due_date: 'Vencimento',
             save: 'Salvar',
         },
+        edit_item: {
+            title_expense: 'Editar Despesa',
+            title_revenue: 'Editar Rendimento',
+            default_title: 'Editar Item',
+            description: 'Descrição',
+            value: 'Valor',
+            due_date: 'Vencimento',
+            save: 'Salvar',
+            remove: 'Remover',
+        },
         home: {
             default_title: 'Monei Ctrl',
             expenses_title: 'Despesas',

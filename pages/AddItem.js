@@ -6,6 +6,7 @@ import { AdMobBanner } from 'expo-ads-admob';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import DatePicker from 'react-native-datepicker';
 import moment from 'moment';
+import i18n from '../i18n';
 
 import { addRevenue, addExpense} from '../actions/addItem';
 
@@ -13,20 +14,18 @@ import MenuTop from '../components/MenuTop';
 import ValueInput from '../components/ValueInput';
 
 import styles from '../styles/AddItem';
-import i18n from '../i18n';
 
 const AddItem = ({route, navigation}) => {
     const dispatch = useDispatch();
     const moneyMask = useSelector(state => state.moneyMask);
     const currentDateFormat = useSelector(state => state.currentDateFormat);
     const {type} = route.params;
+    const due_date = useSelector(state => state.currentMonth);
 
     const title =
         type === gTypes.EXPENSE ? i18n.t('pages.add_item.title_expense') :
         type === gTypes.REVENUE ? i18n.t('pages.add_item.title_revenue') :
         i18n.t('pages.add_item.default_title');
-
-    const today = useSelector(state => state.currentMonth);
 
     const defaultLabelStyleHide = {
         ...styles.label,
@@ -41,7 +40,7 @@ const AddItem = ({route, navigation}) => {
 
     const [description, setDescription] = useState('');
     const [value, setValue] = useState('');
-    const [dueDate, setDueDate] = useState(today);
+    const [dueDate, setDueDate] = useState(due_date);
     const [valueInput, setValueInput] = useState();
     const [descriptionLabelStyle, setDescriptionLabelStyle] = useState(defaultLabelStyleHide);
     const descriptionLabel = i18n.t('pages.add_item.description');
@@ -82,7 +81,7 @@ const AddItem = ({route, navigation}) => {
                 <View style={styles.fieldset}>
                     <Text style={descriptionLabelStyle}>
                         {descriptionLabel}
-                        </Text>
+                    </Text>
                     <TextInput
                         placeholder={descriptionLabel}
                         style={styles.descriptionText}

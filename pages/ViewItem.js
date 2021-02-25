@@ -40,7 +40,7 @@ const ViewItem = ({route, navigation}) => {
     }
 
     const editAction = () => {
-        navigation.navigate('EditItem', {id});
+        navigation.navigate('EditItem', {id, type: item.type});
     }
 
     return (

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
 import DrawerLayout from 'react-native-gesture-handler/DrawerLayout';
+import i18n from '../i18n';
 
 import { filterByType } from '../actions/filterByType';
 
@@ -15,8 +17,6 @@ import PlusButtonMenu from '../components/PlusButtonMenu';
 
 import colors from '../styles/colors';
 import styles from '../styles/Home';
-import { useDispatch } from 'react-redux';
-import i18n from '../i18n';
 
 const Home = ({route, navigation}) => {
     const dispatch = useDispatch();
