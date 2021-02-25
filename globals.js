@@ -23,7 +23,8 @@ global.gActions = {
     FILTER_BY_DESCRIPTION: 'FILTER_BY_DESCRIPTION',
     FILTER_BY_TYPE: 'FILTER_BY_TYPE',
     // Current items (used for filters)
-    LOAD_CURRENT_ITEMS: 'LOAD_CURRENT_ITEMS'
+    LOAD_CURRENT_ITEMS: 'LOAD_CURRENT_ITEMS',
+    CHANGE_LOCALE: 'CHANGE_LOCALE'
 }
 global.gTypes = {
     EXPENSE: 'EXPENSE',
@@ -31,4 +32,4 @@ global.gTypes = {
 }
 global.btnOpacity = 0.8;
 global.moneyMask = "$[999.999.990],[00]";
-global.currentDateFormat = 'DD/MM/YYYY';
+global.currentDateFormat = 'MM/DD/YYYY';

@@ -29,6 +29,11 @@ const styles = StyleSheet.create({
         marginHorizontal: 15,
         resizeMode: 'contain',
     },
+    version: {
+        position: 'absolute',
+        bottom: 0,
+        color: colors.white,
+    },
     body: {
         flex: 8,
         width: '100%',

@@ -1,4 +1,4 @@
-const clearItems = (id) => {
+const clearItems = () => {
     return {
         type: gActions.CLEAR_ITEMS,
     };

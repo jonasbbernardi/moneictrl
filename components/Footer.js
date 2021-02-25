@@ -7,7 +7,7 @@ import { applyMask } from '../services/mask';
 import styles from '../styles/Footer';
 import colors from '../styles/colors';
 
-const FooterHome = (props) => {
+const Footer = (props) => {
     const items = useSelector(state => state.currentItems);
     const [revenues, setRevenues] = useState(0);
     const [expenses, setExpenses] = useState(0);
@@ -50,7 +50,7 @@ const FooterHome = (props) => {
                         Total expenses: 
                     </Text>
                     <Text style={{...styles.counter,
-                            color: colors.red
+                            color: colors.lightRed
                         }}>{expenses}
                     </Text>
                 </View> }
@@ -89,4 +89,4 @@ const FooterHome = (props) => {
     );
 }
 
-export default FooterHome;
+export default Footer;

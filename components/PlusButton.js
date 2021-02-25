@@ -6,7 +6,6 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 
 import colors from '../styles/colors';
 import styles from '../styles/PlusButton';
-import { color } from 'react-native-reanimated';
 
 library.add( faHandHoldingUsd, faFunnelDollar, faPlus );
 
@@ -54,7 +53,7 @@ const PlusButton = (props) => {
                     onPress={props.onPressPlusBtn} >
                     <FontAwesomeIcon
                         icon={btnIcon}
-                        color="#eee"
+                        color={colors.white}
                         size={ 24 } />
                 </TouchableOpacity>
             </View>

@@ -6,7 +6,7 @@ import DrawerLayout from 'react-native-gesture-handler/DrawerLayout';
 import { filterByType } from '../actions/filterByType';
 
 import AllItemsList from '../components/AllItemsList';
-import FooterHome from '../components/FooterHome';
+import Footer from '../components/Footer';
 import MenuLeft from '../components/MenuLeft';
 import MenuTop from '../components/MenuTop';
 import MonthSelector from '../components/MonthSelector';
@@ -16,10 +16,11 @@ import PlusButtonMenu from '../components/PlusButtonMenu';
 import colors from '../styles/colors';
 import styles from '../styles/Home';
 import { useDispatch } from 'react-redux';
+import i18n from '../i18n';
 
 const Home = ({route, navigation}) => {
     const dispatch = useDispatch();
-    const defaultTitle = 'Money Ctrl';
+    const defaultTitle = i18n.t('pages.home.default_title');
     const [drawer, setDrawer] = useState();
     const [type, setType] = useState();
     const [title, setTitle] = useState(defaultTitle);
@@ -30,9 +31,9 @@ const Home = ({route, navigation}) => {
                 let newType = route.params.type;
                 dispatch(filterByType(newType));
                 setType(newType);
-                let currTitle = defaultTitle;
-                if(newType == gTypes.EXPENSE) currTitle = 'Expenses';
-                if(newType == gTypes.REVENUE) currTitle = 'Revenues';
+                let currTitle = i18n.t('pages.home.default_title');
+                if(newType == gTypes.EXPENSE) currTitle = i18n.t('pages.home.expenses_title');
+                if(newType == gTypes.REVENUE) currTitle = i18n.t('pages.home.revenues_title');
                 setTitle(currTitle);
             }
         }
@@ -79,7 +80,7 @@ const Home = ({route, navigation}) => {
                 type={type}
                 onPressPlusBtn={onPressPlusBtn}
             />}
-            <FooterHome type={type}/>
+            <Footer type={type}/>
             <StatusBar style="light"/>
         </DrawerLayout>
     );

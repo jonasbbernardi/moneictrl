@@ -17,38 +17,32 @@ const styles = StyleSheet.create({
         width: '100%',
         padding: 10,
     },
-    fieldset: {
-        marginTop: 5
+    formRow:{
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        padding: 5,
     },
-    fieldsetFlex: {
+    description: {
+        width: '100%',
+        fontSize: 18,
+        textAlign: 'center',
+        borderWidth: 1,
+        padding: 10,
+    },
+    value:{
         flex: 1,
-        marginTop: 5
+        textAlign: 'center',
+        borderWidth: 1,
+        margin: 1,
+        padding: 10,
+        fontWeight: 'bold',
     },
-    label: {
-        left: 5,
-        top: -5,
-        fontSize: 10,
-        position: 'absolute'
-    },
-    descriptionText: {
-        width: '85%',
-        borderBottomWidth: 1,
-        borderColor: colors.lightGray,
-        margin: 5,
-    },
-    valueText: {
+    dueDate:{
         flex: 1,
-        borderBottomWidth: 1,
-        borderColor: colors.lightGray,
-        margin: 5,
-        marginRight: 20,
-    },
-    dueDateInput: {
-        height: 30,
-        borderWidth: 0,
-        borderBottomWidth: 1,
-        borderColor: colors.lightGray,
-        margin: 5,
+        textAlign: 'center',
+        borderWidth: 1,
+        margin: 1,
+        padding: 10,
     },
     viewButtons: {
         marginTop: 20,
@@ -57,12 +51,16 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
     },
-    saveButton: {
+    editButton: {
         ...common.buttonStyle,
-        backgroundColor: colors.green,
+        backgroundColor: colors.blue,
+    },
+    markButton: {
+        ...common.buttonStyle,
+        backgroundColor: colors.green
     },
     buttonLabel: {
-        color: colors.white
+        color: colors.white,
     },
     statusBar: {
         backgroundColor: colors.lightBlue,

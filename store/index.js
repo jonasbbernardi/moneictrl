@@ -99,7 +99,21 @@ const currentItems = (state = [], action) => {
     }
 }
 
-const reducers = { items, currentMonth, currentFilter, currentItems }
+import * as Localization from 'expo-localization';
+const locale = (state = Localization.locale, action) => {
+    if(action.type == gActions.CHANGE_LOCALE){
+        return action.locale;
+    }
+    return state;
+}
+
+const reducers = {
+    items,
+    currentMonth,
+    currentFilter,
+    currentItems,
+    locale
+}
 
 const store = createStore(combineReducers(reducers));
 

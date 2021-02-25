@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Constants from 'expo-constants';
 
 import styles from '../styles/MenuLeft';
 
@@ -21,6 +22,12 @@ const MenuLeft = (props) => {
 
     const onPressExpenses = () => {
         navigation.navigate('Home', {type: gTypes.EXPENSE});
+        if(typeof props.closeDrawer === 'function')
+            props.closeDrawer();
+    }
+
+    const onPressSettings = () => {
+        navigation.navigate('Settings');
         if(typeof props.closeDrawer === 'function')
             props.closeDrawer();
     }
@@ -56,7 +63,17 @@ const MenuLeft = (props) => {
                 >
                     <Text style={styles.menuText}>Expenses</Text>
                 </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.menuItem}
+                    activeOpacity={btnOpacity}
+                    onPress={onPressSettings}
+                >
+                    <Text style={styles.menuText}>Settings</Text>
+                </TouchableOpacity>
             </View>
+            <Text style={styles.version}>
+                Version: {Constants.nativeAppVersion}
+            </Text>
         </View>
     );
 }

@@ -46,13 +46,14 @@ const EditItem = ({route, navigation}) => {
 
     const removeAction = () => {
         navigation.goBack();
+        navigation.goBack();
         dispatch(removeItem(id));
     }
 
     return (
         <View style={styles.container}>
             <View style={styles.statusBar} />
-            <MenuTop title={item.type === gTypes.EXPENSE ? 'View Expense' : 'View Revenue'}
+            <MenuTop title={item.type === gTypes.EXPENSE ? 'Edit Expense' : 'Edit Revenue'}
                 showBackButton={true}
             />
             <View style={styles.form}>
@@ -97,7 +98,6 @@ const EditItem = ({route, navigation}) => {
                 </View>
             </View>
             <StatusBar style="light"/>
-            <Text>{google_admob_edit_id}</Text>
             <AdMobBanner
                 style={{marginVertical: 10}}
                 bannerSize="largeBanner"

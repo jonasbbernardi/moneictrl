@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faHandHoldingUsd, faFunnelDollar, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import styles from '../styles/PlusButtonMenu';
+import colors from '../styles/colors';
 
 library.add( faHandHoldingUsd, faFunnelDollar, faTimes );
 
@@ -74,7 +75,7 @@ const PlusButtonMenu = (props) => {
                         onPress={() => closeMenu(props.onPressRevenueBtn)}>
                         {labeledButtons && revenueLabel}
                         {labeledButtons && touchableShadow}
-                        <FontAwesomeIcon icon="hand-holding-usd" color="#eee" size={ 24 } />
+                        <FontAwesomeIcon icon="hand-holding-usd" color={colors.white} size={ 24 } />
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={{...styles.despesaBtn, display: menuOppened ? 'flex' : 'none'}}
@@ -82,7 +83,7 @@ const PlusButtonMenu = (props) => {
                         onPress={() => closeMenu(props.onPressExpenseBtn)}>
                         {labeledButtons && expenseLabel}
                         {labeledButtons && touchableShadow}
-                        <FontAwesomeIcon icon="funnel-dollar" color="#eee" size={ 24 } />
+                        <FontAwesomeIcon icon="funnel-dollar" color={colors.white} size={ 24 } />
                     </TouchableOpacity>
                 </Animated.View>
                 <Animated.View style={{
@@ -93,7 +94,7 @@ const PlusButtonMenu = (props) => {
                         style={styles.openCloseBtn}
                         activeOpacity={ btnOpacity }
                         onPress={() => toggleMenu()} >
-                        <FontAwesomeIcon icon="times" color="#eee" size={ 24 } />
+                        <FontAwesomeIcon icon="times" color={colors.white} size={ 24 } />
                     </TouchableOpacity>
                 </Animated.View>
             </View>
