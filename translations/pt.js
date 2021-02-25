@@ -44,6 +44,12 @@ export default pt = {
             save: 'Salvar',
             remove: 'Remover',
         },
+        view_item: {
+            description: 'Descrição',
+            value: 'Valor',
+            due_date: 'Vencimento',
+            edit: 'Editar',
+        },
         home: {
             default_title: 'Monei Ctrl',
             expenses_title: 'Despesas',

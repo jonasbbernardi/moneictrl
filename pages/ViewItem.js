@@ -15,6 +15,7 @@ import { applyMask } from '../services/mask';
 
 import styles from '../styles/ViewItem';
 import colors from '../styles/colors';
+import i18n from '../i18n';
 
 library.add( faCheck );
 
@@ -25,6 +26,10 @@ const ViewItem = ({route, navigation}) => {
     var item = useSelector(state => state.items.find(item => item.id == id));
     const [value, setValue] = useState(applyMask(item.value.toString(), moneyMask));
     const [valueColor, setValueColor] = useState(colors.black);
+    const descriptionLabel = i18n.t('pages.view_item.description');
+    const valueLabel = i18n.t('pages.view_item.value');
+    const dueDateLabel = i18n.t('pages.view_item.due_date');
+    const editLabel = i18n.t('pages.view_item.edit');
 
     useEffect(() => {
         if(item.value != value){
@@ -51,18 +56,24 @@ const ViewItem = ({route, navigation}) => {
             />
             <View style={styles.form}>
                 <View style={styles.formRow}>
-                    <Text style={styles.description}>{item.description}</Text>
+                    <View style={styles.description}>
+                        <Text style={styles.label}>{descriptionLabel}</Text>
+                        <Text style={styles.descriptionText}>{item.description}</Text>
+                    </View>
                 </View>
                 <View style={styles.formRow}>
-                    <Text style={{
-                        ...styles.value,
-                        color: valueColor
-                    }}>
-                        {value}
-                    </Text>
-                    <Text style={styles.dueDate}>
-                        {moment(item.due_date).format(currentDateFormat)}
-                    </Text>
+                    <View style={styles.value}>
+                        <Text style={styles.label}>{valueLabel}</Text>
+                        <Text style={{ ...styles.valueText, color: valueColor }}>
+                            {value}
+                        </Text>
+                    </View>
+                    <View style={styles.dueDate}>
+                        <Text style={styles.label}>{dueDateLabel}</Text>
+                        <Text style={styles.dueDateText}>
+                            {moment(item.due_date).format(currentDateFormat)}
+                        </Text>
+                    </View>
                 </View>
                 <View style={styles.viewButtons}>
                     <TouchableOpacity
@@ -78,7 +89,7 @@ const ViewItem = ({route, navigation}) => {
                         style={styles.editButton}
                         activeOpacity={btnOpacity}
                         onPress={editAction}>
-                        <Text style={styles.buttonLabel}>Edit</Text>
+                        <Text style={styles.buttonLabel}>{editLabel}</Text>
                     </TouchableOpacity>
                 </View>
                 </View>

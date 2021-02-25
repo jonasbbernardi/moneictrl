@@ -8,7 +8,12 @@ const buttonStyle = {
     justifyContent: 'center',
     borderRadius: 5,
     borderColor: colors.white,
-}
+};
+const buttonLabel = {
+    color: colors.white,
+    fontSize: 18,
+    fontWeight: 'bold',
+};
 const roundBtnStyle = {
     flex: 1,
     width: 60,
@@ -19,10 +24,10 @@ const roundBtnStyle = {
     borderRadius: 50,
     borderWidth: 1,
     borderColor: '#eee'
-}
+};
 
 const common = {
-    buttonStyle, roundBtnStyle
+    buttonStyle, buttonLabel, roundBtnStyle
 }
 
 export default common;

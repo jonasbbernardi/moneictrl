@@ -44,6 +44,12 @@ export default en = {
             save: 'Save',
             remove: 'Remove',
         },
+        view_item: {
+            description: 'Description',
+            value: 'Value',
+            due_date: 'Due date',
+            edit: 'Edit',
+        },
         home: {
             default_title: 'Monei Ctrl',
             expenses_title: 'Expenses',

@@ -116,7 +116,13 @@ const EditItem = ({route, navigation}) => {
                     <View style={styles.fieldsetFlex}>
                         <Text style={styles.label}>{dueDateLabel}</Text>
                         <DatePicker
-                            customStyles={{ dateInput: styles.dueDateInput }}
+                            style={styles.dueDateOut}
+                            customStyles={{
+                                dateInput: styles.dueDateInput,
+                                dateTouchBody: styles.dueDateTouchBody,
+                                dateText: styles.dueDateInputText,
+                                placeholderText: styles.dueDateInputText,
+                            }}
                             format={currentDateFormat}
                             date={dueDate}
                             mode="date"

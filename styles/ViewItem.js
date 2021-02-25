@@ -20,32 +20,50 @@ const styles = StyleSheet.create({
     formRow:{
         flexDirection: 'row',
         justifyContent: 'space-around',
-        padding: 5,
+        marginHorizontal: 10,
     },
     description: {
         width: '100%',
-        fontSize: 18,
-        textAlign: 'center',
         borderWidth: 1,
         padding: 10,
     },
+    descriptionText: {
+        fontSize: 18,
+        textAlign: 'center',
+    },
     value:{
         flex: 1,
-        textAlign: 'center',
         borderWidth: 1,
-        margin: 1,
+        marginTop: 10,
+        marginRight: 5,
         padding: 10,
+    },
+    valueText: {
+        fontSize: 18,
+        textAlign: 'center',
         fontWeight: 'bold',
     },
     dueDate:{
         flex: 1,
-        textAlign: 'center',
         borderWidth: 1,
-        margin: 1,
+        marginTop: 10,
+        marginLeft: 5,
         padding: 10,
     },
+    dueDateText: {
+        fontSize: 18,
+        textAlign: 'center',
+    },
+    label: {
+        left: 5,
+        top: -7,
+        fontSize: 10,
+        position: 'absolute',
+        paddingHorizontal: 5,
+        backgroundColor: colors.trueWhite,
+    },
     viewButtons: {
-        marginTop: 20,
+        marginTop: 10,
         height: 50,
         width: '100%',
         flexDirection: 'row',
@@ -60,7 +78,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.green
     },
     buttonLabel: {
-        color: colors.white,
+        ...common.buttonLabel
     },
     statusBar: {
         backgroundColor: colors.lightBlue,

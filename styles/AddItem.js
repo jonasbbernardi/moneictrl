@@ -4,6 +4,8 @@ import Constants from 'expo-constants';
 import colors from './colors';
 import common from './common';
 
+const fieldFontSize = 18;
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -18,40 +20,53 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     fieldset: {
-        marginTop: 5
+        marginTop: 5,
+        marginHorizontal: 5,
     },
     fieldsetFlex: {
         flex: 1,
-        marginTop: 5
+        marginTop: 5,
+        marginHorizontal: 5,
     },
     label: {
-        left: 5,
+        left: 10,
         top: -5,
         fontSize: 10,
-        position: 'absolute'
+        position: 'absolute',
     },
     descriptionText: {
-        width: '85%',
+        width: '90%',
+        fontSize: fieldFontSize,
         borderBottomWidth: 1,
         borderColor: colors.lightGray,
-        margin: 5,
+        margin: 10,
     },
     valueText: {
-        flex: 1,
+        fontSize: fieldFontSize,
         borderBottomWidth: 1,
         borderColor: colors.lightGray,
-        margin: 5,
-        marginRight: 20,
+        margin: 10,
+    },
+    dueDateOut: {
+        flex: 1,
+        minWidth: 150,
+        margin: 10,
+        marginLeft: 0,
     },
     dueDateInput: {
         height: 30,
         borderWidth: 0,
         borderBottomWidth: 1,
         borderColor: colors.lightGray,
-        margin: 5,
+    },
+    dueDateInputText: {
+        fontSize: fieldFontSize,
+    },
+    dueDateTouchBody: {
+        height: 27
     },
     viewButtons: {
-        marginTop: 20,
+        marginTop: 10,
         height: 50,
         width: '100%',
         flexDirection: 'row',
@@ -62,7 +77,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.green,
     },
     buttonLabel: {
-        color: colors.white
+        ...common.buttonLabel,
     },
     statusBar: {
         backgroundColor: colors.lightBlue,
