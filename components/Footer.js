@@ -6,6 +6,7 @@ import { applyMask } from '../services/mask';
 
 import styles from '../styles/Footer';
 import colors from '../styles/colors';
+import i18n from '../i18n';
 
 const Footer = (props) => {
     const items = useSelector(state => state.currentItems);
@@ -15,6 +16,12 @@ const Footer = (props) => {
     const [balance, setBalance] = useState(0);
     const [totalToPay, setTotalToPay] = useState(0);
     const [totalToReceive, setTotalToReceive] = useState(0);
+
+    const totalRevenueLabel = i18n.t('components.footer.total.revenue');
+    const totalExpenseLabel = i18n.t('components.footer.total.expense');
+    const totalBalanceLabel = i18n.t('components.footer.total.balance');
+    const totalToPayLabel = i18n.t('components.footer.total.to_pay');
+    const totalToReceiveLabel = i18n.t('components.footer.total.to_receive');
 
     useEffect(() => {
         let sumRevenues = 0;
@@ -38,7 +45,7 @@ const Footer = (props) => {
             { (!props.type || props.type == gTypes.REVENUE) &&
                 <View style={styles.paragraph}>
                     <Text style={styles.text}>
-                        Total revenues: 
+                        {totalRevenueLabel} 
                     </Text>
                     <Text style={{...styles.counter,
                             color: colors.green
@@ -48,7 +55,7 @@ const Footer = (props) => {
             { (!props.type || props.type == gTypes.EXPENSE) &&
                 <View style={styles.paragraph}>
                     <Text style={styles.text}>
-                        Total expenses: 
+                        {totalExpenseLabel} 
                     </Text>
                     <Text style={{...styles.counter,
                             color: colors.lightRed
@@ -58,27 +65,27 @@ const Footer = (props) => {
             { !props.type &&
                 <View style={styles.paragraph}>
                     <Text style={styles.lastText}>
-                        Total balance: 
+                        {totalBalanceLabel} 
                     </Text>
                     <Text style={{...styles.counter,
                             color: balance < 0 ? colors.red : balance > 0 ? colors.green : colors.white
                         }}>{balance}
                     </Text>
                 </View>}
-            { !!props.type && props.type == gTypes.EXPENSE && 
+            { props.type == gTypes.EXPENSE && 
                     <View style={styles.paragraph}>
                         <Text style={styles.lastText}>
-                            Total to pay:
+                            {totalToPayLabel}
                         </Text>
                         <Text style={{...styles.counter,
                                 color: totalToPay < 0 ? colors.red : totalToPay > 0 ? colors.green : colors.white
                             }}>{totalToPay}
                         </Text>
                     </View>}
-            { !!props.type && props.type == gTypes.REVENUE && 
+            { props.type == gTypes.REVENUE && 
                 <View style={styles.paragraph}>
                     <Text style={styles.lastText}>
-                        Total to receive:
+                        {totalToReceiveLabel}
                     </Text>
                     <Text style={{...styles.counter,
                             color: totalToReceive < 0 ? colors.red : totalToReceive > 0 ? colors.green : colors.white

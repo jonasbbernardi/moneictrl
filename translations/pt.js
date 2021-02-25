@@ -1,4 +1,9 @@
-export default en = {
+export default pt = {
+    components: {
+        all_items_list: {
+            due_date: 'Vencimento:',
+        }
+    },
     pages: {
         add_item: {
             title_expense: 'Adicionar Despesa',
@@ -16,7 +21,11 @@ export default en = {
         },
         settings: {
             title: 'Configurações',
-            select_language: 'Idioma:'
+            select_language: 'Idioma:',
+            options: {
+                english: 'Inglês',
+                portuguese: 'Português',
+            }
         }
     }
 }

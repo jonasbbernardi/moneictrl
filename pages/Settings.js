@@ -18,16 +18,22 @@ import styles from '../styles/Settings';
 const Settings = () => {
     const dispatch = useDispatch();
 
+    var controller;
+
     const initialTitle = i18n.t('pages.settings.title');
     const initialLanguage = i18n.t('pages.settings.select_language');
+    const initialEnglishOptionLabel = i18n.t('pages.settings.options.english');
+    const initialPortugueseOptionLabel = i18n.t('pages.settings.options.portuguese');
 
     const [drawer, setDrawer] = useState();
     const [title, setTitle] = useState(initialTitle);
     const [selectLanguageText, setSelectLanguageText] = useState(initialLanguage);
+    const [englishOptionLabel, setEnglishOptionLabel] = useState(initialEnglishOptionLabel);
+    const [portugueseOptionLabel, setPortugueseOptionLabel] = useState(initialPortugueseOptionLabel);
 
-    const items = [
-        {label: 'English', value: 'en-US', icon: () => <Flag code="US" size={16}/>},
-        {label: 'Portuguese', value: 'pt-BR', icon: () => <Flag code="BR" size={16}/>}
+    var items = [
+        {label: englishOptionLabel, value: 'en-US', icon: () => <Flag code="US" size={16}/>},
+        {label: portugueseOptionLabel, value: 'pt-BR', icon: () => <Flag code="BR" size={16}/>}
     ];
 
     const onChangeItem = (item) => {
@@ -35,6 +41,8 @@ const Settings = () => {
         setTimeout(() => {
             setTitle(i18n.t('pages.settings.title'));
             setSelectLanguageText(i18n.t('pages.settings.select_language'));
+            setEnglishOptionLabel(i18n.t('pages.settings.options.english'));
+            setPortugueseOptionLabel(i18n.t('pages.settings.options.portuguese'));
         })
     }
 
@@ -61,6 +69,7 @@ const Settings = () => {
                 <View style={styles.fieldset}>
                     <Text style={styles.label}>{selectLanguageText}</Text>
                     <DropDownPicker
+                        controller={instance => controller = instance}
                         containerStyle={styles.field}
                         items={items}
                         itemStyle={{ justifyContent: 'flex-start' }}

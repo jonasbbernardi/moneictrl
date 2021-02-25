@@ -1,4 +1,18 @@
 export default en = {
+    components: {
+        all_items_list: {
+            due_date: 'Due date:',
+        },
+        footer: {
+            total: {
+                revenue: 'Total revenues',
+                expense: 'Total expenses',
+                balance: 'Total balance',
+                to_pay: 'Total to pay',
+                to_receive: 'Total to receive',
+            },
+        },
+    },
     pages: {
         add_item: {
             title_expense: 'Add Expense',
@@ -16,7 +30,11 @@ export default en = {
         },
         settings: {
             title: 'Settings',
-            select_language: 'Language:'
+            select_language: 'Language:',
+            options: {
+                english: 'English',
+                portuguese: 'Portuguese',
+            }
         }
     }
 }

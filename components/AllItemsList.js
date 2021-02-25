@@ -3,6 +3,7 @@ import { Text, View, FlatList, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
+import i18n from '../i18n';
 
 import {applyMask} from '../services/mask';
 
@@ -14,6 +15,7 @@ const AllItemsList = (props) => {
     const currentItems = useSelector(state => state.currentItems);
     const moneyMask = useSelector(state => state.moneyMask);
     const currentDateFormat = useSelector(state => state.currentDateFormat);
+    const dateLabel = i18n.t('components.all_items_list.due_date');
 
     const [listData, setListData] = useState([]);
 
@@ -50,7 +52,7 @@ const AllItemsList = (props) => {
                 </View>
                 <View style={styles.secondRow}>
                     <Text style={styles.dueDate}>
-                        {'Due date: ' + moment(item.due_date).format(currentDateFormat)}
+                        {dateLabel + moment(item.due_date).format(currentDateFormat)}
                     </Text>
                 </View>
             </TouchableOpacity>
