@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import Constants from 'expo-constants';
 
 import AddItem from './AddItem';
 import colors from './colors';

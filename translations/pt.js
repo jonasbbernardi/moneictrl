@@ -11,7 +11,7 @@ export default pt = {
             total: {
                 revenue: 'Rendimentos:',
                 expense: 'Despesas:',
-                balance: 'Saldo total:',
+                balance: 'Saldo mensal:',
                 to_pay: 'Total a pagar:',
                 to_receive: 'Total a receber:',
             },
@@ -27,6 +27,22 @@ export default pt = {
             add_revenue: 'Rendimento',
             add_expense: 'Despesa'
         },
+        save_modal: {
+            revenue_title: 'Salvar Rendimento',
+            expense_title: 'Salvar Despesa',
+            default_title: 'Salvar Item',
+            save: 'Salvar',
+            save_all: 'Salvar Todos',
+            cancel: 'Cancelar',
+        },
+        remove_modal: {
+            revenue_title: 'Remover Rendimento',
+            expense_title: 'Remover Despesa',
+            default_title: 'Remover Item',
+            remove: 'Remover',
+            remove_all: 'Remover Todos',
+            cancel: 'Cancelar',
+        },
     },
     pages: {
         add_item: {
@@ -36,6 +52,9 @@ export default pt = {
             description: 'Descrição',
             value: 'Valor',
             due_date: 'Vencimento',
+            recurring: 'Repetir',
+            recurring_always: 'Sempre',
+            recurring_installments: 'Parcelas',
             save: 'Salvar',
         },
         edit_item: {
@@ -45,10 +64,16 @@ export default pt = {
             description: 'Descrição',
             value: 'Valor',
             due_date: 'Vencimento',
+            recurring: 'Repetir',
+            recurring_always: 'Sempre',
+            recurring_installments: 'Parcelas',
             save: 'Salvar',
             remove: 'Remover',
         },
         view_item: {
+            title_expense: 'Despesa',
+            title_revenue: 'Rendimento',
+            default_title: 'Visualizar Item',
             description: 'Descrição',
             value: 'Valor',
             due_date: 'Vencimento',

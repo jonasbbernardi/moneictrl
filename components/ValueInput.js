@@ -7,12 +7,9 @@ const TextInputMask = (props) => {
     const maskedValue = applyMask(value, props.mask);
     const [inputValue, changeText] = useState(maskedValue);
 
-    var input;
-
     const onChangeText = (text) => {
-        input.clear();
         let textWithoutMask = text;
-        if(!!text && text !== inputValue && !!props.mask){
+        if(text !== inputValue && !!props.mask){
             textWithoutMask = removeMask(text, props.mask);
             text = applyMask(textWithoutMask, props.mask);
         }
@@ -23,7 +20,6 @@ const TextInputMask = (props) => {
     }
 
     const setRef = (ref) => {
-        input = ref;
         if(typeof props.inputRef === 'function')
             return props.inputRef(ref);
         return ref;

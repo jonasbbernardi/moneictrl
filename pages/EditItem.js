@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Keyboard, Text, TextInput, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
@@ -8,10 +8,13 @@ import DatePicker from 'react-native-datepicker';
 import moment from 'moment';
 import i18n from '../i18n';
 
-import {removeItem} from '../actions/removeItem';
+import {addItem} from '../actions/addItem';
 import {editItem} from '../actions/editItem';
+import {removeItem} from '../actions/removeItem';
 
 import MenuTop from '../components/MenuTop';
+import RemoveModal from '../components/RemoveModal';
+import SaveModal from '../components/SaveModal';
 import ValueInput from '../components/ValueInput';
 
 import styles from '../styles/EditItem';
@@ -19,10 +22,19 @@ import styles from '../styles/EditItem';
 const EditItem = ({route, navigation}) => {
     const dispatch = useDispatch();
     const moneyMask = useSelector(state => state.moneyMask);
+    const currentDate = useSelector(state => state.currentMonth);
     const currentDateFormat = useSelector(state => state.currentDateFormat);
     const {id, type} = route.params;
     const item = useSelector(state => state.items.find(item => item.id == id));
-    const due_date = moment(item.due_date);
+
+    const getDueDate = () => {
+        let date = moment(item.due_date);
+        if(currentDate.month() != date.month()){
+            date.month(currentDate.month());
+        }
+        return moment(date);
+    }
+    const due_date = getDueDate();
 
     const title =
         type === gTypes.EXPENSE ? i18n.t('pages.edit_item.title_expense') :
@@ -43,7 +55,10 @@ const EditItem = ({route, navigation}) => {
     const [description, setDescription] = useState(item.description);
     const [value, setValue] = useState(item.value);
     const [dueDate, setDueDate] = useState(due_date);
+    const recurring = item.recurring?.isRecurring;
     const [valueInput, setValueInput] = useState();
+    const [saveModalVisible, setSaveModalVisible] = useState(false);
+    const [removeModalVisible, setRemoveModalVisible] = useState(false);
     const [descriptionLabelStyle, setDescriptionLabelStyle] = useState(item.description ? defaultLabelStyleShow : defaultLabelStyleHide);
     const descriptionLabel = i18n.t('pages.edit_item.description');
     const valueLabel = i18n.t('pages.edit_item.value');
@@ -58,6 +73,15 @@ const EditItem = ({route, navigation}) => {
     }
 
     const saveAction = () => {
+        if(recurring){
+            setSaveModalVisible(true);
+        } else {
+            saveAll();
+        }
+    }
+
+    const saveAll = () => {
+        setSaveModalVisible(false);
         let editedItem = {
             id,
             description,
@@ -66,9 +90,52 @@ const EditItem = ({route, navigation}) => {
         };
         dispatch(editItem(editedItem));
         navigation.goBack();
+        navigation.goBack();
+    }
+    const saveThis = () => {
+        setSaveModalVisible(false);
+        let newItem = {
+            type: item.type,
+            description,
+            value: Number(value),
+            due_date: dueDate
+        };
+        dispatch(addItem(newItem));
+        removeThis();
     }
 
     const removeAction = () => {
+        if(recurring){
+            setRemoveModalVisible(true);
+        } else {
+            removeAll();
+        }
+    }
+    const removeThis = () => {
+        setRemoveModalVisible(false);
+        navigation.goBack();
+        navigation.goBack();
+        let exclude = item.recurring?.exclude ?? [];
+        let editted = {
+            id,
+            recurring: {
+                ...item.recurring,
+                exclude: [
+                    ...exclude,
+                    { m: currentDate.month(), y: currentDate.year() }
+                ]
+            }
+        }
+        let recurring = editted.recurring;
+        if(!recurring.always && !!recurring.exclude &&
+            recurring.exclude.length >= recurring.installments){
+            dispatch(removeItem(id));
+        } else {
+            dispatch(editItem(editted));
+        }
+    }
+    const removeAll = () => {
+        setRemoveModalVisible(false);
         navigation.goBack();
         navigation.goBack();
         dispatch(removeItem(id));
@@ -83,37 +150,37 @@ const EditItem = ({route, navigation}) => {
     return (
         <View style={styles.container}>
             <View style={styles.statusBar} />
-            <MenuTop title={title}
-                showBackButton={true}
-            />
+            <MenuTop title={title} showBackButton={true} />
             <View style={styles.form}>
-                <View style={styles.fieldset}>
-                    <Text style={descriptionLabelStyle}>
-                        {descriptionLabel}
-                    </Text>
-                    <TextInput
-                        placeholder={descriptionLabel}
-                        style={styles.descriptionText}
-                        autoFocus
-                        returnKeyType='next'
-                        onSubmitEditing={() => { valueInput.focus(); }}
-                        onChangeText={onChangeDescriptionText}
-                        value={description}
-                    />
+                <View style={styles.formRow}>
+                    <View style={styles.fieldset}>
+                        <Text style={descriptionLabelStyle}>
+                            {descriptionLabel}
+                        </Text>
+                        <TextInput
+                            placeholder={descriptionLabel}
+                            style={styles.descriptionText}
+                            autoFocus
+                            returnKeyType='next'
+                            onSubmitEditing={() => { valueInput.focus(); }}
+                            onChangeText={onChangeDescriptionText}
+                            value={description}
+                        />
+                    </View>
                 </View>
-                <View style={{ flexDirection: 'row', width: '100%' }}>
-                    <View style={styles.fieldsetFlex}>
+                <View style={styles.formRow}>
+                    <View style={styles.fieldset}>
                         <Text style={styles.label}>{valueLabel}</Text>
                         <ValueInput
                             style={styles.valueText}
-                            inputRef={ref => { setValueInput(ref) }}
+                            inputRef={setValueInput}
                             placeholder={valueLabel}
                             mask={moneyMask}
                             onChangeText={text => setValue(text.replace(/\D/, ''))}
                             value={value}
                         />
                     </View>
-                    <View style={styles.fieldsetFlex}>
+                    <View style={styles.fieldset}>
                         <Text style={styles.label}>{dueDateLabel}</Text>
                         <DatePicker
                             style={styles.dueDateOut}
@@ -130,12 +197,24 @@ const EditItem = ({route, navigation}) => {
                     </View>
                 </View>
                 <View style={styles.viewButtons}>
+                    <SaveModal
+                        type={item.type}
+                        visible={saveModalVisible}
+                        onSave={saveThis}
+                        onSaveAll={saveAll}
+                        onCancel={() => setSaveModalVisible(false) } />
                     <TouchableOpacity
                         style={styles.saveButton}
                         activeOpacity={btnOpacity}
                         onPress={saveAction}>
                         <Text style={styles.buttonLabel}>{saveLabel}</Text>
                     </TouchableOpacity>
+                    <RemoveModal
+                        type={item.type}
+                        visible={removeModalVisible}
+                        onRemove={removeThis}
+                        onRemoveAll={removeAll}
+                        onCancel={() => setRemoveModalVisible(false) } />
                     <TouchableOpacity
                         style={styles.removeButton}
                         activeOpacity={btnOpacity}

@@ -11,7 +11,7 @@ export default en = {
             total: {
                 revenue: 'Total revenues:',
                 expense: 'Total expenses:',
-                balance: 'Total balance:',
+                balance: 'Month balance:',
                 to_pay: 'Total to pay:',
                 to_receive: 'Total to receive:',
             },
@@ -25,7 +25,23 @@ export default en = {
         },
         plus_button_menu: {
             add_revenue: 'Add Revenue',
-            add_expense: 'Add Expense'
+            add_expense: 'Add Expense',
+        },
+        save_modal: {
+            revenue_title: 'Save Revenue',
+            expense_title: 'Save Expense',
+            default_title: 'Save Item',
+            save: 'Save',
+            save_all: 'Save All',
+            cancel: 'Cancel',
+        },
+        remove_modal: {
+            revenue_title: 'Remove Revenue',
+            expense_title: 'Remove Expense',
+            default_title: 'Remove Item',
+            remove: 'Remove',
+            remove_all: 'Remove All',
+            cancel: 'Cancel',
         },
     },
     pages: {
@@ -36,6 +52,9 @@ export default en = {
             description: 'Description',
             value: 'Value',
             due_date: 'Due date',
+            recurring: 'Repeat',
+            recurring_always: 'Always',
+            recurring_installments: 'Installments',
             save: 'Save',
         },
         edit_item: {
@@ -45,10 +64,16 @@ export default en = {
             description: 'Description',
             value: 'Value',
             due_date: 'Due date',
+            recurring: 'Repeat',
+            recurring_always: 'Always',
+            recurring_installments: 'Installments',
             save: 'Save',
             remove: 'Remove',
         },
         view_item: {
+            title_expense: 'Expense',
+            title_revenue: 'Revenue',
+            default_title: 'View Item',
             description: 'Description',
             value: 'Value',
             due_date: 'Due date',

@@ -19,51 +19,65 @@ const styles = StyleSheet.create({
         width: '100%',
         padding: 10,
     },
-    fieldset: {
-        marginTop: 5,
-        marginHorizontal: 5,
+    formRow: {
+        flexDirection: 'row',
+        width: '100%'
     },
-    fieldsetFlex: {
+    fieldset: {
         flex: 1,
+        flexDirection: 'row',
         marginTop: 5,
         marginHorizontal: 5,
+        alignItems: 'center',
     },
     label: {
-        left: 10,
+        left: 5,
         top: -5,
         fontSize: 10,
         position: 'absolute',
     },
     descriptionText: {
-        width: '90%',
+        flex: 1,
         fontSize: fieldFontSize,
         borderBottomWidth: 1,
         borderColor: colors.lightGray,
-        margin: 10,
+        marginVertical: 10,
+        paddingLeft: 5,
     },
     valueText: {
+        flex: 1,
         fontSize: fieldFontSize,
         borderBottomWidth: 1,
         borderColor: colors.lightGray,
-        margin: 10,
+        marginVertical: 10,
+        paddingLeft: 5,
     },
     dueDateOut: {
         flex: 1,
         minWidth: 150,
-        margin: 10,
-        marginLeft: 0,
+        marginVertical: 10,
     },
     dueDateInput: {
         height: 30,
         borderWidth: 0,
         borderBottomWidth: 1,
         borderColor: colors.lightGray,
+        alignItems: 'flex-start',
+        paddingLeft: 5,
+        marginTop: -1
     },
     dueDateInputText: {
         fontSize: fieldFontSize,
     },
     dueDateTouchBody: {
-        height: 27
+        height: 27,
+    },
+    checkboxLabel: {
+        flex: 1,
+        fontSize: 16,
+    },
+    checkbox: {
+        marginLeft: -5,
     },
     viewButtons: {
         marginTop: 10,

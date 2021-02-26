@@ -25,13 +25,13 @@ const MenuTop = (props) => {
     })
 
     const toggleSearch = () => {
+        setSearchOpened(!searchOpened);
         if(!searchOpened) searchInput.focus();
         else {
             Keyboard.dismiss();
             searchInput.clear();
             dispatch(filterByDescription(''));
         }
-        setSearchOpened(!searchOpened);
     }
 
     const onChangeText = (text) => {
@@ -55,45 +55,38 @@ const MenuTop = (props) => {
 
     return (
         <View style={styles.container}>
+            { !props.showBackButton &&
             <TouchableOpacity
-                style={{...styles.menuLeftIcon,
-                    display: props.showBackButton ? 'none' : 'flex'
-                }}
+                style={styles.menuLeftIcon}
                 activeOpacity={ btnOpacity }
                 onPress={onMenu}>
                 <FontAwesomeIcon icon="bars" color="#eee" size={ 20 } />
-            </TouchableOpacity>
+            </TouchableOpacity>}
+            { props.showBackButton &&
             <TouchableOpacity
-                style={{...styles.menuLeftIcon,
-                    display: props.showBackButton ? 'flex' : 'none'
-                }}
+                style={styles.menuLeftIcon}
                 activeOpacity={ btnOpacity }
                 onPress={onBack}>
                 <FontAwesomeIcon icon="chevron-left" color="#eee" size={ 20 } />
-            </TouchableOpacity>
+            </TouchableOpacity>}
 
-            <Text
-                style={{ ...styles.title,
-                    display: searchOpened ? 'none' : 'flex',
-                }}>
+            {!searchOpened &&
+            <Text style={styles.title}>
                 {title}
-            </Text>
+            </Text>}
             <TextInput
-                style={{ ...styles.searchText,
-                    display: searchOpened ? 'flex' : 'none',
-                }}
+                style={{...styles.searchText, display: searchOpened ? 'flex' : 'none'}}
                 selectionColor={colors.white}
                 ref={input => { setSearchInput(input); }}
                 onChangeText={onChangeText}
                 onSubmitEditing={searchByText} />
 
-            <TouchableOpacity style={{...styles.searchIcon,
-                    display: props.showSearch ? 'flex' : 'none',
-                }}
+            {props.showSearch &&
+            <TouchableOpacity style={styles.searchIcon}
                 activeOpacity={ btnOpacity }
                 onPress={toggleSearch}>
                 <FontAwesomeIcon icon="search-dollar" color="#eee" size={ 20 } />
-            </TouchableOpacity>
+            </TouchableOpacity>}
         </View>
     );
 }

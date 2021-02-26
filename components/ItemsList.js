@@ -26,12 +26,11 @@ const ItemsList = (props) => {
     const [listData, setListData] = useState([]);
 
     useEffect(() => {
-        console.log('setting list');
         let items = currentItems;
         items = items.sort((a, b) => {
             let dueDateA = moment(a.due_date);
             let dueDateB = moment(b.due_date);
-            return dueDateA.diff(dueDateB, 'days');
+            return dueDateA.isAfter(dueDateB, 'days');
         });
         setListData(items);
     })
@@ -41,10 +40,7 @@ const ItemsList = (props) => {
     }
 
     const renderItem = ({index, item}) => {
-        if(!!item.deleted) return <></>;
-
-        const late = today.diff(moment(item.due_date), 'days');
-        console.log(item.description, late);
+        const late = today.isAfter(moment(item.due_date), 'days');
 
         const getBackgroundColor = () => {
             if(item.done) return colors.lightGreen;

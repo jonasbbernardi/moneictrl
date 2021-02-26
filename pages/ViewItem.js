@@ -21,38 +21,54 @@ import i18n from '../i18n';
 
 library.add( faCheck, faTimes );
 
+const getValueColor = (item) => {
+    if(item.type == gTypes.EXPENSE) return colors.red;
+    if(item.type == gTypes.REVENUE) return colors.green;
+    return colors.black;
+}
+const getTitle = (item) => {
+    if(item.type == gTypes.EXPENSE) return i18n.t('pages.view_item.title_expense');;
+    if(item.type == gTypes.REVENUE) return i18n.t('pages.view_item.title_revenue');;
+    return i18n.t('pages.view_item.default_title');;
+}
+
 const ViewItem = ({route, navigation}) => {
     const dispatch = useDispatch();
-    const moneyMask = useSelector(state => state.moneyMask);
-    const currentDateFormat = useSelector(state => state.currentDateFormat);
     const {id} = route.params;
-    var item = useSelector(state => state.items.find(item => item.id == id));
-    const [value, setValue] = useState(applyMask(item.value.toString(), moneyMask));
-    const [valueColor, setValueColor] = useState(colors.black);
+
+    // Get state items
+    const item = useSelector(state => state.items.find(item => item.id == id));
+    const currentDate = useSelector(state => state.currentMonth);
+    const currentDateFormat = useSelector(state => state.currentDateFormat);
+    const moneyMask = useSelector(state => state.moneyMask);
+
+    const value = applyMask(item.value.toString(), moneyMask);
+    const valueColor = getValueColor(item);
     const [displayDone, isDisplayDone] = useState(item.done);
+    const title = getTitle(item);
     const descriptionLabel = i18n.t('pages.view_item.description');
     const valueLabel = i18n.t('pages.view_item.value');
     const dueDateLabel = i18n.t('pages.view_item.due_date');
     const editLabel = i18n.t('pages.view_item.edit');
 
-    useEffect(() => {
-        if(item.value != value){
-            setValue(applyMask(item.value.toString(), moneyMask));
-            setValueColor(colors.black);
-            if(item.type == gTypes.EXPENSE) setValueColor(colors.red);
-            if(item.type == gTypes.REVENUE) setValueColor(colors.green);
+    const getDueDate = () => {
+        let date = moment(item.due_date);
+        if(currentDate.month() != date.month()){
+            date.month(currentDate.month());
         }
-    })
+        return moment(date).format(currentDateFormat)
+    }
+    const due_date = getDueDate();
 
     const doneAction = () => {
         dispatch(setItemDone({id: item.id}));
         isDisplayDone(true);
-        // navigation.goBack();
+        navigation.goBack();
     }
     const undoneAction = () => {
         dispatch(setItemUndone({id: item.id}));
         isDisplayDone(false);
-        // navigation.goBack();
+        navigation.goBack();
     }
 
     const editAction = () => {
@@ -62,7 +78,7 @@ const ViewItem = ({route, navigation}) => {
     return (
         <View style={styles.container}>
             <View style={styles.statusBar} />
-            <MenuTop title={item.type === gTypes.EXPENSE ? 'View Expense' : 'View Revenue'}
+            <MenuTop title={title}
                 showBackButton={true}
             />
             <View style={styles.form}>
@@ -82,7 +98,7 @@ const ViewItem = ({route, navigation}) => {
                     <View style={styles.dueDate}>
                         <Text style={styles.label}>{dueDateLabel}</Text>
                         <Text style={styles.dueDateText}>
-                            {moment(item.due_date).format(currentDateFormat)}
+                            {due_date}
                         </Text>
                     </View>
                 </View>
