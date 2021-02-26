@@ -58,7 +58,7 @@ const Footer = (props) => {
                         {totalExpenseLabel} 
                     </Text>
                     <Text style={{...styles.counter,
-                            color: colors.lightRed
+                            color: colors.darkRed
                         }}>{expenses}
                     </Text>
                 </View> }

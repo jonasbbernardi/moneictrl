@@ -7,7 +7,7 @@ import i18n from '../i18n';
 
 import { filterByType } from '../actions/filterByType';
 
-import AllItemsList from '../components/AllItemsList';
+import ItemsList from '../components/ItemsList';
 import Footer from '../components/Footer';
 import MenuLeft from '../components/MenuLeft';
 import MenuTop from '../components/MenuTop';
@@ -71,7 +71,7 @@ const Home = ({route, navigation}) => {
                 openDrawer={openDrawer}
             />
             <MonthSelector />
-            <AllItemsList type={type}/>
+            <ItemsList type={type}/>
             {!type && <PlusButtonMenu
                 onPressRevenueBtn={onPressRevenueBtn}
                 onPressExpenseBtn={onPressExpenseBtn}

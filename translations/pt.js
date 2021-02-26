@@ -2,6 +2,10 @@ export default pt = {
     components: {
         all_items_list: {
             due_date: 'Vencimento:',
+            late: 'Atraso',
+            paid: 'Pago',
+            received: 'Recebido',
+            done: 'Feito',
         },
         footer: {
             total: {

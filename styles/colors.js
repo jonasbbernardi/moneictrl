@@ -1,9 +1,10 @@
 const colors = {
     red: '#e22',
-    darkRed: '#c22',
-    lightRed: '#f44',
+    darkRed: '#f44',
+    lightRed: '#e223',
     green: '#2d5',
     darkGreen: '#0b3',
+    lightGreen: '#0b33',
     gray: '#777',
     lightGray: '#aaa',
     blue: '#27f',

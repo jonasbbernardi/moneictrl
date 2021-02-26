@@ -2,6 +2,10 @@ export default en = {
     components: {
         all_items_list: {
             due_date: 'Due date:',
+            late: 'Late',
+            paid: 'Paid',
+            received: 'Received',
+            done: 'Done',
         },
         footer: {
             total: {

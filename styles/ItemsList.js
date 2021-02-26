@@ -37,10 +37,17 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     dueDate: {
+        flex: 1,
         fontSize: 12,
         color: colors.gray,
     },
-    status: {},
+    status: {
+        flex: 1,
+        fontSize: 12,
+        color: colors.gray,
+        textAlign: 'right',
+        marginRight: 5
+    },
 });
 
 export default styles;
