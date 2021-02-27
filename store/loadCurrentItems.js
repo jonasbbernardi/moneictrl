@@ -1,8 +1,8 @@
 import moment from 'moment';
 
-const loadCurrentItems = ({items, currentMonth, currentFilter}) => {
-    const currMonth = currentMonth.month();
-    const currYear = currentMonth.year();
+const loadCurrentItems = ({items, currentDate, currentFilter}) => {
+    const currentMonth = currentDate.month();
+    const currentYear = currentDate.year();
     let newItems = items.filter(item => {
         // Filter deleted
         if(!!item.deleted) return false;
@@ -31,8 +31,8 @@ const loadCurrentItems = ({items, currentMonth, currentFilter}) => {
                 let installments = item.recurring.installments - 1;
                 let firstMonth = moment(item.due_date);
                 let lastMonth = moment(item.due_date).add(installments, 'month');
-                let isBeforeLast = currentMonth.isSameOrBefore(lastMonth, 'month');
-                let isAfterFirst = currentMonth.isSameOrAfter(firstMonth, 'month');
+                let isBeforeLast = currentDate.isSameOrBefore(lastMonth, 'month');
+                let isAfterFirst = currentDate.isSameOrAfter(firstMonth, 'month');
                 byRecurring = isBeforeLast && isAfterFirst;
             }
         }

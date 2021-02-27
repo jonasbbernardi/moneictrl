@@ -21,7 +21,7 @@ const AddItem = ({route, navigation}) => {
     const moneyMask = useSelector(state => state.moneyMask);
     const currentDateFormat = useSelector(state => state.currentDateFormat);
     const {type} = route.params;
-    const due_date = useSelector(state => state.currentMonth);
+    const due_date = useSelector(state => state.currentDate);
 
     const title =
         type === gTypes.EXPENSE ? i18n.t('pages.add_item.title_expense') :

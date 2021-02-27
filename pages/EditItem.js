@@ -22,7 +22,7 @@ import styles from '../styles/EditItem';
 const EditItem = ({route, navigation}) => {
     const dispatch = useDispatch();
     const moneyMask = useSelector(state => state.moneyMask);
-    const currentDate = useSelector(state => state.currentMonth);
+    const currentDate = useSelector(state => state.currentDate);
     const currentDateFormat = useSelector(state => state.currentDateFormat);
     const {id, type} = route.params;
     const item = useSelector(state => state.items.find(item => item.id == id));

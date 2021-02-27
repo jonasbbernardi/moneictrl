@@ -38,7 +38,7 @@ const ViewItem = ({route, navigation}) => {
 
     // Get state items
     const item = useSelector(state => state.items.find(item => item.id == id));
-    const currentDate = useSelector(state => state.currentMonth);
+    const currentDate = useSelector(state => state.currentDate);
     const currentDateFormat = useSelector(state => state.currentDateFormat);
     const moneyMask = useSelector(state => state.moneyMask);
 

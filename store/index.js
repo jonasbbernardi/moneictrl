@@ -15,8 +15,8 @@ import changeDateFormatReducer from './changeDateFormat';
 
 const loadCurrentItems = () => {
     setTimeout(() => {
-        let {items, currentMonth, currentFilter} = store.getState();
-        let payload = {items, currentMonth, currentFilter};
+        let {items, currentDate, currentFilter} = store.getState();
+        let payload = {items, currentDate, currentFilter};
         store.dispatch({type: gActions.LOAD_CURRENT_ITEMS, payload: payload});
     }, 0);
 }
@@ -47,15 +47,15 @@ const items = (state = [], action) => {
     return items;
 };
 
-const initialCurrentMonth = moment();
+const initialCurrentDate = moment();
 
-const currentMonth = (state = initialCurrentMonth, action) => {
+const currentDate = (state = initialCurrentDate, action) => {
     switch(action.type){
         case gActions.CHANGE_MONTH:
             loadCurrentItems();
             return moment(action.payload);
         case gActions.RESET_MONTH:
-            return initialCurrentMonth;
+            return initialCurrentDate;
         default: return state;
     }
 }
@@ -114,7 +114,7 @@ const reducers = {
     currentDateFormat,
     currentFilter,
     currentItems,
-    currentMonth,
+    currentDate,
     locale,
     moneyMask,
 }
