@@ -1,7 +1,9 @@
 const removeItem = (id) => {
-    return {
-        type: gActions.REMOVE_ITEM,
-        payload: id
+    return async (dispatch) => {
+        return dispatch({
+            type: gActions.REMOVE_ITEM,
+            payload: id
+        });
     };
 }
 

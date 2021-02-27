@@ -1,4 +1,5 @@
-import { combineReducers, createStore } from 'redux';
+import { combineReducers, createStore, applyMiddleware  } from 'redux';
+import thunk from 'redux-thunk';
 import moment from 'moment';
 
 import { getStorageItems } from '../actions/getItems';
@@ -18,7 +19,7 @@ const loadCurrentItems = () => {
         let {items, currentDate, currentFilter} = store.getState();
         let payload = {items, currentDate, currentFilter};
         store.dispatch({type: gActions.LOAD_CURRENT_ITEMS, payload: payload});
-    }, 0);
+    });
 }
 
 const items = (state = [], action) => {
@@ -60,6 +61,14 @@ const currentDate = (state = initialCurrentDate, action) => {
     }
 }
 
+const currentItems = (state = [], action) => {
+    switch(action.type){
+        case gActions.LOAD_CURRENT_ITEMS:
+            return loadCurrentItemsReducer(action.payload);
+        default: return state;
+    }
+}
+
 const currentFilter = (state = {}, action) => {
     switch(action.type){
         case gActions.FILTER_BY_DESCRIPTION:
@@ -70,14 +79,6 @@ const currentFilter = (state = {}, action) => {
             return {...state, type: action.payload.type};
         case gActions.RSEET_FILTER:
             return {};
-        default: return state;
-    }
-}
-
-const currentItems = (state = [], action) => {
-    switch(action.type){
-        case gActions.LOAD_CURRENT_ITEMS:
-            return loadCurrentItemsReducer(action.payload);
         default: return state;
     }
 }
@@ -119,7 +120,7 @@ const reducers = {
     moneyMask,
 }
 
-const store = createStore(combineReducers(reducers));
+const store = createStore(combineReducers(reducers), applyMiddleware(thunk));
 
 store.dispatch(getStorageItems());
 

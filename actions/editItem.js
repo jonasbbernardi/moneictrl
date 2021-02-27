@@ -8,9 +8,11 @@ const editItem = (item) => {
     if(!!item.due_date) editedItem.due_date = item.due_date;
     if(!!item.recurring) editedItem.recurring = item.recurring;
 
-    return {
-        type: gActions.EDIT_ITEM,
-        payload: editedItem
+    return async (dispatch) => {
+        return dispatch({
+            type: gActions.EDIT_ITEM,
+            payload: editedItem
+        });
     };
 }
 

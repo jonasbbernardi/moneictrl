@@ -19,27 +19,31 @@ import ValueInput from '../components/ValueInput';
 import styles from '../styles/EditItem';
 
 const EditItem = ({route, navigation}) => {
+    // Route params, dispatch and selectors
+    const {id, type} = route.params;
     const dispatch = useDispatch();
     const moneyMask = useSelector(state => state.moneyMask);
     const currentDate = useSelector(state => state.currentDate);
     const currentDateFormat = useSelector(state => state.currentDateFormat);
-    const {id, type} = route.params;
     const item = useSelector(state => state.items.find(item => item.id == id));
+    const currentMonth = currentDate.month();
+    const currentYear = currentDate.year();
 
+    // Values to show and save item
     const getDueDate = () => {
         let date = moment(item.due_date);
-        if(currentDate.month() != date.month()){
-            date.month(currentDate.month());
+        if(currentMonth != date.month()){
+            date.month(currentMonth);
         }
         return moment(date);
     }
     const due_date = getDueDate();
+    const [description, setDescription] = useState(item.description);
+    const [value, setValue] = useState(item.value);
+    const [dueDate, setDueDate] = useState(due_date);
+    const recurring = item.recurring?.isRecurring;
 
-    const title =
-        type === gTypes.EXPENSE ? i18n.t('pages.edit_item.title_expense') :
-        type === gTypes.REVENUE ? i18n.t('pages.edit_item.title_revenue') :
-        i18n.t('pages.edit_item.default_title');
-
+    // Input and styles
     const defaultLabelStyleHide = {
         ...styles.label,
         position: 'relative',
@@ -50,27 +54,36 @@ const EditItem = ({route, navigation}) => {
         position: 'absolute',
         display: 'flex'
     }
-
-    const [description, setDescription] = useState(item.description);
-    const [value, setValue] = useState(item.value);
-    const [dueDate, setDueDate] = useState(due_date);
-    const recurring = item.recurring?.isRecurring;
+    const initialDescriptionLabel = item.description ? defaultLabelStyleShow : defaultLabelStyleHide;
     const [valueInput, setValueInput] = useState();
     const [saveModalVisible, setSaveModalVisible] = useState(false);
     const [removeModalVisible, setRemoveModalVisible] = useState(false);
-    const [descriptionLabelStyle, setDescriptionLabelStyle] = useState(item.description ? defaultLabelStyleShow : defaultLabelStyleHide);
+    const [descriptionLabelStyle, setDescriptionLabelStyle] = useState(initialDescriptionLabel);
+
+    // Translations
     const descriptionLabel = i18n.t('pages.edit_item.description');
     const valueLabel = i18n.t('pages.edit_item.value');
     const dueDateLabel = i18n.t('pages.edit_item.due_date');
     const saveLabel = i18n.t('pages.edit_item.save');
     const removeLabel = i18n.t('pages.edit_item.remove');
+    const title =
+        type === gTypes.EXPENSE ? i18n.t('pages.edit_item.title_expense') :
+        type === gTypes.REVENUE ? i18n.t('pages.edit_item.title_revenue') :
+        i18n.t('pages.edit_item.default_title');
 
+    // Scree effects
     const selectDueDate = (date) => {
         if(date === undefined) return;
         setDueDate(moment(date, currentDateFormat));
         Keyboard.dismiss();
     }
+    const onChangeDescriptionText = (text) => {
+        setDescription(text);
+        setDescriptionLabelStyle(text === '' ?
+            defaultLabelStyleHide : defaultLabelStyleShow);
+    }
 
+    // Save button action
     const saveAction = () => {
         if(recurring){
             setSaveModalVisible(true);
@@ -78,7 +91,6 @@ const EditItem = ({route, navigation}) => {
             saveAll();
         }
     }
-
     const saveAll = () => {
         setSaveModalVisible(false);
         let editedItem = {
@@ -87,9 +99,10 @@ const EditItem = ({route, navigation}) => {
             value: Number(value),
             due_date: dueDate
         };
-        dispatch(editItem(editedItem));
-        navigation.goBack();
-        navigation.goBack();
+        dispatch(editItem(editedItem)).then(() => {
+            navigation.goBack();
+            navigation.goBack();
+        });
     }
     const saveThis = () => {
         setSaveModalVisible(false);
@@ -107,6 +120,7 @@ const EditItem = ({route, navigation}) => {
         removeThis();
     }
 
+    // Remove button action
     const removeAction = () => {
         if(recurring){
             setRemoveModalVisible(true);
@@ -116,8 +130,6 @@ const EditItem = ({route, navigation}) => {
     }
     const removeThis = () => {
         setRemoveModalVisible(false);
-        navigation.goBack();
-        navigation.goBack();
         let exclude = item.recurring?.exclude ?? [];
         let editted = {
             id,
@@ -125,31 +137,34 @@ const EditItem = ({route, navigation}) => {
                 ...item.recurring,
                 exclude: [
                     ...exclude,
-                    { m: currentDate.month(), y: currentDate.year() }
+                    { m: currentMonth, y: currentYear }
                 ]
             }
         }
         let recurring = editted.recurring;
+        let fnToDispatch;
         if(!recurring.always && !!recurring.exclude &&
             recurring.exclude.length >= recurring.installments){
-            dispatch(removeItem(id));
+            fnToDispatch = removeItem(id);
         } else {
-            dispatch(editItem(editted));
+            let installments = recurring.installments - recurring.exclude.length;
+            if(installments == 1) delete editted.recurring;
+            fnToDispatch = editItem(editted);
         }
+        dispatch(fnToDispatch).then(() => {
+            navigation.goBack();
+            navigation.goBack();
+        });
     }
     const removeAll = () => {
         setRemoveModalVisible(false);
-        navigation.goBack();
-        navigation.goBack();
-        dispatch(removeItem(id));
+        dispatch(removeItem(id)).then(() => {
+            navigation.goBack();
+            navigation.goBack();
+        });
     }
 
-    const onChangeDescriptionText = (text) => {
-        setDescription(text);
-        setDescriptionLabelStyle(text === '' ?
-            defaultLabelStyleHide : defaultLabelStyleShow);
-    }
-
+    // Rendering
     return (
         <View style={styles.container}>
             <View style={styles.statusBar} />

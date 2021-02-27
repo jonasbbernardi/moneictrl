@@ -21,8 +21,6 @@ import Settings from './pages/Settings';
 const Stack = createStackNavigator();
 
 const App = () => {
-    
-
     return (
         <Provider store={store}>
             <Locale />
