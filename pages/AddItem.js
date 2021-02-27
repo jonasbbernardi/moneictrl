@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { Keyboard, Text, TextInput, View } from 'react-native';
+import { Keyboard, Text, TextInput, View, TouchableOpacity } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import { useDispatch, useSelector } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
 import { AdMobBanner } from 'expo-ads-admob';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import DatePicker from 'react-native-datepicker';
 import moment from 'moment';
 import i18n from '../i18n';

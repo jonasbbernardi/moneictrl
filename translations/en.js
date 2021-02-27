@@ -1,4 +1,4 @@
-export default en = {
+const en = {
     components: {
         all_items_list: {
             due_date: 'Due date:',
@@ -94,3 +94,4 @@ export default en = {
         }
     }
 }
+export default en;

@@ -1,4 +1,4 @@
-export default pt = {
+const pt = {
     components: {
         all_items_list: {
             due_date: 'Vencimento:',
@@ -94,3 +94,4 @@ export default pt = {
         }
     }
 }
+export default pt;
