@@ -12,7 +12,7 @@ const loadCurrentItems = ({items, currentDate, currentFilter}) => {
         if(typeof item.due_date === 'string'){
             itemMonth = moment(item.due_date);
         }
-        let byMonth = itemMonth.month() == currMonth;
+        let byMonth = itemMonth.month() == currentMonth;
 
         // Filter recurring
         let byRecurring = false;
@@ -21,8 +21,8 @@ const loadCurrentItems = ({items, currentDate, currentFilter}) => {
             // Check if current month/year was deleted from recurring
             if(item.recurring.exclude){
                 excluded = item.recurring.exclude.find(excluded => {
-                    let m = excluded.m == currMonth;
-                    let y = excluded.y == currYear;
+                    let m = excluded.m == currentMonth;
+                    let y = excluded.y == currentYear;
                     return m && y;
                 });
             }

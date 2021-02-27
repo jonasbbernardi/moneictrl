@@ -9,13 +9,16 @@ import {applyMask} from '../services/mask';
 
 import colors from '../styles/colors';
 import styles from '../styles/ItemsList';
-import { color } from 'react-native-reanimated';
 
 const ItemsList = (props) => {
     const navigation = useNavigation();
     const currentItems = useSelector(state => state.currentItems);
+    const currentDate = useSelector(state => state.currentDate);
     const moneyMask = useSelector(state => state.moneyMask);
     const currentDateFormat = useSelector(state => state.currentDateFormat);
+    const currentMonth = currentDate.month();
+    const currentYear = currentDate.year();
+
     const today = moment();
     const dateLabel = i18n.t('components.all_items_list.due_date');
     const lateLabel = i18n.t('components.all_items_list.late');
@@ -33,29 +36,48 @@ const ItemsList = (props) => {
             return dueDateA.isAfter(dueDateB, 'days');
         });
         setListData(items);
-    })
+    });
+
+    const isItemLate = (item) => {
+        let due_date = item.due_date;
+        if(item.recurring?.isRecurring){
+            due_date = moment(due_date).set({
+                month: currentMonth, year: currentYear
+            });
+        }
+        let late = today.isAfter(moment(due_date), 'days');
+        if(late > 0) return colors.lightRed;
+    }
+
+    const isItemDone = (item) => {
+        if(!item.recurring?.isRecurring) return !!item.done;
+        else return item.recurring?.done?.some(i => {
+            return i.m == currentMonth && i.y == currentYear
+        });
+    }
 
     const viewItem = (id) => {
         navigation.navigate('ViewItem', {id});
     }
 
     const renderItem = ({index, item}) => {
-        const late = today.isAfter(moment(item.due_date), 'days');
+        const isDone = isItemDone(item);
+        const isLate = isItemLate(item);
 
         const getBackgroundColor = () => {
-            if(item.done) return colors.lightGreen;
-            if(late > 0) return colors.lightRed;
+            if(isDone) return colors.lightGreen;
+            if(isLate) return colors.lightRed;
             return colors.trueWhite;
         }
         const backgroundColor = getBackgroundColor();
 
         const getStatusLabel = () => {
-            if(item.done){
+            if(isDone){
                 if(item.type == gTypes.EXPENSE) return paidLabel;
                 if(item.type == gTypes.REVENUE) return receivedLabel;
                 return doneLabel;
             }
-            if(late > 0) return lateLabel;
+            if(isLate) return lateLabel;
             return '';
         }
         const statusLabel = getStatusLabel();

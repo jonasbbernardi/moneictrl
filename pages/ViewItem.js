@@ -41,9 +41,19 @@ const ViewItem = ({route, navigation}) => {
     const currentDateFormat = useSelector(state => state.currentDateFormat);
     const moneyMask = useSelector(state => state.moneyMask);
 
+    const currentMonth = currentDate.month();
+    const currentYear = currentDate.year();
+
+    const getItemIsDone = () => {
+        if(!item.recurring?.isRecurring) return !!item.done;
+        else return item.recurring?.done?.some(i => {
+            return i.m == currentMonth && i.y == currentYear
+        });
+    }
+
     const value = applyMask(item.value.toString(), moneyMask);
     const valueColor = getValueColor(item);
-    const [displayDone, isDisplayDone] = useState(item.done);
+    const itemIsDone = getItemIsDone();
     const title = getTitle(item);
     const descriptionLabel = i18n.t('pages.view_item.description');
     const valueLabel = i18n.t('pages.view_item.value');
@@ -60,13 +70,11 @@ const ViewItem = ({route, navigation}) => {
     const due_date = getDueDate();
 
     const doneAction = () => {
-        dispatch(setItemDone({id: item.id}));
-        isDisplayDone(true);
+        dispatch(setItemDone({id: item.id, currentDate}));
         navigation.goBack();
     }
     const undoneAction = () => {
-        dispatch(setItemUndone({id: item.id}));
-        isDisplayDone(false);
+        dispatch(setItemUndone({id: item.id, currentDate}));
         navigation.goBack();
     }
 
@@ -102,10 +110,10 @@ const ViewItem = ({route, navigation}) => {
                     </View>
                 </View>
                 <View style={styles.viewButtons}>
+                    {!itemIsDone &&
                     <TouchableOpacity
                         style={{
                             ...styles.markButton,
-                            display: displayDone ? 'none' : 'flex',
                             backgroundColor: colors.green
                         }}
                         activeOpacity={btnOpacity}
@@ -114,11 +122,11 @@ const ViewItem = ({route, navigation}) => {
                             icon='check'
                             color={colors.white}
                             size={ 24 } />
-                    </TouchableOpacity>
+                    </TouchableOpacity>}
+                    {itemIsDone &&
                     <TouchableOpacity
                         style={{
                             ...styles.markButton,
-                            display: displayDone ? 'flex' : 'none',
                             backgroundColor: colors.red
                         }}
                         activeOpacity={btnOpacity}
@@ -127,7 +135,7 @@ const ViewItem = ({route, navigation}) => {
                             icon='times'
                             color={colors.white}
                             size={ 24 } />
-                    </TouchableOpacity>
+                    </TouchableOpacity>}
                     <TouchableOpacity
                         style={styles.editButton}
                         activeOpacity={btnOpacity}

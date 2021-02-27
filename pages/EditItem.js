@@ -93,11 +93,15 @@ const EditItem = ({route, navigation}) => {
     }
     const saveThis = () => {
         setSaveModalVisible(false);
+        let done = item.recurring?.done?.some(i => {
+            return i.m == currentMonth && i.y == currentYear
+        });
         let newItem = {
             type: item.type,
             description,
             value: Number(value),
-            due_date: dueDate
+            due_date: dueDate,
+            done: !!done
         };
         dispatch(addItem(newItem));
         removeThis();
@@ -159,7 +163,7 @@ const EditItem = ({route, navigation}) => {
                         <TextInput
                             placeholder={descriptionLabel}
                             style={styles.descriptionText}
-                            autoFocus
+                            autoFocus={false}
                             returnKeyType='next'
                             onSubmitEditing={() => { valueInput.focus(); }}
                             onChangeText={onChangeDescriptionText}
