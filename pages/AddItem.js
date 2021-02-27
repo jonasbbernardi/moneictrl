@@ -64,9 +64,6 @@ const AddItem = ({route, navigation}) => {
         setDueDate(moment(date, currentDateFormat));
         Keyboard.dismiss();
     }
-    const selectRecurringAlways = (always) => {
-        setRecurringAlways(always);
-    }
     const focusInstallments = () => {
         if(!recurringAlways) recurringInstallmentsInput.focus()
     }
@@ -88,13 +85,11 @@ const AddItem = ({route, navigation}) => {
             due_date: dueDate
         }
 
-        if(!!recurring){
-            if(recurringInstallments > 1){
-                item.recurring = {
-                    isRecurring: true,
-                    always: recurringAlways,
-                    installments: recurringAlways ? 0 : Number(recurringInstallments)
-                }
+        if(!!recurring && (!!recurringAlways || recurringInstallments > 1)){
+            item.recurring = {
+                isRecurring: true,
+                always: recurringAlways,
+                installments: recurringAlways ? 0 : Number(recurringInstallments)
             }
         }
         let fnToDispatch = null;
@@ -168,7 +163,7 @@ const AddItem = ({route, navigation}) => {
                             style={styles.checkbox}
                             disabled={false}
                             value={recurringAlways}
-                            onValueChange={selectRecurringAlways}
+                            onValueChange={setRecurringAlways}
                         />
                         <Text
                             style={styles.checkboxLabel}

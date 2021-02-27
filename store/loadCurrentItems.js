@@ -27,6 +27,7 @@ const loadCurrentItems = ({items, currentDate, currentFilter}) => {
                 });
             }
             // Check if current month/year is between first and last recurring date
+            byRecurring = !!item.recurring.always;
             if(!excluded && !item.recurring.always) {
                 let installments = item.recurring.installments - 1;
                 let firstMonth = moment(item.due_date);
