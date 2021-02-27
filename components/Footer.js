@@ -11,6 +11,7 @@ import i18n from '../i18n';
 const Footer = (props) => {
     const items = useSelector(state => state.currentItems);
     const moneyMask = useSelector(state => state.moneyMask);
+    const currentDate = useSelector(state => state.currentDate);
     const [revenues, setRevenues] = useState(0);
     const [expenses, setExpenses] = useState(0);
     const [balance, setBalance] = useState(0);
@@ -26,18 +27,35 @@ const Footer = (props) => {
     useEffect(() => {
         let sumRevenues = 0;
         let sumExpenses = 0;
+        let sumToPay = 0;
+        let sumToReceive = 0;
+
+        let currentMonth = currentDate.month();
+        let currentYear = currentDate.year();
         for (const item of items) {
-            if(item.type == gTypes.REVENUE) sumRevenues += Number(item.value);
-            if(item.type == gTypes.EXPENSE) sumExpenses -= Number(item.value);
+            // Check if item is done
+            let done = item.done;
+            if(!done && !!item.recurring?.done){
+                done = item.recurring.done.some(i => i.m == currentMonth && i.y == currentYear);
+            }
+            // Sum on right var
+            let value = Number(item.value);
+            if(item.type == gTypes.REVENUE) {
+                if(done) sumToReceive += value;
+                sumRevenues += value
+            };
+            if(item.type == gTypes.EXPENSE) {
+                if(done) sumToPay += value;
+                sumExpenses -= value
+            };
         }
-        let r = sumRevenues.toString();
-        let e = sumExpenses.toString();
-        let b = (sumRevenues + sumExpenses).toString();
-        setRevenues(applyMask(r, moneyMask));
-        setExpenses(applyMask(e, moneyMask));
-        setBalance(applyMask(b, moneyMask));
-        setTotalToPay(applyMask(e, moneyMask));
-        setTotalToReceive(applyMask(r, moneyMask));
+        // Fill values on components
+        let balance = (sumRevenues + sumExpenses).toString();
+        setRevenues(applyMask(sumRevenues.toString(), moneyMask));
+        setExpenses(applyMask(sumExpenses.toString(), moneyMask));
+        setTotalToReceive(applyMask(sumToReceive.toString(), moneyMask));
+        setTotalToPay(applyMask(sumToPay.toString, moneyMask));
+        setBalance(applyMask(balance, moneyMask));
     })
 
     return (
