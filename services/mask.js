@@ -5,6 +5,7 @@ const removeMask = (text, mask) => {
 };
 
 const applyMask = (text, mask) => {
+    if(!text.charAt) return '';
     let negative = text.charAt(0) == '-';
     if(negative) text = text.substring(1);
     var textIndex = text.length;

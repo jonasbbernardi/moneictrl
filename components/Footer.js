@@ -54,7 +54,7 @@ const Footer = (props) => {
         setRevenues(applyMask(sumRevenues.toString(), moneyMask));
         setExpenses(applyMask(sumExpenses.toString(), moneyMask));
         setTotalToReceive(applyMask(sumToReceive.toString(), moneyMask));
-        setTotalToPay(applyMask(sumToPay.toString, moneyMask));
+        setTotalToPay(applyMask(sumToPay.toString(), moneyMask));
         setBalance(applyMask(balance, moneyMask));
     })
 
