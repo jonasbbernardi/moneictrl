@@ -4,6 +4,10 @@ import pt from './translations/pt';
 
 i18n.translations = {
     en,
+    'en-us': en,
+    'en-US': en,
+    pt,
+    'pt-br': pt,
     'pt-BR': pt
 };
 
