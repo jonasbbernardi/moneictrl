@@ -27,7 +27,6 @@ const MonthSelector = () => {
     const [monthLabel, setMonthLabel] = useState(initialMonthLabel);
 
     useEffect(() => {
-        console.log('use effect');
         let label = getMonthLabel(month);
         setMonthLabel(label);
     }, [locale]);

@@ -89,13 +89,18 @@ const ItemsList = (props) => {
                 onPress={() => viewItem(item.id)}
             >
                 <View style={styles.firstRow}>
-                    <Text style={styles.description}>{item.description}</Text>
-                    <Text style={{
-                        ...styles.value,
-                        color: item.type == gTypes.EXPENSE ? colors.red : colors.green
-                        }}>
-                        {item.type == gTypes.EXPENSE ? '-' : ''}{applyMask(item.value.toString(), moneyMask)}
+                    <Text style={styles.description} numberOfLines={1}>
+                        {item.description}
                     </Text>
+
+                    {item.type == gTypes.EXPENSE && 
+                    <Text style={{ ...styles.value, color: colors.red }}>
+                        -{applyMask(item.value.toString(), moneyMask)}
+                    </Text>}
+                    {item.type == gTypes.REVENUE && 
+                    <Text style={{ ...styles.value, color: colors.green }}>
+                        {applyMask(item.value.toString(), moneyMask)}
+                    </Text>}
                 </View>
                 <View style={styles.secondRow}>
                     <Text style={styles.dueDate}>

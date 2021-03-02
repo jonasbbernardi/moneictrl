@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
         marginTop: 5
     },
     description: {
-        flex: 1,
+        flex: 2,
         fontSize: 18,
     },
     value: {
