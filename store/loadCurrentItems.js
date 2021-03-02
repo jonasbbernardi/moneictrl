@@ -8,11 +8,11 @@ const loadCurrentItems = ({items, currentDate, currentFilter}) => {
         if(!!item.deleted) return false;
 
         // Filter by month
-        let itemMonth = item.due_date;
+        let item_due = item.due_date;
         if(typeof item.due_date === 'string'){
-            itemMonth = moment(item.due_date);
+            item_due = moment(item.due_date);
         }
-        let byMonth = itemMonth.month() == currentMonth;
+        let byMonth = item_due.month() == currentMonth && item_due.year() == currentYear;
 
         // Filter recurring
         let byRecurring = false;
@@ -29,12 +29,15 @@ const loadCurrentItems = ({items, currentDate, currentFilter}) => {
             // Check if current month/year is between first and last recurring date
             byRecurring = !!item.recurring.always;
             if(!excluded) {
-                let installments = item.recurring.installments - 1;
+                let isBeforeLast = !!item.recurring.always;
+                if(!isBeforeLast){
+                    let installments = item.recurring.installments - 1;
+                    let lastMonth = moment(item.due_date).add(installments, 'month');
+                    isBeforeLast = currentDate.isSameOrBefore(lastMonth, 'month');
+                }
                 let firstMonth = moment(item.due_date);
-                let lastMonth = moment(item.due_date).add(installments, 'month');
-                let isBeforeLast = currentDate.isSameOrBefore(lastMonth, 'month');
                 let isAfterFirst = currentDate.isSameOrAfter(firstMonth, 'month');
-                isBeforeLast = !!item.recurring.always || isBeforeLast;
+
                 byRecurring = isBeforeLast && isAfterFirst;
             }
         }

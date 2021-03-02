@@ -1,7 +1,7 @@
 const pt = {
     components: {
         items_list: {
-            due_date: 'Vencimento:',
+            due_date: 'Vencimento: ',
             late: 'Atraso',
             paid: 'Pago',
             received: 'Recebido',

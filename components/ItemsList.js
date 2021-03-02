@@ -85,9 +85,8 @@ const ItemsList = (props) => {
         const getDueDate = () => {
             let due_date = moment(item.due_date);
             if(!item.recurring) return due_date.format(currentDateFormat);
-            if(currentMonth > due_date.month()){
-                due_date = due_date.set('month', currentMonth);
-            }
+            due_date = due_date.set('month', currentMonth);
+            due_date = due_date.set('year', currentYear);
             return due_date.format(currentDateFormat);
         }
         const due_date = getDueDate();
