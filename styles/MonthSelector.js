@@ -2,6 +2,15 @@ import { StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
 import colors from './colors';
 
+const arrowButtons = {
+    flex: 2,
+    width: 50,
+    height: 60,
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: colors.white,
+}
+
 const styles = StyleSheet.create({
     container: {
         width: '100%',
@@ -12,12 +21,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     previous: {
-        flex: 1,
-        width: 50,
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: 16,
-        color: colors.white,
+        ...arrowButtons
     },
     previousIcon: {
         color: colors.white,
@@ -35,12 +39,7 @@ const styles = StyleSheet.create({
         textTransform: 'capitalize',
     },
     next: {
-        flex: 1,
-        width: 50,
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: 16,
-        color: colors.white,
+        ...arrowButtons
     },
     nextIcon: {
         color: colors.white,

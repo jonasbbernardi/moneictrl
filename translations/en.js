@@ -1,11 +1,18 @@
 const en = {
     components: {
-        all_items_list: {
+        items_list: {
             due_date: 'Due date:',
             late: 'Late',
             paid: 'Paid',
             received: 'Received',
             done: 'Done',
+        },
+        language_dropdown: {
+            label: 'Language:',
+            options: {
+                english: 'English',
+                portuguese: 'Portuguese',
+            }
         },
         footer: {
             total: {
@@ -86,11 +93,7 @@ const en = {
         },
         settings: {
             title: 'Settings',
-            select_language: 'Language:',
-            options: {
-                english: 'English',
-                portuguese: 'Portuguese',
-            }
+            language: 'Language',
         }
     }
 }

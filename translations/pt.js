@@ -1,11 +1,18 @@
 const pt = {
     components: {
-        all_items_list: {
+        items_list: {
             due_date: 'Vencimento:',
             late: 'Atraso',
             paid: 'Pago',
             received: 'Recebido',
             done: 'Feito',
+        },
+        language_dropdown: {
+            label: 'Idioma:',
+            options: {
+                english: 'Inglês',
+                portuguese: 'Português',
+            }
         },
         footer: {
             total: {
@@ -86,11 +93,7 @@ const pt = {
         },
         settings: {
             title: 'Configurações',
-            select_language: 'Idioma:',
-            options: {
-                english: 'Inglês',
-                portuguese: 'Português',
-            }
+            language: 'Idioma',
         }
     }
 }

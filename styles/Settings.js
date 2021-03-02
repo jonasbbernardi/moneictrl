@@ -24,15 +24,17 @@ const styles = StyleSheet.create({
         height: 50,
         flexDirection: 'row',
         alignItems: 'center',
-        margin: 10
+        justifyContent: 'space-between',
+        margin: 10,
     },
     label: {
         flex: 1,
         fontSize: 16,
+        marginHorizontal: 5,
     },
     field: {
         flex: 2,
-    }
+    },
 });
 
 export default styles;

@@ -20,11 +20,11 @@ const ItemsList = (props) => {
     const currentYear = currentDate.year();
 
     const today = moment();
-    const dateLabel = i18n.t('components.all_items_list.due_date');
-    const lateLabel = i18n.t('components.all_items_list.late');
-    const paidLabel = i18n.t('components.all_items_list.paid');
-    const receivedLabel = i18n.t('components.all_items_list.received');
-    const doneLabel = i18n.t('components.all_items_list.done');
+    const dateLabel = i18n.t('components.items_list.due_date');
+    const lateLabel = i18n.t('components.items_list.late');
+    const paidLabel = i18n.t('components.items_list.paid');
+    const receivedLabel = i18n.t('components.items_list.received');
+    const doneLabel = i18n.t('components.items_list.done');
 
     const [listData, setListData] = useState([]);
 
