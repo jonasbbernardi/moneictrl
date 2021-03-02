@@ -17,6 +17,7 @@ import AddItem from './pages/AddItem';
 import EditItem from './pages/EditItem';
 import ViewItem from './pages/ViewItem';
 import Settings from './pages/Settings';
+import About from './pages/About';
 
 const Stack = createStackNavigator();
 
@@ -37,6 +38,7 @@ const App = () => {
                     <Stack.Screen name="EditItem" component={EditItem} />
                     <Stack.Screen name="ViewItem" component={ViewItem} />
                     <Stack.Screen name="Settings" component={Settings} />
+                    <Stack.Screen name="About" component={About} />
                 </Stack.Navigator>
             </NavigationContainer>
         </Provider>

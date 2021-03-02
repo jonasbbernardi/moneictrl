@@ -52,6 +52,9 @@ const pt = {
         },
     },
     pages: {
+        about: {
+            title: 'Sobre',
+        },
         add_item: {
             title_expense: 'Adicionar Despesa',
             title_revenue: 'Adicionar Rendimento',

@@ -52,6 +52,9 @@ const en = {
         },
     },
     pages: {
+        about: {
+            title: 'About',
+        },
         add_item: {
             title_expense: 'Add Expense',
             title_revenue: 'Add Revenue',
