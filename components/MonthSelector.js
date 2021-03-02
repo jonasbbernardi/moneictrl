@@ -10,11 +10,15 @@ import 'moment/locale/pt-br';
 
 library.add( faChevronLeft, faChevronRight );
 
+import changeMonth from '../actions/changeMonth';
+
 import styles from '../styles/MonthSelector';
 
-const MonthSelector = () => {
+const MonthSelector = (props) => {
+    const isLoading = props.isLoading;
     const dispatch = useDispatch();
     const locale = useSelector(store => store.locale);
+    const currentItems = useSelector(state => state.currentItems);
     const [month, setMonth] = useState(moment());
 
     const getMonthLabel = () => {
@@ -31,15 +35,21 @@ const MonthSelector = () => {
         setMonthLabel(label);
     }, [locale]);
 
+    useEffect(() => {
+        if(typeof isLoading === 'function')
+            isLoading(false);
+    }, [currentItems]);
+
     const incrementMonth = () => {
-        changeMonth(1);
+        addToMonth(1);
     }
 
     const decrementMonth = () => {
-        changeMonth(-1);
+        addToMonth(-1);
     }
 
-    const changeMonth = (changeValue) => {
+    const addToMonth = (changeValue) => {
+        if(typeof isLoading === 'function') isLoading(true);
         let newMonth = month;
         newMonth.add(changeValue, 'months');
 
@@ -47,10 +57,7 @@ const MonthSelector = () => {
         setMonthLabel(label);
         setMonth(newMonth);
 
-        dispatch({
-            type: gActions.CHANGE_MONTH,
-            payload: newMonth
-        });
+        dispatch(changeMonth(newMonth));
     }
 
     return (

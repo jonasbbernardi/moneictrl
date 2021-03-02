@@ -36,7 +36,7 @@ const ItemsList = (props) => {
             return dueDateA.isAfter(dueDateB, 'days');
         });
         setListData(items);
-    });
+    }, [currentItems]);
 
     const isItemLate = (item) => {
         let due_date = item.due_date;
@@ -82,6 +82,16 @@ const ItemsList = (props) => {
         }
         const statusLabel = getStatusLabel();
 
+        const getDueDate = () => {
+            let due_date = moment(item.due_date);
+            if(!item.recurring) return due_date.format(currentDateFormat);
+            if(currentMonth > due_date.month()){
+                due_date = due_date.set('month', currentMonth);
+            }
+            return due_date.format(currentDateFormat);
+        }
+        const due_date = getDueDate();
+
         return (
             <TouchableOpacity
                 style={{...styles.item, backgroundColor }}
@@ -104,7 +114,7 @@ const ItemsList = (props) => {
                 </View>
                 <View style={styles.secondRow}>
                     <Text style={styles.dueDate}>
-                        {dateLabel + moment(item.due_date).format(currentDateFormat)}
+                        {dateLabel + due_date}
                     </Text>
                     <Text style={styles.status}>
                         {statusLabel}

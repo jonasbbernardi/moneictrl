@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
 import DrawerLayout from 'react-native-gesture-handler/DrawerLayout';
@@ -17,6 +17,7 @@ import PlusButtonMenu from '../components/PlusButtonMenu';
 
 import colors from '../styles/colors';
 import styles from '../styles/Home';
+import Loading from '../components/Loading';
 
 const Home = ({route, navigation}) => {
     const dispatch = useDispatch();
@@ -24,6 +25,7 @@ const Home = ({route, navigation}) => {
     const [drawer, setDrawer] = useState();
     const [type, setType] = useState();
     const [title, setTitle] = useState(defaultTitle);
+    const [loading, isLoading] = useState(false);
 
     useEffect(() => {
         if(!!route.params){
@@ -54,6 +56,10 @@ const Home = ({route, navigation}) => {
     const openDrawer = () => drawer.openDrawer();
     const closeDrawer = () => drawer.closeDrawer();
 
+    const setLoading = (l) => {
+        isLoading(l);
+    }
+
     return (
         <DrawerLayout
             style={styles.container}
@@ -70,8 +76,21 @@ const Home = ({route, navigation}) => {
                 showSearch={true}
                 openDrawer={openDrawer}
             />
-            <MonthSelector />
-            <ItemsList type={type}/>
+
+            <MonthSelector isLoading={setLoading} />
+
+            {!!loading &&
+            <View style={styles.loading}>
+                <Loading
+                    size={50} 
+                    color={colors.darkGreen}/>
+            </View>}
+
+            {!loading &&
+            <View style={{flex: 1}}>
+                <ItemsList />
+            </View>}
+
             {!type && <PlusButtonMenu
                 onPressRevenueBtn={onPressRevenueBtn}
                 onPressExpenseBtn={onPressExpenseBtn}

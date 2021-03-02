@@ -13,6 +13,13 @@ const styles = StyleSheet.create({
         backgroundColor: colors.lightBlue,
         height: Constants.statusBarHeight,
         width: '100%'
+    },
+    loading: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: colors.shadow,
+        zIndex: 1
     }
 });
 
