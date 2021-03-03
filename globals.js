@@ -7,6 +7,8 @@ const googleAdmobEditID = GOOGLE_ADMOB_EDIT_ID;
 global.google_admob_add_id = Constants.isDevice && !__DEV__ ? googleAdmobAddID : googleAdmobBannerTestID;
 global.google_admob_edit_id = Constants.isDevice && !__DEV__ ? googleAdmobEditID : googleAdmobBannerTestID;
 
+// Get width
+
 global.itemsStorageKey = '@moneictrl_items';
 global.gActions = {
     // Items
