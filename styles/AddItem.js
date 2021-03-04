@@ -6,7 +6,7 @@ import common from './common';
 
 const fieldFontSize = 18;
 
-const styles = StyleSheet.create({
+const normalStyles = StyleSheet.create({
     container: {
         flex: 1,
         width: '100%',
@@ -100,5 +100,33 @@ const styles = StyleSheet.create({
         width: '100%'
     },
 });
+
+const largeFieldFontSize = 16;
+const largeStyles = StyleSheet.create({
+    ...normalStyles,
+    descriptionText: {
+        ...normalStyles.descriptionText,
+        fontSize: largeFieldFontSize,
+    },
+    valueText: {
+        ...normalStyles.valueText,
+        fontSize: largeFieldFontSize,
+    },
+    dueDateInputText: {
+        ...normalStyles.dueDateInputText,
+        fontSize: largeFieldFontSize,
+    },
+    checkboxLabel: {
+        ...normalStyles.checkboxLabel,
+        fontSize: 14
+    }
+})
+
+var styles
+if(fontScale == fontScales.NORMAL){
+    styles = normalStyles;
+} else {
+    styles = largeStyles
+}
 
 export default styles;

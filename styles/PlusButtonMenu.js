@@ -13,7 +13,7 @@ const btnStyle = {
     borderColor: '#eee'
 }
 
-const plusBtnStyles = StyleSheet.create({
+const normalStyles = StyleSheet.create({
     menu: {
         borderRadius: 50,
     },
@@ -36,17 +36,30 @@ const plusBtnStyles = StyleSheet.create({
         backgroundColor: colors.trueWhite,
         borderRadius: 5,
         zIndex: 2,
-    },
-    touchableLabelShadow: {
-        position: 'absolute',
-        width: 91,
-        height: 21,
-        left: -95,
-        bottom: 19,
-        backgroundColor: colors.shadow,
-        zIndex: 1,
-        borderRadius: 5,
+        elevation: 1
     }
 });
 
-export default plusBtnStyles;
+const largeStyles = StyleSheet.create({
+    ...normalStyles,
+    bottomFloatButton: {
+        ...normalStyles.bottomFloatButton,
+        right: 15,
+    },
+    touchableLabel: {
+        ...normalStyles.touchableLabel,
+        width: 120,
+        left: -125,
+        bottom: 18,
+        height: 25
+    }
+});
+
+var styles;
+if(fontScale == fontScales.NORMAL){
+    styles = normalStyles;
+} else {
+    styles = largeStyles
+}
+
+export default styles;

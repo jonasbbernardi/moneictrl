@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import common from './common';
 
-const plusBtnStyles = StyleSheet.create({
+const normalStyles = StyleSheet.create({
     bottomFloatButton: {
         position: 'absolute',
         bottom: 10,
@@ -12,4 +12,19 @@ const plusBtnStyles = StyleSheet.create({
     roundButton: {...common.roundBtnStyle},
 });
 
-export default plusBtnStyles;
+const largeStyles = StyleSheet.create({
+    ...normalStyles,
+    bottomFloatButton: {
+        ...normalStyles.bottomFloatButton,
+        right: 15,
+    },
+});
+
+var styles;
+if(fontScale == fontScales.NORMAL){
+    styles = normalStyles;
+} else {
+    styles = largeStyles
+}
+
+export default styles;

@@ -41,11 +41,11 @@ const Footer = (props) => {
             // Sum on right var
             let value = Number(item.value);
             if(item.type == gTypes.REVENUE) {
-                if(done) sumToReceive += value;
+                if(!done) sumToReceive += value;
                 sumRevenues += value
             };
             if(item.type == gTypes.EXPENSE) {
-                if(done) sumToPay += value;
+                if(!done) sumToPay += value;
                 sumExpenses -= value
             };
         }
@@ -95,7 +95,7 @@ const Footer = (props) => {
                         <Text style={styles.lastText}>
                             {totalToPayLabel}
                         </Text>
-                        <Text style={{...styles.counter,
+                        <Text style={{...styles.counter, ...styles.lastCounter,
                                 color: totalToPay < 0 ? colors.red : totalToPay > 0 ? colors.green : colors.white
                             }}>{totalToPay}
                         </Text>
@@ -105,7 +105,7 @@ const Footer = (props) => {
                     <Text style={styles.lastText}>
                         {totalToReceiveLabel}
                     </Text>
-                    <Text style={{...styles.counter,
+                    <Text style={{...styles.counter, ...styles.lastCounter,
                             color: totalToReceive < 0 ? colors.red : totalToReceive > 0 ? colors.green : colors.white
                         }}>{totalToReceive}
                     </Text>

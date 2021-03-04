@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import colors from './colors';
 
-const styles = StyleSheet.create({
+const normalStyles = StyleSheet.create({
     list: {
         flex: 1,
         width: '100%',
@@ -49,5 +49,28 @@ const styles = StyleSheet.create({
         marginRight: 5
     },
 });
+
+const largeStyles = StyleSheet.create({
+    ...normalStyles,
+    item: {
+        ...normalStyles.item,
+        height: 70,
+    },
+    secondRow: {
+        ...normalStyles.secondRow,
+        marginTop: 2
+    },
+    dueDate: {
+        ...normalStyles.dueDate,
+        flex: 2
+    },
+})
+
+var styles;
+if(fontScale == fontScales.NORMAL){
+    styles = normalStyles;
+} else {
+    styles = largeStyles
+}
 
 export default styles;

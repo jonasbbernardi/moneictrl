@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View } from "react-native";
 import { useSelector } from 'react-redux';
+import { AdMobBanner } from 'expo-ads-admob';
 import { StatusBar } from 'expo-status-bar';
 import DrawerLayout from 'react-native-gesture-handler/DrawerLayout';
 import i18n from '../i18n';
@@ -52,6 +53,13 @@ const Settings = () => {
                     <Text style={styles.label}>{languageLabel}</Text>
                     <LanguageDropdown style={styles.field} />
                 </View>
+                <View style={styles.blank}></View>
+                <AdMobBanner
+                    style={styles.adbanner}
+                    bannerSize="banner"
+                    adUnitID={google_admob_settings_id}
+                    servePersonalizedAds={false} // true or false
+                    onDidFailToReceiveAdWithError={e => console.error(e)} />
             </View>
             <StatusBar style="light"/>
         </DrawerLayout>

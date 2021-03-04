@@ -45,6 +45,8 @@ const styles = StyleSheet.create({
         position: 'absolute',
         borderWidth: 1,
         borderColor: colors.lightGray,
+        backgroundColor: colors.trueWhite,
+        elevation: 1
     },
     item: {
         height: 40,

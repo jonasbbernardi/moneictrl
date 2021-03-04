@@ -9,7 +9,7 @@ const textStyle = {
     textAlign: 'left',
 }
 
-const styles = StyleSheet.create({
+const normalStyles = StyleSheet.create({
     footer: {
         width: '100%',
         height: 85,
@@ -33,7 +33,36 @@ const styles = StyleSheet.create({
     lastText: {
         ...textStyle,
         fontWeight: 'bold',
+    },
+    lastCounter: {}
+});
+
+const largeStyles = StyleSheet.create({
+    ...normalStyles,
+    paragraph: {
+        ...normalStyles.paragraph,
+        width: '75%',
+        marginTop: 0,
+    },
+    counter: {
+        ...normalStyles.counter,
+        fontSize: 14
+    },
+    lastText: {
+        ...normalStyles.lastText,
+        marginTop: 2,
+    },
+    lastCounter: {
+        ...normalStyles.lastCounter,
+        marginTop: 2,
     }
 });
+
+var styles;
+if(fontScale == fontScales.NORMAL){
+    styles = normalStyles;
+} else {
+    styles = largeStyles
+}
 
 export default styles;

@@ -20,7 +20,10 @@
         "ios": {
             "bundleIdentifier": "br.com.jonasbbernardi.moneictrl",
             "buildNumber": "1.1.2",
-            "supportsTablet": true
+            "supportsTablet": true,
+            "config": {
+                "googleMobileAdsAppId": "ca-app-pub-5310439586251585~9091147495"
+            }
         },
         "android": {
             "package": "br.com.jonasbbernardi.moneictrl",

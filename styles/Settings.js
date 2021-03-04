@@ -35,6 +35,13 @@ const styles = StyleSheet.create({
     field: {
         flex: 2,
     },
+    blank: {
+        flex: 1,
+    },
+    adbanner: {
+        marginVertical: 10,
+        alignSelf: 'center',
+    }
 });
 
 export default styles;

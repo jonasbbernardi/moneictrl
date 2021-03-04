@@ -1,13 +1,23 @@
 import Constants from 'expo-constants';
-import { GOOGLE_ADMOB_ADD_ID, GOOGLE_ADMOB_EDIT_ID } from '@env';
+import { GOOGLE_ADMOB_ADD_ID, GOOGLE_ADMOB_EDIT_ID, GOOGLE_ADMOB_SETTINGS_ID } from '@env';
 
 const googleAdmobBannerTestID = 'ca-app-pub-3940256099942544/6300978111';
-const googleAdmobAddID = GOOGLE_ADMOB_ADD_ID;
-const googleAdmobEditID = GOOGLE_ADMOB_EDIT_ID;
-global.google_admob_add_id = Constants.isDevice && !__DEV__ ? googleAdmobAddID : googleAdmobBannerTestID;
-global.google_admob_edit_id = Constants.isDevice && !__DEV__ ? googleAdmobEditID : googleAdmobBannerTestID;
+global.google_admob_add_id = Constants.isDevice && !__DEV__ ? GOOGLE_ADMOB_ADD_ID : googleAdmobBannerTestID;
+global.google_admob_edit_id = Constants.isDevice && !__DEV__ ? GOOGLE_ADMOB_EDIT_ID : googleAdmobBannerTestID;
+global.google_admob_settings_id = Constants.isDevice && !__DEV__ ? GOOGLE_ADMOB_SETTINGS_ID : googleAdmobBannerTestID;
 
 // Get width
+import { PixelRatio } from 'react-native';
+
+let fontScale = PixelRatio.getFontScale();
+global.fontScales = {
+	NORMAL: 'NORMAL',
+	LARGE: 'LARGE',
+    LARGEST: 'LARGEST'
+};
+if(fontScale == 1) global.fontScale = fontScales.NORMAL;
+if(fontScale > 1) global.fontScale = fontScales.LARGE;
+if(fontScale > 1.2) global.fontScale = fontScales.LARGEST;
 
 global.itemsStorageKey = '@moneictrl_items';
 global.gActions = {
