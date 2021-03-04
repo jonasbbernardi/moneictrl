@@ -143,14 +143,14 @@ const ViewItem = ({route, navigation}) => {
                         <Text style={styles.buttonLabel}>{editLabel}</Text>
                     </TouchableOpacity>
                 </View>
-                </View>
+                <AdMobBanner
+                    style={{marginVertical: 10}}
+                    bannerSize="largeBanner"
+                    adUnitID={google_admob_view_id}
+                    servePersonalizedAds // true or false
+                    onDidFailToReceiveAdWithError={e => console.error(e)} />
+            </View>
             <StatusBar style="light"/>
-            <AdMobBanner
-                style={{marginVertical: 10}}
-                bannerSize="largeBanner"
-                adUnitID={google_admob_edit_id}
-                servePersonalizedAds // true or false
-                onDidFailToReceiveAdWithError={e => console.error(e)} />
         </View>
     );
 }

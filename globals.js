@@ -3,6 +3,7 @@ import { GOOGLE_ADMOB_ADD_ID, GOOGLE_ADMOB_EDIT_ID, GOOGLE_ADMOB_SETTINGS_ID } f
 
 const googleAdmobBannerTestID = 'ca-app-pub-3940256099942544/6300978111';
 global.google_admob_add_id = Constants.isDevice && !__DEV__ ? GOOGLE_ADMOB_ADD_ID : googleAdmobBannerTestID;
+global.google_admob_view_id = Constants.isDevice && !__DEV__ ? GOOGLE_ADMOB_VIEW_ID : googleAdmobBannerTestID;
 global.google_admob_edit_id = Constants.isDevice && !__DEV__ ? GOOGLE_ADMOB_EDIT_ID : googleAdmobBannerTestID;
 global.google_admob_settings_id = Constants.isDevice && !__DEV__ ? GOOGLE_ADMOB_SETTINGS_ID : googleAdmobBannerTestID;
 
