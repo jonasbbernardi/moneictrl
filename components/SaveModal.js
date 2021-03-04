@@ -49,6 +49,8 @@ const SaveModal = (props) => {
                             >
                                 <Text style={styles.textStyle}>{saveLabel}</Text>
                             </TouchableOpacity>
+                        </View>
+                        <View style={styles.buttonRow}>
                             <TouchableOpacity
                                 style={[styles.button, styles.btn_save_all]}
                                 activeOpacity={btnOpacity}

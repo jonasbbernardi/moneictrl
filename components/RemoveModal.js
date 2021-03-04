@@ -49,6 +49,8 @@ const RemoveModal = (props) => {
                             >
                                 <Text style={styles.textStyle}>{removeLabel}</Text>
                             </TouchableOpacity>
+                        </View>
+                        <View style={styles.buttonRow}>
                             <TouchableOpacity
                                 style={[styles.button, styles.btn_remove_all]}
                                 activeOpacity={btnOpacity}
