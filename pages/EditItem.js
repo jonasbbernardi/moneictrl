@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import CheckBox from '@react-native-community/checkbox';
 import { useDispatch, useSelector } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
 import { AdMobBanner } from 'expo-ads-admob';
@@ -41,7 +42,9 @@ const EditItem = ({route, navigation}) => {
     const [description, setDescription] = useState(item.description);
     const [value, setValue] = useState(item.value);
     const [dueDate, setDueDate] = useState(due_date);
-    const recurring = item.recurring?.isRecurring;
+    const [recurring, setRecurring] = useState(item.recurring?.isRecurring);
+    const [recurringAlways, setRecurringAlways] = useState(item.recurring?.always);
+    const [recurringInstallments, setRecurringInstallments] = useState(item.recurring?.installments);
 
     // Input and styles
     const defaultLabelStyleHide = {
@@ -56,9 +59,11 @@ const EditItem = ({route, navigation}) => {
     }
     const initialDescriptionLabel = item.description ? defaultLabelStyleShow : defaultLabelStyleHide;
     const [valueInput, setValueInput] = useState();
+    const [recurringInstallmentsInput, setRecurringInstallmentsInput] = useState();
     const [saveModalVisible, setSaveModalVisible] = useState(false);
     const [removeModalVisible, setRemoveModalVisible] = useState(false);
     const [descriptionLabelStyle, setDescriptionLabelStyle] = useState(initialDescriptionLabel);
+    const [mounted, setMounted] = useState(false);
 
     // Translations
     const descriptionLabel = i18n.t('pages.edit_item.description');
@@ -66,6 +71,9 @@ const EditItem = ({route, navigation}) => {
     const dueDateLabel = i18n.t('pages.edit_item.due_date');
     const saveLabel = i18n.t('pages.edit_item.save');
     const removeLabel = i18n.t('pages.edit_item.remove');
+    const recurringLabel = i18n.t('pages.add_item.recurring');
+    const recurringAlwaysLabel = i18n.t('pages.add_item.recurring_always');
+    const recurringInstallmentsLabel = i18n.t('pages.add_item.recurring_installments');
     const title =
         type === gTypes.EXPENSE ? i18n.t('pages.edit_item.title_expense') :
         type === gTypes.REVENUE ? i18n.t('pages.edit_item.title_revenue') :
@@ -82,10 +90,18 @@ const EditItem = ({route, navigation}) => {
         setDescriptionLabelStyle(text === '' ?
             defaultLabelStyleHide : defaultLabelStyleShow);
     }
+    const focusInstallments = () => {
+        if(!recurringAlways && mounted) recurringInstallmentsInput?.focus()
+    }
+    useEffect(() => {setMounted(true)}, [])
+    useEffect(() => {
+        focusInstallments()
+    }, [recurringInstallmentsInput])
 
     // Save button action
     const saveAction = () => {
-        if(recurring){
+        let recurringChanged = isRecurringChanged();
+        if(!!recurring && !recurringChanged){
             setSaveModalVisible(true);
         } else {
             saveAll();
@@ -99,6 +115,9 @@ const EditItem = ({route, navigation}) => {
             value: Number(value),
             due_date: dueDate
         };
+
+        editedItem = saveRecurringChange(editedItem);
+
         dispatch(editItem(editedItem)).then(() => {
             navigation.goBack();
             navigation.goBack();
@@ -118,6 +137,21 @@ const EditItem = ({route, navigation}) => {
         };
         dispatch(addItem(newItem));
         removeThis();
+    }
+    const saveRecurringChange = (editedItem) => {
+        let recurringChanged = isRecurringChanged();
+        if(!!recurringChanged){
+            if(!!recurring){
+                let newRecurring = item.recurring || {};
+                newRecurring.isRecurring = true;
+                newRecurring.installments = recurringInstallments;
+                newRecurring.always = recurringAlways;
+                editedItem.recurring = newRecurring;
+            } else {
+                editedItem.recurring = {};
+            }
+        }
+        return editedItem;
     }
 
     // Remove button action
@@ -162,6 +196,14 @@ const EditItem = ({route, navigation}) => {
             navigation.goBack();
             navigation.goBack();
         });
+    }
+
+    // Recurring save/remove
+    const isRecurringChanged = () => {
+        let recurringChanged = recurring != item.recurring?.isRecurring;
+        recurringChanged = recurringChanged || recurringAlways != item.recurring?.always;
+        recurringChanged = recurringChanged || recurringInstallments != item.recurring?.installments;
+        return recurringChanged;
     }
 
     // Rendering
@@ -213,6 +255,47 @@ const EditItem = ({route, navigation}) => {
                             mode="date"
                             onDateChange={selectDueDate} />
                     </View>
+                </View>
+                <View style={styles.formRow}>
+                    <View style={styles.fieldset}>
+                        <CheckBox
+                            style={styles.checkbox}
+                            disabled={false}
+                            value={recurring}
+                            onValueChange={val => setRecurring(val)} />
+                        <Text
+                            style={styles.checkboxLabel}
+                            onPress={() => setRecurring(!recurring)} >
+                            {recurringLabel}
+                        </Text>
+                    </View>
+                    {!!recurring &&
+                    <View style={styles.fieldset}>
+                        <CheckBox
+                            style={styles.checkbox}
+                            disabled={false}
+                            value={recurringAlways}
+                            onValueChange={setRecurringAlways}
+                        />
+                        <Text
+                            style={styles.checkboxLabel}
+                            onPress={() => setRecurringAlways(!recurringAlways)} >
+                            {recurringAlwaysLabel}
+                        </Text>
+                    </View>}
+                </View>
+                <View style={styles.formRow}>
+                    {!!recurring && !recurringAlways &&
+                    <View style={styles.fieldset}>
+                        <Text style={styles.label}>{recurringInstallmentsLabel}</Text>
+                        <ValueInput
+                            value={recurringInstallments}
+                            style={styles.valueText}
+                            inputRef={setRecurringInstallmentsInput}
+                            placeholder={recurringInstallmentsLabel}
+                            mask={'[999990]'}
+                            onChangeText={text => setRecurringInstallments(text.replace(/\D/, ''))} />
+                    </View>}
                 </View>
                 <View style={styles.viewButtons}>
                     <SaveModal
