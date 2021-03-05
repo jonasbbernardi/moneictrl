@@ -2,7 +2,7 @@
     "expo": {
         "name": "Monei Ctrl",
         "slug": "moneictrl",
-        "version": "1.2.0",
+        "version": "1.2.1",
         "orientation": "portrait",
         "icon": "./assets/icon.png",
         "primaryColor": "#2277ff",
@@ -19,7 +19,7 @@
         ],
         "ios": {
             "bundleIdentifier": "br.com.jonasbbernardi.moneictrl",
-            "buildNumber": "1.2.0",
+            "buildNumber": "1.2.1",
             "supportsTablet": true,
             "config": {
                 "googleMobileAdsAppId": "ca-app-pub-5310439586251585~9091147495"
@@ -27,7 +27,7 @@
         },
         "android": {
             "package": "br.com.jonasbbernardi.moneictrl",
-            "versionCode": 7,
+            "versionCode": 8,
             "config": {
                 "googleMobileAdsAppId": "ca-app-pub-5310439586251585~9091147495"
             },
