@@ -23,9 +23,9 @@ const EditItem = ({route, navigation}) => {
     // Route params, dispatch and selectors
     const {id, type} = route.params;
     const dispatch = useDispatch();
-    const moneyMask = useSelector(state => state.moneyMask);
+    const moneyMask = useSelector(state => state.locale.moneyMask);
     const currentDate = useSelector(state => state.currentDate);
-    const currentDateFormat = useSelector(state => state.currentDateFormat);
+    const localeDateFormat = useSelector(state => state.locale.dateFormat);
     const item = useSelector(state => state.items.find(item => item.id == id));
     const currentMonth = currentDate.month();
     const currentYear = currentDate.year();
@@ -82,7 +82,7 @@ const EditItem = ({route, navigation}) => {
     // Scree effects
     const selectDueDate = (date) => {
         if(date === undefined) return;
-        setDueDate(moment(date, currentDateFormat));
+        setDueDate(moment(date, localeDateFormat));
         Keyboard.dismiss();
     }
     const onChangeDescriptionText = (text) => {
@@ -116,7 +116,7 @@ const EditItem = ({route, navigation}) => {
             due_date: dueDate
         };
 
-        editedItem = saveRecurringChange(editedItem);
+        editedItem = saveRecurring(editedItem);
 
         dispatch(editItem(editedItem)).then(() => {
             navigation.goBack();
@@ -138,7 +138,7 @@ const EditItem = ({route, navigation}) => {
         dispatch(addItem(newItem));
         removeThis();
     }
-    const saveRecurringChange = (editedItem) => {
+    const saveRecurring = (editedItem) => {
         let recurringChanged = isRecurringChanged();
         if(!!recurringChanged){
             if(!!recurring){
@@ -250,7 +250,7 @@ const EditItem = ({route, navigation}) => {
                                 dateText: styles.dueDateInputText,
                                 placeholderText: styles.dueDateInputText,
                             }}
-                            format={currentDateFormat}
+                            format={localeDateFormat}
                             date={dueDate}
                             mode="date"
                             onDateChange={selectDueDate} />

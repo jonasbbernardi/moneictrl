@@ -1,6 +1,6 @@
 const defaultMoneyMask = '$ [999,999,990].[00]';
 
-const changeMoneyMaskReducer = (locale) => {
+const setMoneyMaskReducer = (locale) => {
     switch(locale){
         case 'pt':
         case 'pt-BR': return 'R$ [999.999.990],[00]';
@@ -10,4 +10,4 @@ const changeMoneyMaskReducer = (locale) => {
     }
 }
 
-export default changeMoneyMaskReducer;
+export default setMoneyMaskReducer;

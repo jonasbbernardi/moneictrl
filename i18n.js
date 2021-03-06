@@ -10,5 +10,4 @@ i18n.translations = {
 
 i18n.fallbacks = true;
 
-
 export default i18n;

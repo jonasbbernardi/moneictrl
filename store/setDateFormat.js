@@ -1,6 +1,6 @@
 const defaultMoneyMask = 'MM/DD/YYYY';
 
-const changeDateFormatReducer = (locale) => {
+const setDateFormatReducer = (locale) => {
     switch(locale){
         case 'pt':
         case 'pt-BR': return 'DD/MM/YYYY';
@@ -10,4 +10,4 @@ const changeDateFormatReducer = (locale) => {
     }
 }
 
-export default changeDateFormatReducer;
+export default setDateFormatReducer;

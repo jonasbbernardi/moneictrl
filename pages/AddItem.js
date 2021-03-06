@@ -18,8 +18,8 @@ const AddItem = ({route, navigation}) => {
     // Route params, dispatch and selectors
     const {type} = route.params;
     const dispatch = useDispatch();
-    const moneyMask = useSelector(state => state.moneyMask);
-    const currentDateFormat = useSelector(state => state.currentDateFormat);
+    const moneyMask = useSelector(state => state.locale.moneyMask);
+    const localeDateFormat = useSelector(state => state.locale.dateFormat);
     const due_date = useSelector(state => state.currentDate);
 
     // Values to save item
@@ -61,7 +61,7 @@ const AddItem = ({route, navigation}) => {
     // Screen effects
     const selectDueDate = (date) => {
         if(date === undefined) return;
-        setDueDate(moment(date, currentDateFormat));
+        setDueDate(moment(date, localeDateFormat));
         Keyboard.dismiss();
     }
     const focusInstallments = () => {
@@ -138,7 +138,7 @@ const AddItem = ({route, navigation}) => {
                                 dateText: styles.dueDateInputText,
                                 placeholderText: styles.dueDateInputText,
                             }}
-                            format={currentDateFormat}
+                            format={localeDateFormat}
                             date={dueDate}
                             mode="date"
                             onDateChange={selectDueDate} />

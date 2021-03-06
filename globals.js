@@ -37,14 +37,14 @@ global.gActions = {
     REMOVE_ITEM: 'REMOVE_ITEM',
     CLEAR_ITEMS: 'CLEAR_ITEMS',
     // Current Month
-    CHANGE_MONTH: 'CHANGE_MONTH',
+    SET_MONTH: 'SET_MONTH',
     RESET_MONTH: 'RESET_MONTH',
     // Filter by fields
     FILTER_BY_DESCRIPTION: 'FILTER_BY_DESCRIPTION',
     FILTER_BY_TYPE: 'FILTER_BY_TYPE',
     // Current items (used for filters)
     LOAD_CURRENT_ITEMS: 'LOAD_CURRENT_ITEMS',
-    CHANGE_LOCALE: 'CHANGE_LOCALE'
+    SET_LOCALE: 'SET_LOCALE'
 }
 global.gTypes = {
     EXPENSE: 'EXPENSE',

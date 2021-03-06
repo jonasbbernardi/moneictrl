@@ -13,14 +13,14 @@ import removeItemReducer from './removeItem';
 import {doneItemReducer, undoneItemReducer} from './doneItem';
 import clearItemsReducer from './clearItems';
 import loadCurrentItemsReducer from './loadCurrentItems';
-import changeMoneyMaskReducer from './changeMoneyMask';
-import changeDateFormatReducer from './changeDateFormat';
+import setMoneyMaskReducer from './setMoneyMask';
+import setDateFormatReducer from './setDateFormat';
 
 global.storage = new Cache({
-    namespace: "myapp",
+    namespace: "monei",
     policy: {
         maxEntries: 50000, // if unspecified, it can have unlimited entries
-        stdTTL: 0 // the standard ttl as number in seconds, default: 0 (unlimited)
+        stdTTL: 0
     },
     backend: AsyncStorage
 });
@@ -63,7 +63,7 @@ const initialCurrentDate = moment();
 
 const currentDate = (state = initialCurrentDate, action) => {
     switch(action.type){
-        case gActions.CHANGE_MONTH:
+        case gActions.SET_MONTH:
             loadCurrentItems();
             return moment(action.payload);
         case gActions.RESET_MONTH:
@@ -96,39 +96,30 @@ const currentFilter = (state = {}, action) => {
 
 import * as Localization from 'expo-localization';
 
-const locale = (state = Localization.locale, action) => {
+const initialMoneyMask = setMoneyMaskReducer(Localization.locale);
+const initialDateFormat = setDateFormatReducer(Localization.locale);
+initialLocale = {
+    lang: Localization.locale,
+    moneyMask: initialMoneyMask,
+    dateFormat: initialDateFormat
+}
+const locale = (state = initialLocale, action) => {
     switch(action.type){
-        case gActions.CHANGE_LOCALE: return action.locale;
-        default: return state;
-    }
-};
-
-const initialMoneyMask = changeMoneyMaskReducer(Localization.locale);
-const moneyMask = (state = initialMoneyMask, action) => {
-    switch(action.type){
-        case gActions.CHANGE_LOCALE:
-            return changeMoneyMaskReducer(action.locale);
-        default: return state;
-    }
-};
-
-const initialDateFormat = changeDateFormatReducer(Localization.locale);
-const currentDateFormat = (state = initialDateFormat, action) => {
-    switch(action.type){
-        case gActions.CHANGE_LOCALE:
-            return changeDateFormatReducer(action.locale);
+        case gActions.SET_LOCALE:
+            let lang = action.lang || initialLocale.lang;
+            let moneyMask = setMoneyMaskReducer(lang);
+            let dateFormat = setDateFormatReducer(lang);
+            return {lang, moneyMask, dateFormat};
         default: return state;
     }
 };
 
 const reducers = {
     items,
-    currentDateFormat,
     currentFilter,
     currentItems,
     currentDate,
     locale,
-    moneyMask,
 }
 
 const store = createStore(combineReducers(reducers), applyMiddleware(thunk));
