@@ -3,7 +3,7 @@ import { initItemsList } from '../actions/getItems';
 
 const getItems = async () =>{
     try{
-        let storageItems = await AsyncStorage.getItem(itemsStorageKey);
+        let storageItems = await storage.get(itemsStorageKey);
         return storageItems != null ? JSON.parse(storageItems) : [];
     } catch (e) {
         console.error(e);

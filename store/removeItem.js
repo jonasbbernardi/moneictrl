@@ -1,7 +1,5 @@
 import moment from 'moment';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 const removeItemReducer = (state, id) => {
     let items = state.map(item => {
         if (item.id == id){
@@ -12,7 +10,7 @@ const removeItemReducer = (state, id) => {
             };
         } else return item;
     });
-    AsyncStorage.setItem(itemsStorageKey, JSON.stringify(items));
+    storage.set(itemsStorageKey, JSON.stringify(items));
     return items;
 }
 

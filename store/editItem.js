@@ -1,5 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 const editItemReducer = (state, editedItem) => {
     let items = state.map(item => {
         if (item.id == editedItem.id)
@@ -7,7 +5,7 @@ const editItemReducer = (state, editedItem) => {
         else return item;
     });
     let strItems = JSON.stringify(items);
-    AsyncStorage.setItem(itemsStorageKey, strItems);
+    storage.set(itemsStorageKey, strItems);
     return items;
 }
 
