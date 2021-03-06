@@ -64,19 +64,21 @@ const PlusButtonMenu = (props) => {
     });
 
     const labeledButtons = true;
+    const touchableShadow = <View style={styles.touchableLabelShadow}></View>
     const revenueLabel = <Text style={styles.touchableLabel}>{addRevenueLabel}</Text>
     const expenseLabel = <Text style={styles.touchableLabel}>{addExpenseLabel}</Text>
 
     return (
         <View style={styles.bottomFloatButton}>
             <View style={styles.menu}>
-                <Animated.View style={{opacity: menuOpacityVal}}>
+                <Animated.View
+                    style={{opacity: menuOpacityVal}}>
                     <TouchableOpacity
                         style={{...styles.receitaBtn, display: menuOppened ? 'flex' : 'none'}}
                         activeOpacity={ btnOpacity }
                         onPress={() => closeMenu(props.onPressRevenueBtn)}>
                         {labeledButtons && revenueLabel}
-                        {labeledButtons}
+                        {labeledButtons && touchableShadow}
                         <FontAwesomeIcon icon="hand-holding-usd" color={colors.white} size={ 24 } />
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -84,7 +86,7 @@ const PlusButtonMenu = (props) => {
                         activeOpacity={ btnOpacity }
                         onPress={() => closeMenu(props.onPressExpenseBtn)}>
                         {labeledButtons && expenseLabel}
-                        {labeledButtons}
+                        {labeledButtons && touchableShadow}
                         <FontAwesomeIcon icon="funnel-dollar" color={colors.white} size={ 24 } />
                     </TouchableOpacity>
                 </Animated.View>
