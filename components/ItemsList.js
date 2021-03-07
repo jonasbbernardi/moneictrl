@@ -29,13 +29,7 @@ const ItemsList = (props) => {
     const [listData, setListData] = useState([]);
 
     useEffect(() => {
-        let items = currentItems;
-        items = items.sort((a, b) => {
-            let dueDateA = moment(a.due_date);
-            let dueDateB = moment(b.due_date);
-            return dueDateA.isAfter(dueDateB, 'days');
-        });
-        setListData(items);
+        setListData(currentItems);
     }, [currentItems]);
 
     const isItemLate = (item) => {

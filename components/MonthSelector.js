@@ -10,7 +10,7 @@ import 'moment/locale/pt-br';
 
 library.add( faChevronLeft, faChevronRight );
 
-import setMonth from '../actions/setMonth';
+import setCurrentMonth from '../actions/setMonth';
 
 import styles from '../styles/MonthSelector';
 
@@ -57,7 +57,7 @@ const MonthSelector = (props) => {
         setMonthLabel(label);
         setMonth(newMonth);
 
-        dispatch(setMonth(newMonth));
+        dispatch(setCurrentMonth(newMonth));
     }
 
     return (

@@ -57,7 +57,18 @@ const loadCurrentItems = ({items, currentDate, currentFilter}) => {
         }
 
         return (byMonth || byRecurring) && !excluded && byDescription && byType;
-    })
+    }).sort((a, b) => {
+        let dueDateA = moment(a.due_date);
+        let dueDateB = moment(b.due_date);
+        let isAfter = dueDateA.isAfter(dueDateB, 'days');
+        if(!isAfter){
+            let isSame = dueDateA.isSame(dueDateB, 'days');
+            if(isSame){
+                return a.description.localeCompare(b.description);
+            }
+        }
+        return isAfter;
+    });
     return newItems;
 }
 

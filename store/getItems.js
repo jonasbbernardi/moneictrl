@@ -1,10 +1,9 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { initItemsList } from '../actions/getItems';
 
 const getItems = async () =>{
     try{
         let storageItems = await storage.get(itemsStorageKey);
-        return storageItems != null ? JSON.parse(storageItems) : [];
+        return !!storageItems ? JSON.parse(storageItems) : [];
     } catch (e) {
         console.error(e);
     }
