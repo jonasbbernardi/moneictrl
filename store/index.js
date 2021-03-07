@@ -5,6 +5,7 @@ import thunk from 'redux-thunk';
 import moment from 'moment';
 
 import { getStorageItems } from '../actions/getItems';
+import { getStorageLocale } from '../actions/getLocale';
 
 import { initListReducer, getStorageItemsReducer } from './getItems';
 import addItemReducer from './addItem';
@@ -13,6 +14,7 @@ import removeItemReducer from './removeItem';
 import {doneItemReducer, undoneItemReducer} from './doneItem';
 import clearItemsReducer from './clearItems';
 import loadCurrentItemsReducer from './loadCurrentItems';
+import { initLocaleReducer, getStorageLocaleReducer } from './getLocale';
 import setMoneyMaskReducer from './setMoneyMask';
 import setDateFormatReducer from './setDateFormat';
 
@@ -98,7 +100,7 @@ import * as Localization from 'expo-localization';
 
 const initialMoneyMask = setMoneyMaskReducer(Localization.locale);
 const initialDateFormat = setDateFormatReducer(Localization.locale);
-initialLocale = {
+const initialLocale = {
     lang: Localization.locale,
     moneyMask: initialMoneyMask,
     dateFormat: initialDateFormat
@@ -109,21 +111,28 @@ const locale = (state = initialLocale, action) => {
             let lang = action.lang || initialLocale.lang;
             let moneyMask = setMoneyMaskReducer(lang);
             let dateFormat = setDateFormatReducer(lang);
-            return {lang, moneyMask, dateFormat};
+            let newLocale = {lang, moneyMask, dateFormat}
+            storage.set(localeStorageKey,JSON.stringify(newLocale));
+            return newLocale;
+        case gActions.GET_STORAGE_LOCALE:
+            return getStorageLocaleReducer(state, store);
+        case gActions.INIT_LOCALE:
+            return initLocaleReducer(state, action.payload);
         default: return state;
     }
 };
 
 const reducers = {
     items,
+    currentDate,
     currentFilter,
     currentItems,
-    currentDate,
     locale,
 }
 
 const store = createStore(combineReducers(reducers), applyMiddleware(thunk));
 
+store.dispatch(getStorageLocale());
 store.dispatch(getStorageItems());
 
 export default store;

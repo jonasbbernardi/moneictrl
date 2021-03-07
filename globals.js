@@ -26,10 +26,15 @@ if(fontScale > 1) global.fontScale = fontScales.LARGE;
 if(fontScale > 1.2) global.fontScale = fontScales.LARGEST;
 
 global.itemsStorageKey = '@moneictrl_items';
+global.localeStorageKey = '@moneictrl_locale';
 global.gActions = {
-    // Items
+    // Initialize items
     GET_STORAGE_ITEMS: 'GET_STORAGE_ITEMS',
     INIT_LIST: 'INIT_LIST',
+    // Initialize locale
+    GET_STORAGE_LOCALE: 'GET_STORAGE_LOCALE',
+    INIT_LOCALE: 'INIT_LOCALE',
+    // Items
     ADD_ITEM: 'ADD_ITEM',
     EDIT_ITEM: 'EDIT_ITEM',
     DONE_ITEM: 'DONE_ITEM',
@@ -44,7 +49,7 @@ global.gActions = {
     FILTER_BY_TYPE: 'FILTER_BY_TYPE',
     // Current items (used for filters)
     LOAD_CURRENT_ITEMS: 'LOAD_CURRENT_ITEMS',
-    SET_LOCALE: 'SET_LOCALE'
+    SET_LOCALE: 'SET_LOCALE',
 }
 global.gTypes = {
     EXPENSE: 'EXPENSE',
