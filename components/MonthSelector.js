@@ -10,7 +10,7 @@ import 'moment/locale/pt-br';
 
 library.add( faChevronLeft, faChevronRight );
 
-import setCurrentMonth from '../actions/setMonth';
+import setCurrentMonth from '../actions/setCurrentMonth';
 
 import styles from '../styles/MonthSelector';
 
