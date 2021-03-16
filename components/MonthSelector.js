@@ -8,17 +8,16 @@ import i18n from '../i18n';
 import moment from 'moment';
 import 'moment/locale/pt-br';
 
-library.add( faChevronLeft, faChevronRight );
-
 import setCurrentMonth from '../actions/setCurrentMonth';
 
 import styles from '../styles/MonthSelector';
+
+library.add( faChevronLeft, faChevronRight );
 
 const MonthSelector = (props) => {
     const isLoading = props.isLoading;
     const dispatch = useDispatch();
     const lang = useSelector(store => store.locale.lang);
-    const currentItems = useSelector(state => state.currentItems);
     const [month, setMonth] = useState(moment());
 
     const getMonthLabel = () => {
@@ -35,11 +34,6 @@ const MonthSelector = (props) => {
         setMonthLabel(label);
     }, [lang]);
 
-    useEffect(() => {
-        if(typeof isLoading === 'function')
-            isLoading(false);
-    }, [currentItems]);
-
     const incrementMonth = () => {
         addToMonth(1);
     }
@@ -49,13 +43,14 @@ const MonthSelector = (props) => {
     }
 
     const addToMonth = (value) => {
-        if(typeof isLoading === 'function') isLoading(true);
+        isLoading(true);
+
         let newMonth = month;
         newMonth.add(value, 'months');
+        setMonth(newMonth);
 
         let label = getMonthLabel(newMonth);
         setMonthLabel(label);
-        setMonth(newMonth);
 
         dispatch(setCurrentMonth(newMonth));
     }

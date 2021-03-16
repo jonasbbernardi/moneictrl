@@ -27,6 +27,7 @@ if(fontScale > 1.2) global.fontScale = fontScales.LARGEST;
 
 global.itemsStorageKey = '@moneictrl_items';
 global.localeStorageKey = '@moneictrl_locale';
+/*
 global.gActions = {
     // Initialize items
     GET_STORAGE_ITEMS: 'GET_STORAGE_ITEMS',
@@ -50,6 +51,24 @@ global.gActions = {
     // Current items (used for filters)
     LOAD_CURRENT_ITEMS: 'LOAD_CURRENT_ITEMS',
     SET_LOCALE: 'SET_LOCALE',
+}
+*/global.gActions = {
+    // Items
+    ADD_ITEM: 'monthlyItem/add',
+    EDIT_ITEM: 'monthlyItem/edit',
+    REMOVE_ITEM: 'monthlyItem/remove',
+    CLEAR_ITEMS: 'monthlyItem/clear',
+    // Current Month
+    SET_MONTH: 'currentDate/set',
+    RESET_MONTH: 'currentDate/reset',
+    // Filter by fields
+    FILTER_BY_DESCRIPTION: 'currentFilter/setDescription',
+    FILTER_BY_TYPE: 'currentFilter/setType',
+    RESET_FILTERS: 'currentFilter/reset',
+    // Current items (used for filters)
+    LOAD_CURRENT_ITEMS: 'currentItems/load',
+    LOAD_CURRENT_ITEMS_ASYNC: 'currentItems/loadAsync',
+    SET_LOCALE: 'locale/set',
 }
 global.gTypes = {
     EXPENSE: 'EXPENSE',

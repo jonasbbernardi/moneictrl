@@ -9,7 +9,7 @@ import colors from '../styles/colors';
 import i18n from '../i18n';
 
 const Footer = (props) => {
-    const items = useSelector(state => state.currentItems);
+    const currentItems = useSelector(state => state.currentItems);
     const moneyMask = useSelector(state => state.locale.moneyMask);
     const currentDate = useSelector(state => state.currentDate);
     const [revenues, setRevenues] = useState(0);
@@ -25,19 +25,16 @@ const Footer = (props) => {
     const totalToReceiveLabel = i18n.t('components.footer.total.to_receive');
 
     useEffect(() => {
+        if(!currentItems.loaded) return;
+        let items = currentItems.items;
         let sumRevenues = 0;
         let sumExpenses = 0;
         let sumToPay = 0;
         let sumToReceive = 0;
 
-        let currentMonth = currentDate.month();
-        let currentYear = currentDate.year();
         for (const item of items) {
             // Check if item is done
             let done = item.done;
-            if(!done && !!item.recurring?.done){
-                done = item.recurring.done.some(i => i.m == currentMonth && i.y == currentYear);
-            }
             // Sum on right var
             let value = Number(item.value);
             if(item.type == gTypes.REVENUE) {

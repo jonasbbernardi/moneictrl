@@ -13,7 +13,9 @@ const initListReducer = (state, list) => {
     return list;
 };
 const getStorageItemsReducer = (state, store) => {
-    getItems().then((items) => store.dispatch(initItemsList(items)));
+    getItems().then((items) => {
+        store.dispatch(initItemsList(items));
+    });
     return state;
 }
 

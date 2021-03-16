@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
 import DrawerLayout from 'react-native-gesture-handler/DrawerLayout';
 import i18n from '../i18n';
@@ -21,6 +21,7 @@ import Loading from '../components/Loading';
 
 const Home = ({route, navigation}) => {
     const dispatch = useDispatch();
+    const currentItems = useSelector(state => state.currentItems);
     const defaultTitle = i18n.t('pages.home.default_title');
     const [drawer, setDrawer] = useState();
     const [type, setType] = useState();
@@ -39,7 +40,11 @@ const Home = ({route, navigation}) => {
                 setTitle(currTitle);
             }
         }
-    })
+    });
+
+    useEffect(() => {
+        isLoading(false);
+    }, [currentItems]);
 
     const onPressExpenseBtn = () => {
         navigation.navigate('AddItem', {type: gTypes.EXPENSE});
