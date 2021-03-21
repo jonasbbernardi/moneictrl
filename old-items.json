@@ -1,0 +1,131 @@
+[
+    {
+        "id": "cc881b29-343a-4fe2-8fd5-026796a230ea",
+        "type": "REVENUE",
+        "description": "Teste",
+        "value": 2000,
+        "done": false,
+        "created": "2021-03-06T18:24:36.382Z",
+        "due_date": "2021-03-06T18:22:29.576Z",
+        "recurring": {
+            "isRecurring": true,
+            "always": true,
+            "exclude": [
+                {
+                    "m": 2,
+                    "y": 2021
+                }
+            ]
+        }
+    },
+    {
+        "id": "5d14509a-1a70-421a-8976-6f1ae30b5fc3",
+        "type": "REVENUE",
+        "description": "Venda de movel",
+        "value": 5000,
+        "due_date": "2021-03-10T03:00:00.000Z",
+        "recurring": {},
+        "done": false,
+        "created": "2021-03-07T03:35:45.072Z"
+    },
+    {
+        "id": "fce5516b-9d71-45db-abf7-70a7bd8ce77e",
+        "type": "REVENUE",
+        "description": "Vale",
+        "value": 20000,
+        "due_date": "2021-01-15T03:00:00.000Z",
+        "done": false,
+        "created": "2021-03-07T03:36:55.158Z",
+        "recurring": {
+            "isRecurring": true,
+            "always": false,
+            "installments": 12,
+            "done": [
+                {
+                    "m": 2,
+                    "y": 2021
+                }
+            ]
+        }
+    },
+    {
+        "id": "2d060791-56b2-44e6-8efe-778f9f699085",
+        "type": "REVENUE",
+        "description": "Salario",
+        "value": 50000,
+        "due_date": "2021-01-20T03:00:00.000Z",
+        "done": false,
+        "created": "2021-03-07T03:37:14.399Z",
+        "recurring": {
+            "isRecurring": true,
+            "always": false,
+            "installments": 12,
+            "done": [
+                {
+                    "m": 2,
+                    "y": 2021
+                }
+            ]
+        }
+    },
+    {
+        "id": "73248949-a69d-4b65-b5f5-f455958bd1e4",
+        "type": "EXPENSE",
+        "description": "Aluguel",
+        "value": 30000,
+        "due_date": "2021-01-08T03:00:00.000Z",
+        "done": false,
+        "created": "2021-03-07T03:37:40.403Z",
+        "recurring": {
+            "isRecurring": true,
+            "always": false,
+            "installments": 12,
+            "done": [
+                {
+                    "m": 2,
+                    "y": 2021
+                }
+            ]
+        }
+    },
+    {
+        "id": "40e01f7d-aeb0-40f0-b5f1-38c526207235",
+        "type": "EXPENSE",
+        "description": "Feira",
+        "value": 5000,
+        "due_date": "2021-03-10T03:00:00.000Z",
+        "recurring": {},
+        "done": false,
+        "created": "2021-03-07T03:38:00.495Z"
+    },
+    {
+        "id": "6ee986fa-b726-4f2c-931e-a35f61c73060",
+        "type": "EXPENSE",
+        "description": "Ração dos cachorros",
+        "value": 5000,
+        "due_date": "2021-03-16T03:00:00.000Z",
+        "recurring": {},
+        "done": false,
+        "created": "2021-03-07T03:38:40.287Z"
+    },
+    {
+        "id": "62aadc2e-f6ee-4e46-8d1d-b05aad89fb67",
+        "type": "EXPENSE",
+        "description": "TV",
+        "value": 5000,
+        "due_date": "2021-03-12T03:00:00.000Z",
+        "recurring": {},
+        "done": false,
+        "created": "2021-03-07T03:39:09.330Z"
+    },
+    {
+        "id": "d15e7763-edd3-4581-b5ec-3810dc475a9a",
+        "type": "EXPENSE",
+        "description": "Internet",
+        "value": 10000,
+        "due_date": "2021-03-06T03:00:00.000Z",
+        "recurring": {},
+        "done": false,
+        "created": "2021-03-07T03:39:23.593Z"
+    }
+]

@@ -1,11 +1,25 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import oldLoad from './oldLoad';
 
+const initialState = {
+    loaded: false,
+    always: [
+        // Item
+    ],
+    items: {
+        // [int with year]: {
+        //      [int with month]: [
+        //          Item
+        //      ]
+        // }
+    }
+}
+
 const init = createAsyncThunk(
     'monthlyItems/init',
-    async () => {
+    async (a,b) => {
         let items = await storage.get(itemsStorageKey);
-        let monthlyItems = JSON.parse(items);
+        let monthlyItems = !!items ? JSON.parse(items) : {...initialState, loaded: true};
         if(!monthlyItems.loaded){
             monthlyItems = oldLoad(monthlyItems);
         }
@@ -13,4 +27,5 @@ const init = createAsyncThunk(
     }
 );
 
+export {initialState};
 export default init;

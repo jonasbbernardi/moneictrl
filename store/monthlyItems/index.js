@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import init from './init';
+import init, { initialState } from './init';
 import clear from './clear';
 import addReducer from './add';
 import editReducer, { editAll as editAllReducer } from './edit';
@@ -8,6 +8,7 @@ import removeReducer from './remove';
 /**
  * Item: {
  *     id:             string  - uuid
+ *     done:           bool    - Define if item is done (paid/received)
  *     description:    string  - Description from item
  *     value:          decimal - Value from item
  *     due_date:       Date    - Date time that item needs to be done
@@ -25,21 +26,6 @@ import removeReducer from './remove';
  *     }
  * }
  */
-
-
-const initialState = {
-    loaded: false,
-    always: [
-        // Item
-    ],
-    items: {
-        // [int with year]: {
-        //      [int with month]: [
-        //          Item
-        //      ]
-        // }
-    }
-}
 
 const slice = createSlice({
     name: 'monthlyItems',

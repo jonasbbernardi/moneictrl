@@ -1,17 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { createSelector } from 'reselect';
-import * as Localization from 'expo-localization';
 
-import init from './init';
+import init, { initialState } from './init';
 import getDateFormat from './dateFormat';
 import getMoneyMask from './moneyMask';
-
-const initialState = {
-    loaded: false,
-    lang: Localization.locale,
-    moneyMask: getMoneyMask(Localization.locale),
-    dateFormat: getDateFormat(Localization.locale),
-};
 
 const slice = createSlice({
     name: 'locale',
@@ -29,7 +21,7 @@ const slice = createSlice({
     },
     extraReducers: {
         [init.fulfilled]: (state, {payload}) => {
-            return payload;
+            if(!!payload) return payload;
         }
     }
 });

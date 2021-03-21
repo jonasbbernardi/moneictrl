@@ -101,7 +101,7 @@ const normalStyles = StyleSheet.create({
     },
 });
 
-const largeFieldFontSize = 16;
+const largeFieldFontSize = 15;
 const largeStyles = StyleSheet.create({
     ...normalStyles,
     descriptionText: {

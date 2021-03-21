@@ -8,7 +8,7 @@ import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import moment from 'moment';
 
-import {setItemDone, setItemUndone} from '../actions/doneItem';
+import { editItem } from '../actions/editItem';
 
 import MenuTop from '../components/MenuTop';
 
@@ -36,24 +36,16 @@ const ViewItem = ({route, navigation}) => {
     const {id} = route.params;
 
     // Get state items
-    const item = useSelector(state => state.items.find(item => item.id == id));
+    const item = useSelector(state => state.currentItems.items.find(item => item.id == id));
     const currentDate = useSelector(state => state.currentDate);
+    const month = moment(currentDate).month();
+    const year = moment(currentDate).year();
     const localeDateFormat = useSelector(state => state.locale.dateFormat);
     const moneyMask = useSelector(state => state.locale.moneyMask);
 
-    const currentMonth = currentDate.month();
-    const currentYear = currentDate.year();
-
-    const getItemIsDone = () => {
-        if(!item.recurring?.isRecurring) return !!item.done;
-        else return item.recurring?.done?.some(i => {
-            return i.m == currentMonth && i.y == currentYear
-        });
-    }
-
     const value = applyMask(item.value.toString(), moneyMask);
     const valueColor = getValueColor(item);
-    const itemIsDone = getItemIsDone();
+    const itemIsDone = !!item.done;
     const title = getTitle(item);
     const descriptionLabel = i18n.t('pages.view_item.description');
     const valueLabel = i18n.t('pages.view_item.value');
@@ -62,20 +54,31 @@ const ViewItem = ({route, navigation}) => {
 
     const getDueDate = () => {
         let date = moment(item.due_date);
-        if(currentDate.month() != date.month()){
-            date.month(currentDate.month());
-        }
+        if(month != date.month()) date.set('month', currentDate.month());
+        if(year != date.year()) date.set('year', currentDate.year());
         return moment(date).format(localeDateFormat)
     }
     const due_date = getDueDate();
 
     const doneAction = () => {
-        dispatch(setItemDone({id: item.id, currentDate}));
+        dispatchAction(true);
         navigation.goBack();
     }
     const undoneAction = () => {
-        dispatch(setItemUndone({id: item.id, currentDate}));
+        dispatchAction(false);
         navigation.goBack();
+    }
+    const dispatchAction = async (done) => {
+        let editedItem = {...item};
+        if(item.totalInstallments == 0){
+            if(!editedItem.recurring[year]) editedItem.recurring[year] = [];
+            if(done && !editedItem.recurring[year].some(m => m == month)){
+                editedItem.recurring[year].push(month);
+            } else if(!done) {
+                editedItem.recurring[year] = editedItem.recurring[year].filter(m => m != month);
+            }
+        }
+        dispatch(editItem(editedItem));
     }
 
     const editAction = () => {
