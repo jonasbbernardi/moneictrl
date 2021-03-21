@@ -9,7 +9,7 @@ import DatePicker from 'react-native-datepicker';
 import moment from 'moment';
 import i18n from '../i18n';
 // Project packages
-import { addRevenue, addExpense} from '../actions/addItem';
+import { addRevenue, addExpense } from '../actions/addItem';
 import MenuTop from '../components/MenuTop';
 import ValueInput from '../components/ValueInput';
 import styles from '../styles/AddItem';
@@ -80,18 +80,19 @@ const AddItem = ({route, navigation}) => {
     // Button action
     const saveAction = () => {
         let item = {
+            done: false,
             description,
             value: Number(value),
-            due_date: dueDate
+            due_date: dueDate,
+            installment: 1,
+            totalInstallment: 1
         }
 
         if(!!recurring && (!!recurringAlways || recurringInstallments > 1)){
-            item.recurring = {
-                isRecurring: true,
-                always: recurringAlways,
-                installments: recurringAlways ? 0 : Number(recurringInstallments)
-            }
+            item.installment = !!recurringAlways ? 0 : 1;
+            item.totalInstallment = !!recurringAlways ? 0 : recurringInstallments;
         }
+
         let fnToDispatch = null;
         if(type == gTypes.REVENUE) fnToDispatch = addRevenue(item);
         if(type == gTypes.EXPENSE) fnToDispatch = addExpense(item);

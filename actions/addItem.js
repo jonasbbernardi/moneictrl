@@ -1,42 +1,31 @@
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
+import moment from 'moment';
 
-const addExpense = ({description, value, due_date, recurring = {}}) => {
+const addExpense = (item) => {
     return addItem({
+        ...item,
         type: gTypes.EXPENSE,
-        description,
-        value,
-        due_date,
-        recurring
     });
 }
 
-const addRevenue = ({description, value, due_date, recurring = {}}) => {
+const addRevenue = (item) => {
     return addItem({
+        ...item,
         type: gTypes.REVENUE,
-        description,
-        value,
-        due_date,
-        recurring
     });
 }
 
-const addItem = ({type, description, value, due_date, recurring}) => {
+const addItem = (item) => {
     return async (dispatch, getState) => {
+        let id = uuidv4();
+        item.id = id;
+
         return dispatch({
             type: gActions.ADD_ITEM,
-            payload: {
-                id: uuidv4(),
-                type,
-                description,
-                value,
-                due_date,
-                recurring,
-                done: false,
-                created: new Date()
-            }
+            payload: item
         });
-    };
+    }
 }
 
 export {addItem, addExpense, addRevenue};

@@ -17,7 +17,7 @@ const initialState = {
 
 const init = createAsyncThunk(
     'monthlyItems/init',
-    async (a,b) => {
+    async (params, thunkApi) => {
         let items = await storage.get(itemsStorageKey);
         let monthlyItems = !!items ? JSON.parse(items) : {...initialState, loaded: true};
         if(!monthlyItems.loaded){

@@ -54,10 +54,10 @@ global.gActions = {
 }
 */global.gActions = {
     // Items
-    ADD_ITEM: 'monthlyItem/add',
-    EDIT_ITEM: 'monthlyItem/edit',
-    REMOVE_ITEM: 'monthlyItem/remove',
-    CLEAR_ITEMS: 'monthlyItem/clear',
+    ADD_ITEM: 'monthlyItems/add',
+    EDIT_ITEM: 'monthlyItems/edit',
+    REMOVE_ITEM: 'monthlyItems/remove',
+    CLEAR_ITEMS: 'monthlyItems/clear',
     // Current Month
     SET_MONTH: 'currentDate/set',
     RESET_MONTH: 'currentDate/reset',

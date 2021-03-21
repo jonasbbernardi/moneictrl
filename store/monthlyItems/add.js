@@ -1,21 +1,21 @@
 import moment from "moment";
 
-const addOne = (item, items) => {
+const addOne = (item, state) => {
     let due_date = moment(item.due_date);
     let month = due_date.month();
     let year = due_date.year();
 
-    if(!items[year]) items[year] = {};
-    if(!items[year][month]) items[year][month] = [];
+    if(!state.items[year]) state.items[year] = {};
+    if(!state.items[year][month]) state.items[year][month] = [];
 
-    items[year][month].push(item);
+    state.items[year][month].push(item);
 
     if(item.installment < item.totalInstallments){
         item.installment++;
         item.due_date = due_date.add(1, 'month');
-        return addOne(item, items, nextInstallment);
+        return addOne(item, state);
     }
-    return items;
+    return state;
 }
 
 const add = (state, {payload}) => {
@@ -23,11 +23,7 @@ const add = (state, {payload}) => {
         state.always.push(payload);
         return state;
     }
-    let items = {...state.items};
-    items = addOne(payload, items);
-
-    state.items = items;
-    return state;
+    return addOne(payload, state);
 }
 
 export default add;
