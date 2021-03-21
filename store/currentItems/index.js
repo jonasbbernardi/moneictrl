@@ -11,8 +11,8 @@ const slice = createSlice({
     name: 'currentItems',
     initialState,
     reducers: {
-        loadAsync: (state, {payload}) => {
-            return loadAsyncReducer(payload);
+        loadAsync: (state, action) => {
+            return loadAsyncReducer(action.payload);
         }
     },
     extraReducers: {

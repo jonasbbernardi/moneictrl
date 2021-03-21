@@ -5,15 +5,19 @@ const loadAsync = (state) => {
     let curr = moment(state.currentDate);
     let month = curr.month();
     let year = curr.year();
+
     let items = {};
     let always = [];
+
     if(!!state.monthlyItems){
-        items = {...state.monthlyItems.items};
+        items = Object.assign({}, state.monthlyItems.items);
         always = state.monthlyItems.always;
     }
 
     if(!items[year]) items[year] = {};
-    if(!items[year][month]) items[year][month] = [];
+    if(!items[year][month]) {
+        items[year] = {...items[year], [month]: []};
+    }
 
     let currentItems = filter(items[year][month], always, state);
 

@@ -9,14 +9,15 @@ const slice = createSlice({
     name: 'locale',
     initialState,
     reducers: {
-        set: (state, action) => {
+        set: (state, {lang}) => {
             state = {
                 loaded: true,
-                lang: action.payload,
-                moneyMask: getMoneyMask(action.payload),
-                dateFormat: getDateFormat(action.payload),
+                lang: lang,
+                moneyMask: getMoneyMask(lang),
+                dateFormat: getDateFormat(lang),
             }
             storage.set(localeStorageKey, state);
+            return state;
         },
     },
     extraReducers: {
@@ -26,12 +27,7 @@ const slice = createSlice({
     }
 });
 
-const isLoaded = createSelector(
-    state => state.locale,
-    locale => locale.loaded
-);
-
 export const { set } = slice.actions;
-export { init, isLoaded };
+export { init };
 
 export default slice.reducer;

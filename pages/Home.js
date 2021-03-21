@@ -6,6 +6,7 @@ import DrawerLayout from 'react-native-gesture-handler/DrawerLayout';
 import i18n from '../i18n';
 
 import { filterByType } from '../actions/filterByType';
+import loadCurrentItems from '../actions/loadCurrentItems';
 
 import ItemsList from '../components/ItemsList';
 import Footer from '../components/Footer';
@@ -21,6 +22,7 @@ import Loading from '../components/Loading';
 
 const Home = ({route, navigation}) => {
     const dispatch = useDispatch();
+    const currentDate = useSelector(state => state.currentDate);
     const currentItems = useSelector(state => state.currentItems);
     const defaultTitle = i18n.t('pages.home.default_title');
     const [drawer, setDrawer] = useState();
@@ -45,6 +47,10 @@ const Home = ({route, navigation}) => {
     useEffect(() => {
         isLoading(false);
     }, [currentItems]);
+
+    useEffect(() => {
+        dispatch(loadCurrentItems());
+    }, [currentDate]);
 
     const onPressExpenseBtn = () => {
         navigation.navigate('AddItem', {type: gTypes.EXPENSE});

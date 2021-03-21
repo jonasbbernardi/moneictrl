@@ -33,7 +33,7 @@ const Root = (props) => {
         if(!!props.monthlyItems && props.locale){
             props.loadCurrentItems();
         }
-    }, [props]);
+    });
 
     return (
         <View style={{flex: 1}}>

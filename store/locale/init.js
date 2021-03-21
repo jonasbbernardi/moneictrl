@@ -14,7 +14,8 @@ const init = createAsyncThunk(
     'locale/init',
     async () => {
         let locale = await storage.get(localeStorageKey);
-        locale = !!locale ? JSON.parse(locale) : initialState;
+        if(typeof locale === 'string') locale = JSON.parse(locale);
+        locale = locale ?? initialState;
         return {...locale, loaded: true};
     }
 );
