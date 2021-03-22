@@ -23,7 +23,10 @@ const add = (state, {payload}) => {
         state.always.push(payload);
         return state;
     }
-    return addOne(payload, state);
+    let monthlyItems = addOne(payload, state);
+    let newState = JSON.stringify(monthlyItems);
+    storage.set(itemsStorageKey, newState);
+    return monthlyItems;
 }
 
 export default add;

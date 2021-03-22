@@ -31,10 +31,10 @@ const slice = createSlice({
     name: 'monthlyItems',
     initialState,
     reducers: {
-        add:    addReducer,
-        edit:   editReducer,
-        remove: removeReducer,
+        add:     addReducer,
+        edit:    editReducer,
         editAll: editAllReducer,
+        remove:  removeReducer,
     },
     extraReducers: {
         [init.fulfilled]: (state, {payload}) => {

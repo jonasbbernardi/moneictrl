@@ -1,5 +1,4 @@
-
-const editItem = (item) => {
+const getEditedItem = (item) => {
     let editedItem = {};
 
     editedItem.id = item.id;
@@ -13,6 +12,11 @@ const editItem = (item) => {
     if(!!item.created) editedItem.created = item.created;
     if(!!item.recurring) editedItem.recurring = item.recurring;
 
+    return editedItem;
+}
+const editItem = (item) => {
+    let editedItem = getEditedItem(item);
+
     return async (dispatch) => {
         return dispatch({
             type: gActions.EDIT_ITEM,
@@ -21,4 +25,16 @@ const editItem = (item) => {
     };
 }
 
-export {editItem};
+const editAll = (item) => {
+    let editedItem = getEditedItem(item);
+
+    return async (dispatch) => {
+        return dispatch({
+            type: gActions.EDIT_ALL_ITEMS,
+            payload: editedItem
+        });
+    };
+}
+
+export { editAll };
+export default editItem;

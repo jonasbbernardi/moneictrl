@@ -56,6 +56,7 @@ global.gActions = {
     // Items
     ADD_ITEM: 'monthlyItems/add',
     EDIT_ITEM: 'monthlyItems/edit',
+    EDIT_ALL_ITEMS: 'monthlyItems/editall',
     REMOVE_ITEM: 'monthlyItems/remove',
     CLEAR_ITEMS: 'monthlyItems/clear',
     // Current Month

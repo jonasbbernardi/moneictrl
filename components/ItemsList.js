@@ -27,16 +27,16 @@ const ItemsList = (props) => {
     }, [currentItems]);
 
     const renderItem = ({index, item}) => {
-        const labels = [
+        const labels = {
             dateLabel,
             lateLabel,
             paidLabel,
             receivedLabel,
             doneLabel
-        ];
+        };
         return <Item
                     item={item}
-                    navigate={navigation}
+                    navigation={navigation}
                     labels={labels}
                     moneyMask={moneyMask}
                     localeDateFormat={localeDateFormat}

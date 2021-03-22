@@ -22,6 +22,7 @@ import Loading from '../components/Loading';
 
 const Home = ({route, navigation}) => {
     const dispatch = useDispatch();
+    const monthlyItems = useSelector(state => state.monthlyItems);
     const currentDate = useSelector(state => state.currentDate);
     const currentItems = useSelector(state => state.currentItems);
     const defaultTitle = i18n.t('pages.home.default_title');
@@ -50,7 +51,7 @@ const Home = ({route, navigation}) => {
 
     useEffect(() => {
         dispatch(loadCurrentItems());
-    }, [currentDate]);
+    }, [currentDate, monthlyItems]);
 
     const onPressExpenseBtn = () => {
         navigation.navigate('AddItem', {type: gTypes.EXPENSE});

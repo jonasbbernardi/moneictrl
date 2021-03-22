@@ -1,4 +1,7 @@
+import moment from 'moment';
+
 const editOne = (items, payload) => {
+    console.log(payload.id);
     let due_date = moment(payload.due_date);
     let month = due_date.month();
     let year = due_date.year();
@@ -6,7 +9,7 @@ const editOne = (items, payload) => {
     if(!items[year]) items[year] = {};
     if(!items[year][month]) items[year][month] = [];
 
-    items[year][month].map(item => {
+    items[year][month] = items[year][month].map(item => {
         if(item.id == payload.id) return payload;
         return item;
     });
