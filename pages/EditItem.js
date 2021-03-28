@@ -249,7 +249,7 @@ const EditItem = ({route, navigation}) => {
                             placeholder={valueLabel}
                             mask={moneyMask}
                             onChangeText={text => setValue(text.replace(/\D/, ''))}
-                            value={value}
+                            value={value.toString()}
                         />
                     </View>
                     <View style={styles.fieldset}>
