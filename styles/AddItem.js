@@ -52,25 +52,24 @@ const normalStyles = StyleSheet.create({
         marginVertical: 10,
         paddingLeft: 5,
     },
-    dueDateOut: {
+    dueDateInputFieldset: {
         flex: 1,
-        minWidth: 150,
-        marginVertical: 10,
+        flexDirection: 'row',
     },
     dueDateInput: {
+        flex: 1,
         height: 30,
         borderWidth: 0,
         borderBottomWidth: 1,
         borderColor: colors.lightGray,
         alignItems: 'flex-start',
         paddingLeft: 5,
-        marginTop: -1
-    },
-    dueDateInputText: {
+        color: colors.black,
         fontSize: fieldFontSize,
+        marginTop: -1,
     },
-    dueDateTouchBody: {
-        height: 27,
+    dueDateInputIcon: {
+        marginLeft: 5,
     },
     checkboxLabel: {
         flex: 1,
