@@ -1,19 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextInput } from 'react-native';
 import {applyMask, removeMask} from '../services/mask';
 
 const TextInputMask = (props) => {
     const value = props.value ? props.value.toString() : '';
-    const maskedValue = applyMask(value, props.mask);
-    const [inputValue, changeText] = useState(maskedValue);
+    const maskedValue = props.mask ? applyMask(value, props.mask) : '';
 
-    const onChangeText = (text) => {
+    const [inputValue, changeInputValue] = useState(maskedValue);
+
+    useEffect(() => {
+        if(!!props.value) changeText(props.value);
+    }, [props]);
+
+    const onChangeText = (text) => changeText(text)
+
+    const changeText = (text) => {
         let textWithoutMask = text;
         if(text !== inputValue && !!props.mask){
             textWithoutMask = removeMask(text, props.mask);
             text = applyMask(textWithoutMask, props.mask);
         }
-        changeText(text);
+        changeInputValue(text);
         if(typeof props.onChangeText === 'function'){
             props.onChangeText(textWithoutMask, text);
         }

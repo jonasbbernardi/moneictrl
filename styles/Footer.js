@@ -19,7 +19,7 @@ const normalStyles = StyleSheet.create({
         justifyContent: 'center',
     },
     paragraph: {
-        width: '60%',
+        width: '70%',
         marginTop: 2,
         flexDirection: 'row',
     },

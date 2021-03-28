@@ -1,8 +1,7 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 const clearItemsReducer = (state) => {
     let items = state.filter(item => !item.deleted);
-    AsyncStorage.setItem(itemsStorageKey, JSON.stringify(items));
+    if(state.length != items.length)
+        storage.set(itemsStorageKey, JSON.stringify(items));
     return items;
 }
 

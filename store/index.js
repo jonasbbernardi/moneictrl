@@ -1,8 +1,11 @@
 import { combineReducers, createStore, applyMiddleware  } from 'redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Cache } from "react-native-cache";
 import thunk from 'redux-thunk';
 import moment from 'moment';
 
 import { getStorageItems } from '../actions/getItems';
+import { getStorageLocale } from '../actions/getLocale';
 
 import { initListReducer, getStorageItemsReducer } from './getItems';
 import addItemReducer from './addItem';
@@ -11,8 +14,18 @@ import removeItemReducer from './removeItem';
 import {doneItemReducer, undoneItemReducer} from './doneItem';
 import clearItemsReducer from './clearItems';
 import loadCurrentItemsReducer from './loadCurrentItems';
-import changeMoneyMaskReducer from './changeMoneyMask';
-import changeDateFormatReducer from './changeDateFormat';
+import { initLocaleReducer, getStorageLocaleReducer } from './getLocale';
+import setMoneyMaskReducer from './setMoneyMask';
+import setDateFormatReducer from './setDateFormat';
+
+global.storage = new Cache({
+    namespace: "monei",
+    policy: {
+        maxEntries: 50000, // if unspecified, it can have unlimited entries
+        stdTTL: 0
+    },
+    backend: AsyncStorage
+});
 
 const loadCurrentItems = () => {
     setTimeout(() => {
@@ -52,7 +65,7 @@ const initialCurrentDate = moment();
 
 const currentDate = (state = initialCurrentDate, action) => {
     switch(action.type){
-        case gActions.CHANGE_MONTH:
+        case gActions.SET_MONTH:
             loadCurrentItems();
             return moment(action.payload);
         case gActions.RESET_MONTH:
@@ -85,43 +98,41 @@ const currentFilter = (state = {}, action) => {
 
 import * as Localization from 'expo-localization';
 
-const locale = (state = Localization.locale, action) => {
+const initialMoneyMask = setMoneyMaskReducer(Localization.locale);
+const initialDateFormat = setDateFormatReducer(Localization.locale);
+const initialLocale = {
+    lang: Localization.locale,
+    moneyMask: initialMoneyMask,
+    dateFormat: initialDateFormat
+}
+const locale = (state = initialLocale, action) => {
     switch(action.type){
-        case gActions.CHANGE_LOCALE: return action.locale;
-        default: return state;
-    }
-};
-
-const initialMoneyMask = changeMoneyMaskReducer(Localization.locale);
-const moneyMask = (state = initialMoneyMask, action) => {
-    switch(action.type){
-        case gActions.CHANGE_LOCALE:
-            return changeMoneyMaskReducer(action.locale);
-        default: return state;
-    }
-};
-
-const initialDateFormat = changeDateFormatReducer(Localization.locale);
-const currentDateFormat = (state = initialDateFormat, action) => {
-    switch(action.type){
-        case gActions.CHANGE_LOCALE:
-            return changeDateFormatReducer(action.locale);
+        case gActions.SET_LOCALE:
+            let lang = action.lang || initialLocale.lang;
+            let moneyMask = setMoneyMaskReducer(lang);
+            let dateFormat = setDateFormatReducer(lang);
+            let newLocale = {lang, moneyMask, dateFormat}
+            storage.set(localeStorageKey,JSON.stringify(newLocale));
+            return newLocale;
+        case gActions.GET_STORAGE_LOCALE:
+            return getStorageLocaleReducer(state, store);
+        case gActions.INIT_LOCALE:
+            return initLocaleReducer(state, action.payload);
         default: return state;
     }
 };
 
 const reducers = {
     items,
-    currentDateFormat,
+    currentDate,
     currentFilter,
     currentItems,
-    currentDate,
     locale,
-    moneyMask,
 }
 
 const store = createStore(combineReducers(reducers), applyMiddleware(thunk));
 
+store.dispatch(getStorageLocale());
 store.dispatch(getStorageItems());
 
 export default store;

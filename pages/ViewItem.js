@@ -38,8 +38,8 @@ const ViewItem = ({route, navigation}) => {
     // Get state items
     const item = useSelector(state => state.items.find(item => item.id == id));
     const currentDate = useSelector(state => state.currentDate);
-    const currentDateFormat = useSelector(state => state.currentDateFormat);
-    const moneyMask = useSelector(state => state.moneyMask);
+    const localeDateFormat = useSelector(state => state.locale.dateFormat);
+    const moneyMask = useSelector(state => state.locale.moneyMask);
 
     const currentMonth = currentDate.month();
     const currentYear = currentDate.year();
@@ -65,7 +65,7 @@ const ViewItem = ({route, navigation}) => {
         if(currentDate.month() != date.month()){
             date.month(currentDate.month());
         }
-        return moment(date).format(currentDateFormat)
+        return moment(date).format(localeDateFormat)
     }
     const due_date = getDueDate();
 

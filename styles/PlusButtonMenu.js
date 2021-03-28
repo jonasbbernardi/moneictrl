@@ -36,7 +36,16 @@ const normalStyles = StyleSheet.create({
         backgroundColor: colors.trueWhite,
         borderRadius: 5,
         zIndex: 2,
-        elevation: 1
+    },
+    touchableLabelShadow: {
+        position: 'absolute',
+        width: 91,
+        height: 21,
+        left: -95,
+        bottom: 19,
+        backgroundColor: colors.shadow,
+        zIndex: 1,
+        borderRadius: 5,
     }
 });
 

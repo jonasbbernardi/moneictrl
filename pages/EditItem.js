@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faCalendarAlt } from '@fortawesome/free-regular-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
 import { AdMobBanner } from 'expo-ads-admob';
-import DatePicker from 'react-native-datepicker';
 import moment from 'moment';
 import i18n from '../i18n';
 
@@ -18,14 +20,15 @@ import SaveModal from '../components/SaveModal';
 import ValueInput from '../components/ValueInput';
 
 import styles from '../styles/EditItem';
+import colors from '../styles/colors';
 
 const EditItem = ({route, navigation}) => {
     // Route params, dispatch and selectors
     const {id, type} = route.params;
     const dispatch = useDispatch();
-    const moneyMask = useSelector(state => state.moneyMask);
+    const moneyMask = useSelector(state => state.locale.moneyMask);
     const currentDate = useSelector(state => state.currentDate);
-    const currentDateFormat = useSelector(state => state.currentDateFormat);
+    const localeDateFormat = useSelector(state => state.locale.dateFormat);
     const item = useSelector(state => state.items.find(item => item.id == id));
     const currentMonth = currentDate.month();
     const currentYear = currentDate.year();
@@ -59,6 +62,10 @@ const EditItem = ({route, navigation}) => {
     }
     const initialDescriptionLabel = item.description ? defaultLabelStyleShow : defaultLabelStyleHide;
     const [valueInput, setValueInput] = useState();
+    const [dueDateInput, setDueDateInput] = useState();
+    const [dueDateInputValue, setDueDateInputValue] = useState(moment(due_date).format(localeDateFormat));
+    const [datePickerOpen, setDatePickerOpen] = useState(false);
+    const [dueDateDatepicker,setDueDateDatepicker] = useState(moment(due_date).toDate());
     const [recurringInstallmentsInput, setRecurringInstallmentsInput] = useState();
     const [saveModalVisible, setSaveModalVisible] = useState(false);
     const [removeModalVisible, setRemoveModalVisible] = useState(false);
@@ -80,10 +87,15 @@ const EditItem = ({route, navigation}) => {
         i18n.t('pages.edit_item.default_title');
 
     // Scree effects
-    const selectDueDate = (date) => {
-        if(date === undefined) return;
-        setDueDate(moment(date, currentDateFormat));
+    const selectDueDate = (event, selectedDate) => {
+        setDatePickerOpen(false);
         Keyboard.dismiss();
+        dueDateInput.blur();
+        if(selectedDate === undefined) return;
+        let date = moment(selectedDate);
+        setDueDate(date);
+        setDueDateDatepicker(date.toDate())
+        setDueDateInputValue(date.format(localeDateFormat))
     }
     const onChangeDescriptionText = (text) => {
         setDescription(text);
@@ -116,7 +128,7 @@ const EditItem = ({route, navigation}) => {
             due_date: dueDate
         };
 
-        editedItem = saveRecurringChange(editedItem);
+        editedItem = saveRecurring(editedItem);
 
         dispatch(editItem(editedItem)).then(() => {
             navigation.goBack();
@@ -138,7 +150,7 @@ const EditItem = ({route, navigation}) => {
         dispatch(addItem(newItem));
         removeThis();
     }
-    const saveRecurringChange = (editedItem) => {
+    const saveRecurring = (editedItem) => {
         let recurringChanged = isRecurringChanged();
         if(!!recurringChanged){
             if(!!recurring){
@@ -237,23 +249,32 @@ const EditItem = ({route, navigation}) => {
                             placeholder={valueLabel}
                             mask={moneyMask}
                             onChangeText={text => setValue(text.replace(/\D/, ''))}
-                            value={value}
+                            value={value.toString()}
                         />
                     </View>
                     <View style={styles.fieldset}>
                         <Text style={styles.label}>{dueDateLabel}</Text>
-                        <DatePicker
-                            style={styles.dueDateOut}
-                            customStyles={{
-                                dateInput: styles.dueDateInput,
-                                dateTouchBody: styles.dueDateTouchBody,
-                                dateText: styles.dueDateInputText,
-                                placeholderText: styles.dueDateInputText,
-                            }}
-                            format={currentDateFormat}
-                            date={dueDate}
+                        <TouchableOpacity
+                            style={styles.dueDateInputFieldset}
+                            activeOpacity={ btnOpacity }
+                            onPress={() => setDatePickerOpen(true)}>
+                            <ValueInput
+                                inputRef={setDueDateInput}
+                                value={dueDateInputValue}
+                                style={styles.dueDateInput}
+                                editable={false}
+                                onFocus={Keyboard.dismiss} />
+                            <FontAwesomeIcon
+                                style={styles.dueDateInputIcon}
+                                icon={faCalendarAlt}
+                                color={colors.darkGreen}
+                                size={ 24 } />
+                        </TouchableOpacity>
+                        {datePickerOpen && <DateTimePicker
+                            style={styles.dueDatePicker}
+                            value={dueDateDatepicker}
                             mode="date"
-                            onDateChange={selectDueDate} />
+                            onChange={selectDueDate} />}
                     </View>
                 </View>
                 <View style={styles.formRow}>

@@ -1,5 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 const doneItemReducer = (state, {id, currentDate}) => {
     return doneUndoneItem(state, id, true, currentDate);
 }
@@ -33,7 +31,7 @@ const doneUndoneItem = (state, id, done, currentDate) => {
         else return item;
     });
     let strItems = JSON.stringify(items);
-    AsyncStorage.setItem(itemsStorageKey, strItems);
+    storage.set(itemsStorageKey, strItems);
     return items;
 }
 

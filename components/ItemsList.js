@@ -14,8 +14,8 @@ const ItemsList = (props) => {
     const navigation = useNavigation();
     const currentItems = useSelector(state => state.currentItems);
     const currentDate = useSelector(state => state.currentDate);
-    const moneyMask = useSelector(state => state.moneyMask);
-    const currentDateFormat = useSelector(state => state.currentDateFormat);
+    const moneyMask = useSelector(state => state.locale.moneyMask);
+    const localeDateFormat = useSelector(state => state.locale.dateFormat);
     const currentMonth = currentDate.month();
     const currentYear = currentDate.year();
 
@@ -29,13 +29,7 @@ const ItemsList = (props) => {
     const [listData, setListData] = useState([]);
 
     useEffect(() => {
-        let items = currentItems;
-        items = items.sort((a, b) => {
-            let dueDateA = moment(a.due_date);
-            let dueDateB = moment(b.due_date);
-            return dueDateA.isAfter(dueDateB, 'days');
-        });
-        setListData(items);
+        setListData(currentItems);
     }, [currentItems]);
 
     const isItemLate = (item) => {
@@ -84,10 +78,10 @@ const ItemsList = (props) => {
 
         const getDueDate = () => {
             let due_date = moment(item.due_date);
-            if(!item.recurring) return due_date.format(currentDateFormat);
+            if(!item.recurring) return due_date.format(localeDateFormat);
             due_date = due_date.set('month', currentMonth);
             due_date = due_date.set('year', currentYear);
-            return due_date.format(currentDateFormat);
+            return due_date.format(localeDateFormat);
         }
         const due_date = getDueDate();
 

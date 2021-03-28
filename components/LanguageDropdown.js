@@ -7,7 +7,7 @@ import Flag from 'react-native-flags';
 import { useDispatch } from 'react-redux';
 import i18n from '../i18n';
 
-import changeLocale from '../actions/changeLocale';
+import setLanguage from '../actions/setLanguage';
 
 import colors from '../styles/colors';
 import styles from '../styles/LanguageDropdown';
@@ -58,10 +58,10 @@ const LanguageDropdown = (props) => {
         setPortugueseOptionLabel(i18n.t('components.language_dropdown.options.portuguese'));
     }
 
-    const onChange = (newValue) => {
+    const onSelect = (newValue) => {
         modalToggle();
         setValue(newValue);
-        dispatch(changeLocale(newValue)).then(refreshLocale);
+        dispatch(setLanguage(newValue)).then(refreshLocale);
     }
 
     const modalToggle = () => {
@@ -72,7 +72,7 @@ const LanguageDropdown = (props) => {
         return (
             <TouchableOpacity
                 style={styles.item}
-                onPress={() => onChange(item.value)}
+                onPress={() => onSelect(item.value)}
                 activeOpacity={btnOpacity}
             >
                 <View style={styles.itemContent}>

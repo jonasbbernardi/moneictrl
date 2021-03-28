@@ -7,7 +7,8 @@ const addExpense = ({description, value, due_date, recurring = {}}) => {
         description,
         value,
         due_date,
-        recurring
+        recurring,
+        done: false,
     });
 }
 
@@ -17,11 +18,12 @@ const addRevenue = ({description, value, due_date, recurring = {}}) => {
         description,
         value,
         due_date,
-        recurring
+        recurring,
+        done: false,
     });
 }
 
-const addItem = ({type, description, value, due_date, recurring}) => {
+const addItem = ({type, description, value, due_date, recurring, done}) => {
     return async (dispatch, getState) => {
         return dispatch({
             type: gActions.ADD_ITEM,
@@ -32,7 +34,7 @@ const addItem = ({type, description, value, due_date, recurring}) => {
                 value,
                 due_date,
                 recurring,
-                done: false,
+                done,
                 created: new Date()
             }
         });

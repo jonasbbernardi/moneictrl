@@ -10,7 +10,7 @@ import i18n from '../i18n';
 
 const Footer = (props) => {
     const items = useSelector(state => state.currentItems);
-    const moneyMask = useSelector(state => state.moneyMask);
+    const moneyMask = useSelector(state => state.locale.moneyMask);
     const currentDate = useSelector(state => state.currentDate);
     const [revenues, setRevenues] = useState(0);
     const [expenses, setExpenses] = useState(0);

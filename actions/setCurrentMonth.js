@@ -1,10 +1,10 @@
-const changeMonth = (month) => {
+const setMonth = (month) => {
     return async (dispatch, getState) => {
         return dispatch({
-            type: gActions.CHANGE_MONTH,
+            type: gActions.SET_MONTH,
             payload: month
         });
     }
 }
 
-export default changeMonth;
+export default setMonth;
