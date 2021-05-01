@@ -102,6 +102,14 @@ const EditItem = ({route, navigation}) => {
         setDescriptionLabelStyle(text === '' ?
             defaultLabelStyleHide : defaultLabelStyleShow);
     }
+    const onChangeValueText = (text) => {
+        let val = !!text ? text.replace(/\D/, '') : ''
+        setValue(val);
+    }
+    const onChangeInstallmentText = (text) => {
+        let val = !!text ? text.replace(/\D/, '') : '';
+        setRecurringInstallments(val);
+    }
     const focusInstallments = () => {
         if(!recurringAlways && mounted) recurringInstallmentsInput?.focus()
     }
@@ -248,7 +256,7 @@ const EditItem = ({route, navigation}) => {
                             inputRef={setValueInput}
                             placeholder={valueLabel}
                             mask={moneyMask}
-                            onChangeText={text => setValue(text.replace(/\D/, ''))}
+                            onChangeText={onChangeValueText}
                             value={value.toString()}
                         />
                     </View>
@@ -315,7 +323,7 @@ const EditItem = ({route, navigation}) => {
                             inputRef={setRecurringInstallmentsInput}
                             placeholder={recurringInstallmentsLabel}
                             mask={'[999990]'}
-                            onChangeText={text => setRecurringInstallments(text.replace(/\D/, ''))} />
+                            onChangeText={onChangeInstallmentText} />
                     </View>}
                 </View>
                 <View style={styles.viewButtons}>

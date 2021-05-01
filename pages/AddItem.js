@@ -85,6 +85,14 @@ const AddItem = ({route, navigation}) => {
             defaultLabelStyleHide : defaultLabelStyleShow
         );
     }
+    const onChangeValueText = (text) => {
+        let val = !!text ? text.replace(/\D/, '') : ''
+        setValue(val);
+    }
+    const onChangeInstallmentText = (text) => {
+        let val = !!text ? text.replace(/\D/, '') : '';
+        setRecurringInstallments(val);
+    }
     useEffect(() => {
         focusInstallments()
     }, [recurringInstallmentsInput])
@@ -138,7 +146,7 @@ const AddItem = ({route, navigation}) => {
                             inputRef={setValueInput}
                             placeholder={valueLabel}
                             mask={moneyMask}
-                            onChangeText={text => setValue(text.replace(/\D/, ''))}/>
+                            onChangeText={onChangeValueText}/>
                     </View>
                     <View style={styles.fieldset}>
                         <Text style={styles.label}>{dueDateLabel}</Text>
@@ -201,7 +209,7 @@ const AddItem = ({route, navigation}) => {
                             inputRef={setRecurringInstallmentsInput}
                             placeholder={recurringInstallmentsLabel}
                             mask={'[999990]'}
-                            onChangeText={text => setRecurringInstallments(text.replace(/\D/, ''))} />
+                            onChangeText={onChangeInstallmentText} />
                     </View>}
                 </View>
                 <View style={styles.viewButtons}>
