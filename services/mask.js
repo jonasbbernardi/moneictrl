@@ -1,6 +1,8 @@
 
 const removeMask = (text, mask) => {
-    let newText = !!text ? text.replace(/\D/g, '') : '';
+    if(typeof text !== 'string') text = text.toString();
+    let newText =  text.replace(/\D/g, '');
+    if (text === '') text = '0';
     return Number(newText).toString();
 };
 
